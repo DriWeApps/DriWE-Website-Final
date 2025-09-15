@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ford Mondeo TAXI
+* source:	https://sketchfab.com/3d-models/ford-mondeo-taxi-8bc1c46fe0334d03a5eb927b6a129dc8
+* author:	TSB3DMODELS (https://sketchfab.com/TSB3DMODELS)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ford Mondeo TAXI" (https://sketchfab.com/3d-models/ford-mondeo-taxi-8bc1c46fe0334d03a5eb927b6a129dc8) by TSB3DMODELS (https://sketchfab.com/TSB3DMODELS) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
