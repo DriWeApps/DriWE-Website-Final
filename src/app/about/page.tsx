@@ -184,11 +184,6 @@ export default function AboutUs() {
             Smart
           </p>
         </div>
-        <div className="flex justify-center gap-3 mt-6 flex-wrap">
-          <button className="bg-[#fcd129] text-2xl px-5 py-3 rounded-lg flex items-center gap-2 hover:bg-[#d69e2e] hover:scale-105 transition-transform duration-300 shadow hover:shadow-lg font-bold text-black">
-            Join Our Team
-          </button>
-        </div>
       </section>
 
       <hr className="my-20 h-px border-0 bg-gray-700" />

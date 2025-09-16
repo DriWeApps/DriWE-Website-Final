@@ -101,8 +101,8 @@ function AnimatedImageSection({
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [, setIsSidebarOpen] = useState(false);
+  const [, setIsMobile] = useState(false);
+  const [] = useState(false);
 
   useLayoutEffect(() => {
     // Check for mobile view

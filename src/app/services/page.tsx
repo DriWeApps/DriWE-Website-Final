@@ -466,11 +466,6 @@ export default function Home() {
             needs.
           </p>
         </div>
-        <div className="flex justify-center gap-3 mt-10 flex-wrap">
-          <button className="bg-[#fcd129] text-xl px-5 py-3 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 duration-300 shadow font-bold text-black">
-            Book Now
-          </button>
-        </div>
       </section>
       {/* Enhanced Carousel */}
       <MotionAppleCarousel />
@@ -586,9 +581,6 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.button className="bg-[#fcd129] text-black px-8 py-4 hover:scale-105 rounded-xl font-bold text-lg">
-              Book Your Ride Now
-            </motion.button>
           </motion.div>
         </div>
       </section>
