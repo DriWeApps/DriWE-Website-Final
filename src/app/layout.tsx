@@ -1,19 +1,10 @@
-'use client';
-import { useState } from 'react';
+"use client";
 import { Poppins } from 'next/font/google';
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTopButton from "@/components/Scroll";
 import { ThemeProvider } from "next-themes";
-import { 
-  Smartphone, 
-  Car, 
-  CreditCard, 
-  Calendar, 
-  MapPin, 
-  TrendingUp 
-} from "lucide-react";
 
 // Removed unused Metadata import
 const poppins = Poppins({

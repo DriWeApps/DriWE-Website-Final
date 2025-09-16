@@ -7,8 +7,6 @@ import {
   Shield,
   Clock,
   Zap,
-  Leaf,
-  Star,
   MapPin,
   ShieldCheck,
   Menu,
@@ -104,7 +102,7 @@ function AnimatedImageSection({
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [, setIsSidebarOpen] = useState(false);
 
   useLayoutEffect(() => {
     // Check for mobile view

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight } from "lucide-react";
+// Removed unused ArrowRight import
 
 gsap.registerPlugin(ScrollTrigger);
 

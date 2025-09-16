@@ -102,7 +102,7 @@ export default function InvestorFAQ() {
                   className="w-full flex justify-between items-center p-6 text-left hover:bg-gray-800 transition-colors"
                 >
                   <h3 className="text-xl font-semibold text-white pr-4">
-                    {faq.question}
+                    {faq.question.replace(/'/g, "&apos;")}
                   </h3>
                   <span className={`text-[#fcd129] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
                     ↓
@@ -124,7 +124,7 @@ export default function InvestorFAQ() {
         <div className="mt-16 text-center bg-gradient-to-r from-gray-900 to-black rounded-3xl p-8 border border-gray-800">
           <h3 className="text-2xl font-bold mb-4">Still Have Questions?</h3>
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-            Can't find what you're looking for? Our support team is here to help 24/7
+            Can&apos;t find what you&apos;re looking for? Our support team is here to help 24/7
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-[#fcd129] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#eab308] transition-colors">
