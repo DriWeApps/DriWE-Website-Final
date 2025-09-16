@@ -1,77 +1,96 @@
-
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger, ScrollToPlugin } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const SafetyPage: React.FC = () => {
+export default function SafetyPage() {
+  const mountRef = useRef<HTMLDivElement | null>(null);
   const sectionsRef = useRef<HTMLDivElement[]>([]);
 
-  // GSAP animations (without starfield / balls)
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Enhanced GSAP animations for sections
-      sectionsRef.current.forEach((section, index) => {
-        gsap.fromTo(
-          section,
-          { opacity: 0, y: 100, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 85%",
-              end: "top 20%",
-              scrub: 0.5,
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        // Staggered animation for card
-        gsap.from(section.querySelector(".safety-card"), {
-          opacity: 0,
-          x: index % 2 === 0 ? -50 : 50,
-          duration: 0.8,
+    // Hero text animation
+    gsap.fromTo(
+      ".hero-text",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+    );
+
+    // Table of contents animation
+    gsap.fromTo(
+      ".table-of-contents",
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 1, ease: "power3.out", delay: 0.5 }
+    );
+
+    // Content sections animation
+    sectionsRef.current.forEach((section) => {
+      gsap.fromTo(
+        section,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
+            start: "top 85%",
+            toggleActions: "play none none none",
           },
-        });
-      });
-
-      // Hero section animation
-      gsap.fromTo(
-        ".hero-section",
-        { opacity: 0, scale: 0.8 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.5)",
         }
       );
+    });
 
-      // Table of contents animation
-      gsap.from(".toc-nav a", {
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".toc-nav",
-          start: "top 80%",
-        },
+    // Smooth scrolling for Table of Contents links
+    const links = document.querySelectorAll(".table-of-contents a");
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href")?.substring(1);
+        const targetElement = document.getElementById(targetId || "");
+        if (targetElement) {
+          gsap.to(window, {
+            duration: 1,
+            scrollTo: {
+              y: targetElement,
+              offsetY: 100,
+            },
+            ease: "power3.out",
+          });
+        }
       });
-    }
+    });
+
+    // Three.js setup
+    const mount = mountRef.current;
+    if (!mount) return;
+
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      mount.clientWidth / mount.clientHeight,
+      0.1,
+      1000
+    );
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
+    mount.appendChild(renderer.domElement);
+
+    const handleResize = () => {
+      camera.aspect = mount.clientWidth / mount.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      mount.removeChild(renderer.domElement);
+    };
   }, []);
 
   const addToRefs = (el: HTMLDivElement | null) => {
@@ -174,77 +193,77 @@ const SafetyPage: React.FC = () => {
   ];
 
   return (
-    <main className="relative min-h-screen bg-black text-white overflow-hidden">
-      <div className="relative z-10 p-6 md:p-12 max-w-7xl mx-auto">
-        {/* Hero Section */}
-        <section className="hero-section text-center py-20" ref={addToRefs}>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            With <span className="text-yellow-400">DriWE</span> Every Ride Feels{" "}
-            <span className="text-yellow-400">Secure</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Your safety is our top priority. We&apos;re dedicated to building a
-            secure platform for every ride, with advanced features and 24/7
-            support.
-          </p>
-        </section>
-
-        {/* Table of Contents and Main Content */}
-        <div className="flex flex-col md:flex-row gap-12 ">
-          {/* Table of Contents */}
-          <aside className="w-full md:w-1/4 sticky top-12 self-start p-6 bg-black/70 border border-white rounded-xl shadow-lg backdrop-blur-md">
-            <h3 className="text-lg font-bold text-white mb-4 border-b border-white pb-2">
-              Table of Contents
-            </h3>
-            <nav className="toc-nav">
-              <ul className="space-y-2">
-                {safetyGuidelines.map((section) => (
-                  <li key={section.id}>
-                    <a
-                      href={`#${section.id}`}
-                      className="block text-white hover:text-yellow-400 transition-colors duration-200 flex items-center gap-2"
-                    >
-                      <span className="w-8 h-8 flex items-center justify-center text-yellow-400">
-                        {section.number}
-                      </span>
-                      {section.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </aside>
-
-          {/* Main Content Sections */}
-          <div className="w-full md:w-3/4 space-y-16">
-            {safetyGuidelines.map((section) => (
-              <section key={section.id} id={section.id} ref={addToRefs}>
-                <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-2">
-                  <span className="w-8 h-8 flex items-center justify-center text-yellow-400">
-                    {section.number}
-                  </span>
-                  {section.title}
-                </h2>
-                <div className="safety-card bg-black border-2 border-white text-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
-                  <ul className="space-y-4">
-                    {section.items.map((item, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-yellow-400">•</span>
-                        <p
-                          className="leading-relaxed"
-                          dangerouslySetInnerHTML={{ __html: item }}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            ))}
+    <div className="flex min-h-screen flex-col bg-black text-white font-inter antialiased">
+      {/* Hero Section */}
+      <section className="relative w-full overflow-hidden bg-black py-20">
+        <div ref={mountRef} className="absolute inset-0 z-0"></div>
+        <div className="container relative z-10 mx-auto flex h-[40vh] items-center justify-center px-4 text-center md:px-6">
+          <div className="space-y-4">
+            <h1 className="hero-text text-4xl font-bold tracking-tighter text-white sm:text-6xl md:text-7xl">
+              With <span className="text-yellow-400">DriWE</span> Every Ride
+              Feels <span className="text-yellow-400">Secure</span>
+            </h1>
+            <p className="text-lg leading-relaxed text-slate-300 max-w-2xl mx-auto">
+              Your safety is our top priority. We&apos;re dedicated to building
+              a secure platform for every ride, with advanced features and 24/7
+              support.
+            </p>
           </div>
         </div>
-      </div>
-    </main>
-  );
-};
+      </section>
 
-export default SafetyPage;
+      {/* Content Section */}
+      <section className="relative z-10 w-full bg-black py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid gap-8 lg:grid-cols-4">
+            {/* Table of Contents */}
+            <div className="lg:col-span-1">
+              <div className="table-of-contents sticky top-8 rounded-2xl border border-white bg-black p-6 shadow-lg transition hover:shadow-yellow-400/40">
+                <h3 className="mb-4 text-lg font-bold text-white">
+                  <span className="text-yellow-400">Table of Contents</span>
+                </h3>
+                <nav className="space-y-2">
+                  {safetyGuidelines.map((section) => (
+                    <a
+                      key={section.id}
+                      href={`#${section.id}`}
+                      className="block text-sm text-slate-400 hover:text-yellow-400 transition-colors"
+                    >
+                      {section.number}. {section.title}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-8">
+              {safetyGuidelines.map((section) => (
+                <section
+                  key={section.id}
+                  id={section.id}
+                  ref={addToRefs}
+                  className="content-card rounded-2xl border border-white bg-black p-6 shadow-lg hover:shadow-yellow-400/40 transition"
+                >
+                  <h2 className="text-3xl font-bold text-white mb-4">
+                    {section.number}.{" "}
+                    <span className="text-yellow-400">{section.title}</span>
+                  </h2>
+                  <ul className="list-disc pl-6 text-slate-300 space-y-2">
+                    {section.items.map((item, index) => (
+                      <li
+                        key={index}
+                        className="leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: item }}
+                      />
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

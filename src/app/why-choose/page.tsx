@@ -306,17 +306,7 @@ function AnimatedImageSection({
           {description}
         </p>
         <div ref={buttonRef} className="mt-8">
-          <div className="hidden lg:block">
-            <BookNowButton className="px-5 py-2 rounded-lg font-semibold text-black shadow" />
-          </div>
-          {isMobile && (
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-lg text-black hover:bg-gray-100"
-            >
-              <Menu className="h-6 w-6" />
-            </button>
-          )}
+          <BookNowButton className="px-5 py-2 rounded font-semibold text-black shadow " />
         </div>
       </div>
     </div>
