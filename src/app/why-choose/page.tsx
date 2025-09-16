@@ -3,7 +3,16 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { Shield, Clock, Zap, Leaf, Star, MapPin, ShieldCheck, Menu } from "lucide-react";
+import {
+  Shield,
+  Clock,
+  Zap,
+  Leaf,
+  Star,
+  MapPin,
+  ShieldCheck,
+  Menu,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import BookNowButton from "@/components/BookNowButton";
 
@@ -695,8 +704,9 @@ function StatsSection() {
       className="py-20 px-6 md:px-20 bg-black text-white relative overflow-hidden"
     >
       <h2 className="text-5xl font-extrabold text-center mb-16 relative z-10 tracking-tight">
-        Our Impact
+        Our <span className="text-yellow-400">Impact</span>
       </h2>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto relative z-10">
         <div className="counter">
           <AnimatedCounter end={1000} label="Rides Completed" />
@@ -944,7 +954,7 @@ export default function DriwePage3D() {
         <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto relative z-10">
           <div>
             <h2 className="text-5xl md:text-6xl font-extrabold mb-8 tracking-tight">
-              Ready to Ride with{" "}
+              Ready <span className="text-yellow-400"> to</span> Ride with{" "}
               <span className="text-yellow-400"> DriWE?</span>
             </h2>
             <p className="max-w-xl mb-10 text-lg text-white leading-relaxed">

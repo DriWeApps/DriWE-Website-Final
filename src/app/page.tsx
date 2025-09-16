@@ -84,7 +84,10 @@ const FeaturesSection: React.FC<{ features: FeatureWithIcon[] }> = ({ features }
   return (
     <section className="py-32 relative">
       <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-black text-center mb-20">Key Features</h2>
+        <h2 className="text-5xl font-black text-center mb-20">
+  Key <span className="text-yellow-400">Features</span>
+</h2>
+
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature: FeatureWithIcon, i: number) => (
             <div key={i} className="p-8 rounded-3xl backdrop-blur-xl border border-white/10 text-center"
@@ -238,7 +241,7 @@ export default function UltraModernLanding() {
       <section ref={testimonialsRef} className="py-32 relative z-10">
         <div className="container mx-auto px-6">
           <h2 className="text-5xl font-black text-center mb-20 testimonial-heading">
-            What Our Users Say
+            What Our <span className="text-yellow-400">Users</span> Say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -249,13 +252,13 @@ export default function UltraModernLanding() {
                 content: 'DriWE completely transformed my daily commute. The AI routing is incredible!'
               },
               {
-                name: 'Moin Khan',
+                name: 'Diksha Jagtap',
                 role: 'Tech Entrepreneur',
                 avatar: Code,
                 content: 'The 3D visualization and real-time updates make this the best transport app ever built.'
               },
               {
-                name: 'Insiya Shaikh',
+                name: 'Vaishali Patil',
                 role: 'Designer',
                 avatar: Palette,
                 content: 'Beautiful interface, seamless experience. This is the future of transportation!'

@@ -52,7 +52,7 @@ export default function StatsSection() {
   return (
     <section ref={sectionRef} className="py-32 relative">
       <div className="container mx-auto px-6">
-        <h2 className="text-5xl font-black text-center mb-20">Global Impact</h2>
+        <h2 className="text-5xl font-black text-center mb-20">Global <span className="text-yellow-400">Impact</span></h2>
         <div
           ref={statsRef}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
@@ -84,7 +84,7 @@ export default function StatsSection() {
                 "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))",
             }}
           >
-            <div className="text-5xl font-bold text-white mb-2">101%</div>
+            <div className="text-5xl font-bold text-white mb-2">100%</div>
             <div className="text-white/60">Uptime Reliability</div>
           </div>
         </div>

@@ -1,7 +1,12 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
@@ -65,7 +70,8 @@ export default function AboutUs() {
 
     // Journey cards scroll animation
     if (journeySectionRef.current) {
-      const journeyCards = journeySectionRef.current.querySelectorAll(".journey-card-wrap");
+      const journeyCards =
+        journeySectionRef.current.querySelectorAll(".journey-card-wrap");
       const tlJourney = gsap.timeline({
         scrollTrigger: {
           trigger: journeySectionRef.current,
@@ -97,7 +103,9 @@ export default function AboutUs() {
     // Cleanup on unmount
     return () => {
       clearInterval(interval);
-      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) =>
+        trigger.kill()
+      );
     };
   }, []);
 
@@ -125,23 +133,23 @@ export default function AboutUs() {
 
   const journeyFeatures = [
     {
-      title: "Founded with Vision",
+      title: <span className="text-yellow-400">Founded with Vision</span>,
       desc: "DriWe founded with a mission to make travel accessible and transform urban mobility through innovative technology solutions.",
     },
     {
-      title: "Multi-City Expansion",
+      title: <span className="text-yellow-400">Multi-City Expansion</span>,
       desc: "Expanded to multiple cities with a growing driver base, establishing strong community connections across regions.",
     },
     {
-      title: "Eco-Friendly Initiative",
+      title: <span className="text-yellow-400">Eco-Friendly Initiative</span>,
       desc: "Launched eco-friendly rides for sustainability, introducing green transportation options to reduce environmental impact.",
     },
     {
-      title: "Community Milestone",
+      title: <span className="text-yellow-400">Community Milestone</span>,
       desc: "Hit 5 million rides with community-focused projects, building trust and delivering reliable service to millions of users.",
     },
     {
-      title: "AI Innovation",
+      title: <span className="text-yellow-400">AI Innovation</span>,
       desc: "Innovating AI-based route optimization and safety features, leveraging cutting-edge technology for smarter transportation.",
     },
   ];
@@ -156,16 +164,23 @@ export default function AboutUs() {
       </div>
 
       {/* About Section */}
-      <section ref={addToRefs} className="bg-black/10 py-20 text-center relative z-10">
+      <section
+        ref={addToRefs}
+        className="bg-black/10 py-20 text-center relative z-10"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-6xl font-bold text-white mt-24">
-            We Are DriWe
+            We Are <span className="text-yellow-400">DriWE</span>
           </h1>
+
           <p className="text-md md:text-xl text-gray-300 mt-6 max-w-6xl mx-auto">
-            We design seamless, safe, affordable travel experiences that
-            connect people effortlessly and make commuting stress-free.
+            We design seamless, safe, affordable travel experiences that connect
+            people effortlessly and make commuting stress-free.
           </p>
-          <p ref={cycleRef} className="text-2xl font-semibold text-[#fcd129] mt-4">
+          <p
+            ref={cycleRef}
+            className="text-2xl font-semibold text-[#fcd129] mt-4"
+          >
             Smart
           </p>
         </div>
@@ -181,7 +196,7 @@ export default function AboutUs() {
       {/* Mission & Vision */}
       <section ref={addToRefs} className="max-w-7xl mx-auto px-6 relative z-10">
         <h3 className="text-center text-4xl font-bold mb-4">
-          Our Mission & Vision
+          Our Mission <span className="text-yellow-400">&</span> Vision
         </h3>
         <p className="text-center text-base mb-12 text-gray-400">
           Driving towards a better future for urban transportation
@@ -189,11 +204,19 @@ export default function AboutUs() {
         <div className="text-white flex flex-col md:flex-row gap-6">
           {[
             {
-              title: "Our Mission",
+              title: (
+                <>
+                  Our <span className="text-yellow-400">Mission</span>
+                </>
+              ),
               text: "To offer dependable, reasonably priced, and safe transportation options that empower drivers, bridge communities, and lessen the impact on the environment and urban traffic.",
             },
             {
-              title: "Our Vision",
+              title: (
+                <>
+                  Our <span className="text-yellow-400">Vision</span>
+                </>
+              ),
               text: "To become the world's most trusted mobility platform, creating a seamless ecosystem where technology, sustainability, and human connection drive the future of transportation.",
             },
           ].map((card, i) => (
@@ -225,16 +248,20 @@ export default function AboutUs() {
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           <div className="whitespace-nowrap animate-marquee text-gray-800 text-[4rem] font-light tracking-widest opacity-10">
-            {"Vision  Progress  Connection  Journey  Purpose  Growth  Impact  ".repeat(2)}
+            {"Vision  Progress  Connection  Journey  Purpose  Growth  Impact  ".repeat(
+              2
+            )}
           </div>
           <div className="whitespace-nowrap animate-marquee-reverse text-gray-800 text-[4rem] font-light tracking-widest opacity-10">
-            {"Vision  Progress  Connection  Journey  Purpose  Growth  Impact  ".repeat(2)}
+            {"Vision  Progress  Connection  Journey  Purpose  Growth  Impact  ".repeat(
+              2
+            )}
           </div>
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto">
           <h3 className="text-center text-3xl font-bold mb-3">
-            Our Journey
+            Our <span className="text-yellow-400">Journey</span>
           </h3>
           <p className="text-center text-base mb-12">
             From humble beginnings to a leading mobility solution
@@ -260,13 +287,6 @@ export default function AboutUs() {
                     <p className="text-gray-300 leading-relaxed mb-6">
                       {feature.desc}
                     </p>
-                    <div className="flex items-center space-x-2 text-sm font-medium transition-all duration-300 opacity-0 group-hover:opacity-100">
-                      <span style={{ color: currentTheme.primary }}>Learn More</span>
-                      <ArrowRight
-                        className="w-4 h-4"
-                        style={{ color: currentTheme.primary }}
-                      />
-                    </div>
                   </div>
                 </div>
                 <div className="relative w-10 h-10 bg-[#fcd129] rounded-full z-20 shadow-lg flex items-center justify-center text-black font-bold my-4 md:my-0">
@@ -313,14 +333,18 @@ export default function AboutUs() {
       <hr className="my-20 h-px border-0 bg-gray-700" />
 
       {/* Leadership Team */}
-      <section ref={addToRefs} className="bg-black py-12 px-6 rounded-lg text-center relative z-10">
+      <section
+        ref={addToRefs}
+        className="bg-black py-12 px-6 rounded-lg text-center relative z-10"
+      >
         <h3 className="text-2xl font-bold mb-3">
-          Leadership Team
+          Leadership <span className="text-yellow-400">Team</span>
         </h3>
         <p className="text-base mb-10">
           Meet the visionaries driving DriWe forward
         </p>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center">
           {[
             {
               name: "Imroz Khan",
@@ -367,7 +391,7 @@ export default function AboutUs() {
         className="bg-[#fcd129]/10 py-12 px-6 rounded-lg relative z-10"
       >
         <h3 className="text-center text-2xl font-bold text-white mb-3">
-          What Our Users Say
+          What Our <span className="text-yellow-400">Users</span> Say
         </h3>
         <p className="text-center text-base text-gray-300 mb-8">
           Real feedback from our happy riders and drivers
@@ -391,10 +415,10 @@ export default function AboutUs() {
               key={i}
               className="bg-gray-900 text-white rounded-lg p-6 shadow-md text-center hover:shadow-xl hover:scale-105 transition-transform duration-300 hover:-translate-y-1"
             >
-              <p className="italic text-sm mb-4">
-                &quot;{review.text}&quot;
-              </p>
-              <h5 className="font-bold text-lg">{review.name}</h5>
+              <p className="italic text-sm mb-4">&quot;{review.text}&quot;</p>
+              <h5 className="font-bold text-lg text-yellow-400">
+                {review.name}
+              </h5>
             </div>
           ))}
         </div>

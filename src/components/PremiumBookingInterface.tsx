@@ -2,24 +2,24 @@
 import { useState } from "react";
 
 export default function PremiumBookingInterface() {
-  const [selectedService, setSelectedService] = useState('premium');
+  const [selectedService, setSelectedService] = useState('cab');
 
   const services = [
     {
-      id: 'premium',
-      name: 'DriWE Premium',
+      id: 'cab',
+      name: 'DriWE Cab',
       price: 'xxx',
       time: '5 min',
       rating: '4.9',
-      features: ['Luxury sedan', 'Professional driver', 'Wi-Fi enabled']
+      features: []
     },
     {
-      id: 'business',
-      name: 'DriWE Business',
+      id: 'transport',
+      name: 'DriWE Transport',
       price: 'xxx',
       time: '3 min',
       rating: '4.9',
-      features: ['Executive vehicle', 'Premium amenities', 'Priority booking']
+      features: []
     }
   ];
 
@@ -31,7 +31,7 @@ export default function PremiumBookingInterface() {
             Experience <span className="text-[#fcd129]">Premium</span> Mobility
           </h2>
           <p className="text-gray-300 text-lg">
-            Book your luxury ride in seconds with DriWE&apos;s intelligent platform
+            Book your ride in seconds with DriWE&apos;s intelligent platform
           </p>
         </div>
         <div className="bg-gray-900 rounded-3xl p-8 border border-gray-800">
@@ -63,26 +63,6 @@ export default function PremiumBookingInterface() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-xl py-4 px-4 text-white focus:border-[#fcd129] focus:outline-none transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    Time
-                  </label>
-                  <input
-                    type="time"
-                    className="w-full bg-gray-800 border border-gray-700 rounded-xl py-4 px-4 text-white focus:border-[#fcd129] focus:outline-none transition-colors"
-                  />
-                </div>
-              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-4">
@@ -102,7 +82,9 @@ export default function PremiumBookingInterface() {
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-[#fcd129] rounded-full flex items-center justify-center">
-                          <span className="text-black font-bold text-sm">C</span>
+                          <span className="text-black font-bold text-sm">
+                            {service.id === 'cab' ? 'C' : 'T'}
+                          </span>
                         </div>
                         <div>
                           <h3 className="font-semibold text-white">{service.name}</h3>
@@ -158,7 +140,7 @@ export default function PremiumBookingInterface() {
             </div>
           </div>
           <button className="w-full bg-[#fcd129] text-black py-4 rounded-xl font-semibold text-lg hover:bg-[#eab308] transition-colors">
-            Book Premium Ride
+            {selectedService === 'cab' ? 'Book Cab' : 'Book Transport'}
           </button>
         </div>
       </div>

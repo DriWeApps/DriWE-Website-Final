@@ -3,11 +3,9 @@
 import React, {
   forwardRef,
   ReactNode,
-
   useEffect,
   useRef,
   useState,
-
 } from "react";
 import {
   motion,
@@ -18,10 +16,7 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import {
-  Star,
-
-} from "lucide-react";
+import { Star } from "lucide-react";
 import {
   HiAcademicCap,
   HiDeviceMobile,
@@ -63,7 +58,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       className={`card ${customClass ?? ""} ${rest.className ?? ""}`.trim()}
       onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
         if (e.key === "Enter" || e.key === " ") {
-          // Simulate click for accessibility
           (e.currentTarget as HTMLElement).click();
         }
       }}
@@ -71,12 +65,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   )
 );
 Card.displayName = "Card";
-
-
-
-
-
-
 
 // ---------------- Enhanced Carousel Data ----------------
 const promoCards = [
@@ -125,7 +113,6 @@ const promoCards = [
     rating: 4.6,
     popular: false,
   },
-  
 ];
 
 // ---------------- Enhanced Carousel Card ----------------
@@ -146,7 +133,6 @@ function CarouselCard({
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  // const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (cardRef.current && !shouldReduceMotion) {
@@ -168,6 +154,31 @@ function CarouselCard({
       );
     }
   }, [shouldReduceMotion]);
+
+  // Helper function to color specific words in headline
+  const getColoredHeadline = (headline: string) => {
+    const wordMap: { [key: string]: { word: string; index: number } } = {
+      "Auto Rickshaw": { word: "Rickshaw", index: 1 },
+      "City Rides": { word: "Ride", index: 1 },
+      "Airport Transfer": { word: "Transfer", index: 1 },
+      "Hourly Rental": { word: "Rental", index: 1 },
+      "Goods Transport": { word: "Transport", index: 1 },
+    };
+
+    const { word, index } = wordMap[headline] || { word: "", index: -1 };
+    if (!word) return <span>{headline}</span>;
+
+    const parts = headline.split(" ");
+    return (
+      <>
+        {parts.map((part, i) => (
+          <span key={i} className={i === index ? "text-[#fcd129]" : "text-white"}>
+            {part}{i < parts.length - 1 ? " " : ""}
+          </span>
+        ))}
+      </>
+    );
+  };
 
   return (
     <motion.div
@@ -212,8 +223,8 @@ function CarouselCard({
         </div>
       </div>
 
-      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-white-400 transition-colors duration-300">
-        {headline}
+      <h3 className="text-xl font-bold mb-2 group-hover:text-white-400 transition-colors duration-300">
+        {getColoredHeadline(headline)}
       </h3>
 
       <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
@@ -292,12 +303,12 @@ function MotionAppleCarousel() {
         <div className="text-center mb-12">
           <hr className="my-40 h-px border-0 bg-gray-700" />
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-bold mb-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Choose Your Perfect Ride
+            Choose Your <span className="text-[#fcd129]">Perfect Ride</span>
           </motion.h2>
           <motion.p
             className="text-gray-400 text-lg max-w-2xl mx-auto"
@@ -313,7 +324,7 @@ function MotionAppleCarousel() {
         <div className="relative overflow-hidden" {...handlers}>
           <motion.div
             ref={carouselRef}
-            className="flex gap-6 py-8 "
+            className="flex gap-6 py-8"
             animate={carouselControls}
             onHoverStart={() => setAutoPlay(false)}
             onHoverEnd={() => setAutoPlay(true)}
@@ -415,8 +426,6 @@ const realStories = [
   },
 ];
 
-
-
 // ---------------- Home Page ----------------
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -450,7 +459,7 @@ export default function Home() {
       <section ref={heroRef} className="bg-black py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-white mt-24">
-            Our Services
+            Our <span className="text-[#fcd129]">Services</span>
           </h1>
           <p className="text-md md:text-xl text-gray-300 mt-6 max-w-6xl mx-auto">
             From quick city rides to fleet delivery, we cover all your transport
@@ -458,7 +467,7 @@ export default function Home() {
           </p>
         </div>
         <div className="flex justify-center gap-3 mt-10 flex-wrap">
-          <button className="bg-[#fcd129] text-xl px-5 py-3 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 duration-300 shadow  font-bold text-black">
+          <button className="bg-[#fcd129] text-xl px-5 py-3 rounded-lg flex items-center gap-2 transition-transform hover:scale-105 duration-300 shadow font-bold text-black">
             Book Now
           </button>
         </div>
@@ -466,18 +475,17 @@ export default function Home() {
       {/* Enhanced Carousel */}
       <MotionAppleCarousel />
       {/* Real Stories Section */}
-      
       <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Heading */}
           <div className="text-center mb-16">
             <motion.h2
-              className="text-3xl md:text-4xl font-bold text-white mb-4"
+              className="text-3xl md:text-4xl font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              Real Stories, Real Impact
+              <span className="text-white">Real Stories</span>, <span className="text-[#fcd129]">Real Impact</span>
             </motion.h2>
             <motion.p
               className="text-white text-lg max-w-3xl mx-auto"
@@ -504,7 +512,7 @@ export default function Home() {
                   className={`p-4 rounded-xl cursor-pointer transition-all duration-300 ${
                     selectedStory === index
                       ? "bg-white-500/20 border border-white-500/50"
-                      : "bg-black border-2 border-white/20 50 hover:scale-105 hover:border"
+                      : "bg-black border-2 border-white/20 hover:scale-105 hover:border"
                   }`}
                   onClick={() => setSelectedStory(index)}
                   whileHover={{ scale: 1.02 }}
@@ -528,10 +536,9 @@ export default function Home() {
                       >
                         {story.story}
                       </h4>
-                      <p className="text-xs text-gray-400">{story.name}</p>
+                      <p className="text-xs text-[#fcd129]">{story.name}</p>
                     </div>
                   </div>
-                  
                 </motion.div>
               ))}
             </div>
@@ -553,10 +560,10 @@ export default function Home() {
                       alt={realStories[selectedStory].name}
                       width={64}
                       height={64}
-                      className="w-16 h-16 rounded-full object-cover border-2 border-yellow-500"
+                      className="w-16 h-16 rounded-full object-cover border-2 border-[#fcd129]"
                     />
                     <div>
-                      <h4 className="text-xl bg-black font-bold text-white">
+                      <h4 className="text-xl bg-black font-bold text-[#fcd129]">
                         {realStories[selectedStory].name}
                       </h4>
                       <p className="text-white text-sm">
@@ -564,7 +571,6 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-
                   <p className="text-white bg-black text-lg leading-relaxed mb-4">
                     {realStories[selectedStory].fullDescription}
                   </p>
@@ -580,9 +586,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.button
-              className=" bg-[#fcd129] text-black px-8 py-4 hover:scale-105 rounded-xl font-bold text-lg"
-            >
+            <motion.button className="bg-[#fcd129] text-black px-8 py-4 hover:scale-105 rounded-xl font-bold text-lg">
               Book Your Ride Now
             </motion.button>
           </motion.div>
