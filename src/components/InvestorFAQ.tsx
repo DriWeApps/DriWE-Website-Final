@@ -21,7 +21,7 @@ export default function InvestorFAQ() {
       },
       {
         question: "What if I need to cancel my ride?",
-        answer: "You can cancel your ride through the app. Free cancellation is available within the first 2 minutes. After that, a small cancellation fee may apply to compensate the driver for their time."
+        answer: "Before entering the OTP, you can click on the Cancel Trip button, choose a reason, and then click on the Submit button."
       },
       {
         question: "Is it safe to ride with DriWE?",

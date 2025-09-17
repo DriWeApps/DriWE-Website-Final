@@ -20,20 +20,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
-    q: "How do I book a ride?",
-    a: "Open the app, enter your destination, choose your ride type, and confirm your booking.",
+    q: "How do I book a cab with Drive?",
+    a: "To book a cab, open the Drive app, enter your pickup and drop-off location, choose your ride type, and confirm the booking. A nearby driver will be assigned to you shortly.",
   },
   {
-    q: "What payment methods do you accept?",
-    a: "We accept credit cards, debit cards, PayPal, and digital wallets.",
+    q: "Is Drive available on both Android and iOS?",
+    a: "Yes, Drive is available for download on both the Google Play Store for Android and the Apple App Store for iOS.",
   },
   {
     q: "How do I become a driver?",
     a: "Sign up through our driver portal, complete the background check, and upload required documents.",
   },
   {
-    q: "Can I cancel my ride?",
-    a: "Yes — you can cancel through the app. Cancellation fees may apply depending on timing.",
+    q: "Which cities or areas does Drive operate in?",
+    a: "Drive currently operates in major metropolitan areas across the country. You can check the app for a full list of supported cities and regions.",
+  },
+  {
+    q: "What is Drive and how does it work?",
+    a: "Drive is your all-in-one app for booking cabs & porter services. Just open the app, select the service you need, enter your pickup and drop-off details, and confirm the booking. Whether you're commuting or moving goods, Drive has you covered.",
+  },
+  {
+    q: "How to cancel?",
+    a: "Before entering the OTP, you can click on the Cancel Trip button, choose a reason, and then click on the Submit button.",
   },
 ];
 
