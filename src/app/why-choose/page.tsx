@@ -3,14 +3,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import {
-  Shield,
-  Clock,
-  Zap,
-  MapPin,
-  ShieldCheck,
-  Menu,
-} from "lucide-react";
+import { Shield, Clock, Zap, MapPin, ShieldCheck, Menu } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import BookNowButton from "@/components/BookNowButton";
 
@@ -316,7 +309,7 @@ function AnimatedImageSection({
 /* ----------------------- Benefit Item ----------------------- */
 type BenefitItemProps = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  title: string;
+  title: React.ReactNode;
   description: string;
 };
 
@@ -817,81 +810,36 @@ export default function DriwePage3D() {
         </div>
       </section>
 
-      <section className="py-20 px-6 md:px-20 max-w- mx-auto bg-black">
-        <AnimatedImageSection
-          imgSrc="/images/Bike image.avif"
-          title="Bike Rides"
-          description="Affordable and hassle-free bike rides made for your daily commute. Skip the jams, save time, and enjoy a smooth, reliable trip that’s perfect for short distances."
-          verticalLine={true}
-        />
-        <AnimatedImageSection
-          imgSrc="/images/Auto image.png"
-          title="Auto Rickshaw"
-          description="Efficient, safe, and cost-effective travel solutions.Perfect for short distances, designed to meet your daily needs."
-          verticalLine={true}
-        />
-        <AnimatedImageSection
-          imgSrc="/images/car image BMW.png"
-          title="Car Rides"
-          description="Ride stress-free in our secure and spacious cars.Perfect for casual travel or special events,our service promises reliability at every turn."
-          verticalLine={true}
-        />
-        <AnimatedImageSection
-          imgSrc="/images/miniBus.png"
-          title="Bus"
-          description="Enjoy stress-free travel with our safe and budget-friendly buses.Whether it’s daily office rides, family trips, or long journeys,we make every ride comfortable and reliable."
-          verticalLine={true}
-        />
-        <AnimatedImageSection
-          imgSrc="/images/TempoTata.jpg"
-          title="Tempos"
-          description="Dependable tempo services for all your transport needs.Ideal for small businesses, daily deliveries, or home shifting—affordable, secure, and always on time."
-          verticalLine={true}
-        />
-        <AnimatedImageSection
-          imgSrc="/images/Truck image.png"
-          title="Truck"
-          description="Trusted truck services for business and personal needs.We ensure safe, fast, and convenient deliveries,making transport simpler and stress-free."
-          verticalLine={true}
-        />
-      </section>
-
-      <StatsSection />
-
       <section className="bg-black text-white px-8 md:px-20 py-24 relative overflow-hidden">
-        <h2 className="text-5xl md:text-7xl font-extrabold mb-20 text-center relative z-10 tracking-tight">
-          Why Choose <br />
-          <span className="text-yellow-400">DriWE?</span>
-        </h2>
         <div className="space-y-16 max-w-5xl mx-auto relative z-10">
           <BenefitItem
             icon={Clock}
-            title="Always On Your Time"
+            title={<span className="text-yellow-400">Always On Your Time</span>}
             description="Punctuality is our promise. DriWE ensures rides are always on time — whether it’s a daily commute, a business trip, or a late-night ride home. Your time matters, and we’re here to keep you moving."
           />
           <BenefitItem
             icon={Zap}
-            title="Quick Booking"
+            title={<span className="text-yellow-400">Quick Booking</span>}
             description="Your time is valuable. Skip the wait and book your ride in seconds with DriWE. Our smart system connects you to the nearest driver, ensuring faster pickups. Travel planning made effortless."
           />
           <BenefitItem
             icon={ShieldCheck}
-            title="Safe & Trusted"
+            title={<span className="text-yellow-400">Safe & Trusted</span>}
             description="Every ride you book comes with clear, upfront pricing. No hidden costs, no last-minute surprises. DriWE gives you transparent pricing before every ride."
           />
           <BenefitItem
             icon={Shield}
-            title="Verified Drivers"
+            title={<span className="text-yellow-400">Verified Drivers</span>}
             description="Your safety is our top priority. Every driver on DriWE is trusted and reliable through strict verification and training. Every journey is secure, comfortable, and worry-free."
           />
           <BenefitItem
             icon={MapPin}
-            title="Live Tracking"
+            title={<span className="text-yellow-400">Live Tracking</span>}
             description="Your safety comes first with every ride.All drivers are carefully vetted, trained, and verified to ensure a secure and reliable experience every time."
           />
           <BenefitItem
             icon={Clock}
-            title="24/7 Availability"
+            title={<span className="text-yellow-400">24/7 Availability</span>}
             description="Day or night, weekday or weekend — DriWE is always here for you. With round-the-clock service, you can count on us whenever you need a ride."
           />
         </div>
@@ -937,6 +885,47 @@ export default function DriwePage3D() {
           </Card>
         </div>
       </section>
+
+      <section className="py-20 px-6 md:px-20 max-w- mx-auto bg-black">
+        <AnimatedImageSection
+          imgSrc="/images/Bike image.avif"
+          title="Bike Rides"
+          description="Affordable and hassle-free bike rides made for your daily commute. Skip the jams, save time, and enjoy a smooth, reliable trip that’s perfect for short distances."
+          verticalLine={true}
+        />
+        <AnimatedImageSection
+          imgSrc="/images/Auto image.png"
+          title="Auto Rickshaw"
+          description="Efficient, safe, and cost-effective travel solutions.Perfect for short distances, designed to meet your daily needs."
+          verticalLine={true}
+        />
+        <AnimatedImageSection
+          imgSrc="/images/car image BMW.png"
+          title="Car Rides"
+          description="Ride stress-free in our secure and spacious cars.Perfect for casual travel or special events,our service promises reliability at every turn."
+          verticalLine={true}
+        />
+        <AnimatedImageSection
+          imgSrc="/images/miniBus.png"
+          title="Bus"
+          description="Enjoy stress-free travel with our safe and budget-friendly buses.Whether it’s daily office rides, family trips, or long journeys,we make every ride comfortable and reliable."
+          verticalLine={true}
+        />
+        <AnimatedImageSection
+          imgSrc="/images/TempoTata.jpg"
+          title="Tempos"
+          description="Dependable tempo services for all your transport needs.Ideal for small businesses, daily deliveries, or home shifting—affordable, secure, and always on time."
+          verticalLine={true}
+        />
+        <AnimatedImageSection
+          imgSrc="/images/Truck image.png"
+          title="Truck"
+          description="Trusted truck services for business and personal needs.We ensure safe, fast, and convenient deliveries,making transport simpler and stress-free."
+          verticalLine={true}
+        />
+      </section>
+
+      <StatsSection />
 
       <section className="py-24 px-8 md:px-20 bg-black text-white relative overflow-hidden">
         <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto relative z-10">
