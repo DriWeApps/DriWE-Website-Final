@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import BookNowButton from "./BookNowButton";
 
 export default function PremiumBookingInterface() {
   const [selectedService, setSelectedService] = useState('cab');
@@ -139,9 +140,9 @@ export default function PremiumBookingInterface() {
               </div>
             </div>
           </div>
-          <button className="w-full bg-[#fcd129] text-black py-4 rounded-xl font-semibold text-lg hover:bg-[#eab308] transition-colors">
+          <BookNowButton className="w-full bg-[#fcd129] text-black py-4 rounded-xl font-semibold text-lg hover:bg-[#eab308] transition-colors">
             {selectedService === 'cab' ? 'Book Cab' : 'Book Transport'}
-          </button>
+          </BookNowButton>
         </div>
       </div>
     </section>

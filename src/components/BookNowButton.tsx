@@ -23,7 +23,7 @@ const BookNowButton: React.FC<BookNowButtonProps> = ({ className = "", children 
       </button>
       {showQR && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center relative">
+          <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col items-center relative text-center">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl"
               onClick={() => setShowQR(false)}
@@ -39,10 +39,12 @@ const BookNowButton: React.FC<BookNowButtonProps> = ({ className = "", children 
                   size={120}
                   level="H"
                 />
+                <Image src="/images/playstore.png" alt="Google Play" width={140} height={80} className="mt-2" />
                 <span className="mt-2 text-xs">Google Play</span>
               </div>
               <div className="flex flex-col items-center">
                 <Image src="/images/qr-appstore.png" alt="App Store QR" width={120} height={120} />
+                <Image src="/images/appstore.png" alt="App Store" width={140} height={80} className="mt-2" />
                 <span className="mt-2 text-xs">App Store</span>
               </div>
             </div>
