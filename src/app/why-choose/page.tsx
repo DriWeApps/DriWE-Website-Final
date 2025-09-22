@@ -95,7 +95,6 @@ function AnimatedImageSection({
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const [, setIsMobile] = useState(false);
-  const [] = useState(false);
 
   useLayoutEffect(() => {
     // Check for mobile view
@@ -311,9 +310,10 @@ type BenefitItemProps = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   title: React.ReactNode;
   description: string;
+  sectionRef?: React.RefObject<HTMLDivElement>;
 };
 
-function BenefitItem({ icon: Icon, title, description }: BenefitItemProps) {
+function BenefitItem({ icon: Icon, title, description, sectionRef }: BenefitItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const iconRef = useRef<SVGSVGElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -409,7 +409,7 @@ function BenefitItem({ icon: Icon, title, description }: BenefitItemProps) {
 
   return (
     <div
-      ref={ref}
+      ref={sectionRef || ref}
       className="flex flex-col gap-6 py-10 border-b border-white transform-gpu relative"
     >
       <div className="flex items-center gap-4 relative z-10">
@@ -435,8 +435,10 @@ function BenefitItem({ icon: Icon, title, description }: BenefitItemProps) {
 function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const inputRefs = useRef<(HTMLInputElement | HTMLTextAreaElement)[]>([]);
 
   useLayoutEffect(() => {
@@ -487,6 +489,31 @@ function ContactForm() {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    if (!notificationRef.current || !notification) return;
+    gsap.fromTo(
+      notificationRef.current,
+      { x: 300, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        onComplete: () => {
+          setTimeout(() => {
+            gsap.to(notificationRef.current!, {
+              x: 300,
+              opacity: 0,
+              duration: 0.5,
+              ease: "power2.in",
+              onComplete: () => setNotification(null),
+            });
+          }, 3000);
+        },
+      }
+    );
+  }, [notification]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -496,6 +523,17 @@ function ContactForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!buttonRef.current) return;
+    if (!form.name || !form.email || !form.message) {
+      setNotification({ message: "Please fill all details", type: "error" });
+      gsap.to(buttonRef.current, {
+        x: -10,
+        duration: 0.1,
+        repeat: 3,
+        yoyo: true,
+        ease: "power2.inOut",
+      });
+      return;
+    }
     setIsSubmitting(true);
     gsap.to(buttonRef.current, {
       scale: 0.9,
@@ -515,7 +553,7 @@ function ContactForm() {
               ease: "power2.out",
               overwrite: "auto",
             });
-            alert("Form submitted!");
+            setNotification({ message: "Message sent successfully", type: "success" });
             setForm({ name: "", email: "", message: "" });
             setIsSubmitting(false);
           },
@@ -534,7 +572,7 @@ function ContactForm() {
       <h3 className="text-3xl font-bold text-black mb-6 relative z-10">
         Connect with Us
       </h3>
-      <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
+      <div className="space-y-5 relative z-10">
         <div className="relative">
           <label
             className={`absolute left-4 top-4 text-black transition-all duration-300 ${
@@ -605,6 +643,7 @@ function ContactForm() {
           ref={buttonRef}
           type="submit"
           disabled={isSubmitting}
+          onClick={handleSubmit}
           className="w-full bg-black text-white font-semibold p-4 rounded-lg hover:shadow-[0_0_15px_rgba(255,215,0,0.5)] hover:scale-105 transition-all focus:ring-2 focus:ring-[#4b6cb7] relative overflow-hidden"
         >
           {isSubmitting ? (
@@ -633,7 +672,17 @@ function ContactForm() {
             "Send Message"
           )}
         </button>
-      </form>
+        {notification && (
+          <div
+            ref={notificationRef}
+            className={`fixed top-20 right-0 p-4 text-white text-center rounded-lg shadow-lg z-50 ${
+              notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            {notification.message}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -774,6 +823,16 @@ export default function DriwePage3D() {
   const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const firstBenefitRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+
+  const handleGetStartedClick = () => {
+    if (firstBenefitRef.current) {
+      firstBenefitRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   return (
     <div className="bg-black text-white transition-colors duration-500">
@@ -802,6 +861,7 @@ export default function DriwePage3D() {
 
           <button
             ref={buttonRef}
+            onClick={handleGetStartedClick}
             className="mt-8 sm:mt-10 px-8 sm:px-12 py-3 sm:py-4 bg-black text-white font-bold rounded-full hover:shadow-[0_0_15px_rgba(255,215,0,0.8)] hover:scale-105 transition-all duration-300 focus:ring-2 focus:ring-[white] relative overflow-hidden text-sm sm:text-base"
           >
             Get Started
@@ -816,6 +876,7 @@ export default function DriwePage3D() {
             icon={Clock}
             title={<span className="text-yellow-400">Always On Your Time</span>}
             description="Punctuality is our promise. DriWE ensures rides are always on time — whether it’s a daily commute, a business trip, or a late-night ride home. Your time matters, and we’re here to keep you moving."
+            sectionRef={firstBenefitRef}
           />
           <BenefitItem
             icon={Zap}
@@ -941,9 +1002,7 @@ export default function DriwePage3D() {
               and travel stress-free. Sit back, relax, and enjoy the journey —
               because with DriWE, your safety is our top priority.
             </p>
-            <button className="px-12 py-4 bg-black text-white font-bold rounded-full hover:shadow-[0_0_15px_rgba(255,215,0,0.8)] hover:scale-105 transition-all focus:ring-2 focus:ring-[white]">
-              Book Now
-            </button>
+            <BookNowButton className="px-12 py-4 rounded font-semibold text-black shadow bg-white hover:shadow-[0_0_15px_rgba(255,215,0,0.8)] hover:scale-105 transition-all focus:ring-2 focus:ring-[white]" />
           </div>
           <div className="lg:sticky top-8 self-start">
             <ContactForm />
