@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import QRCode from 'react-qr-code';
 import Image from "next/image";
 
 interface BookNowButtonProps {
@@ -33,7 +34,11 @@ const BookNowButton: React.FC<BookNowButtonProps> = ({ className = "", children 
             <h3 className="text-lg font-bold mb-4">Download the App</h3>
             <div className="flex gap-8">
               <div className="flex flex-col items-center">
-                <Image src="/images/qr-playstore.png" alt="Play Store QR" width={120} height={120} />
+                <QRCode
+                  value="https://play.google.com/store/apps/developer?id=DriWE"
+                  size={120}
+                  level="H"
+                />
                 <span className="mt-2 text-xs">Google Play</span>
               </div>
               <div className="flex flex-col items-center">
