@@ -344,13 +344,11 @@ export default function AboutUs() {
             {
               name: "Imroz Khan",
               role: "CEO",
-              desc: "Former Uber executive with 10+ years in mobility tech",
               img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Imroz+K",
             },
             {
               name: "Navid Khan",
               role: "Director",
-              desc: "AI & machine learning expert from Google",
               img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Navid+K",
             },
           ].map((person, i) => (
@@ -369,9 +367,6 @@ export default function AboutUs() {
               <h5 className="font-bold text-lg mb-1">{person.name}</h5>
               <p className="text-sm text-[#fcd129] font-semibold mb-1">
                 {person.role}
-              </p>
-              <p className="text-sm leading-relaxed text-gray-300">
-                {person.desc}
               </p>
             </div>
           ))}

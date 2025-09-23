@@ -141,12 +141,12 @@ const themes: Record<string, Theme> = {
   },
 };
 
-const heroTabs = ['Taxi', 'Transport'];
+const heroTabs = ['Cab', 'Courier'];
 
 // Main Component
 export default function UltraModernLanding() {
-  const [mode, setMode] = useState<string>('Taxi');
-  const theme = mode === 'Taxi' ? themes.taxi : themes.transport;
+  const [mode, setMode] = useState<string>('Cab');
+  const theme = mode === 'Cab' ? themes.taxi : themes.transport;
   const testimonialsRef = useRef<HTMLElement>(null);
   const testimonialCardsRef = useRef<(HTMLDivElement | null)[]>([]);
   
@@ -215,7 +215,7 @@ export default function UltraModernLanding() {
     { icon: Globe, title: 'Eco-Friendly', desc: 'Sustainable transport options to reduce your carbon footprint' },
   ];
 
-  const features = mode === 'Taxi' ? taxiFeatures : transportFeatures;
+  const features = mode === 'Cab' ? taxiFeatures : transportFeatures;
 
   return (
     <div
@@ -228,10 +228,10 @@ export default function UltraModernLanding() {
         <HeroSwitch mode={mode} setMode={setMode} theme={theme} heroTabs={heroTabs} />
       </div>
       {/* Hero Sections */}
-      {mode === 'Taxi' ? (
-        <TaxiHero key="taxi" theme={theme} />
+      {mode === 'Cab' ? (
+        <TaxiHero key="cab" theme={theme} />
       ) : (
-        <TransportHero key="transport" theme={theme} />
+        <TransportHero key="courier" theme={theme} />
       )}
       {/* Features Section */}
       <FeaturesSection features={features} />
