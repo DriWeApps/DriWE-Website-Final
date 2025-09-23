@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 
 function HowItWorks() {
-  const [selectedCategory, setSelectedCategory] = useState<'Taxi' | 'Transport'>('Taxi');
+  const [selectedCategory, setSelectedCategory] = useState<'Cab' | 'Courier'>('Cab');
 
   // Ensure content is properly structured for conditional rendering
   const categoryContent = {
-    Taxi: [
+    Cab: [
       {
         step: "01",
         title: "Book",
@@ -35,17 +35,17 @@ function HowItWorks() {
         icon: <CreditCard className="w-8 h-8" />
       }
     ],
-    Transport: [
+    Courier: [
       {
         step: "01",
         title: "Schedule",
-        description: "Plan your transport needs in advance",
+  description: "Plan your courier needs in advance",
         icon: <Calendar className="w-8 h-8" />
       },
       {
         step: "02", 
-        title: "Transport",
-        description: "Premium vehicles for group transportation",
+  title: "Courier",
+  description: "Premium vehicles for group courier delivery",
         icon: <MapPin className="w-8 h-8" />
       },
       {
@@ -69,13 +69,13 @@ function HowItWorks() {
             How It <span className="text-[#fcd129]">Works</span>
           </h2>
           <p className="text-gray-300 text-lg mb-8">
-            Simple steps to experience premium transportation
+            Simple steps to experience premium cab and courier services
           </p>
 
           {/* FIXED Toggle Buttons with equal width and perfect alignment */}
           <div className="flex justify-center mb-12">
             <div className="bg-gray-800 p-1 rounded-full flex">
-              {(['Taxi', 'Transport'] as const).map((category) => (
+              {(['Cab', 'Courier'] as const).map((category) => (
                 <button
                   key={category}
                   onClick={() => {

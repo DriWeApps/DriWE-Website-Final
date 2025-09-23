@@ -127,12 +127,9 @@ export default function InvestorFAQ() {
             Can&apos;t find what you&apos;re looking for? Our support team is here to help 24/7
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-[#fcd129] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#eab308] transition-colors">
+            <a href="/contact" className="bg-[#fcd129] text-black px-8 py-3 rounded-full font-semibold hover:bg-[#eab308] transition-colors">
               Contact Support
-            </button>
-            <button className="border border-[#fcd129] text-[#fcd129] px-8 py-3 rounded-full font-semibold hover:bg-[#fcd129] hover:text-black transition-colors">
-              Live Chat
-            </button>
+            </a>
           </div>
         </div>
       </div>

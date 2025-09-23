@@ -22,7 +22,7 @@ interface HeroProps {
   theme: Theme;
 }
 
-export default function TransportHero({ theme }: HeroProps) {
+export default function CourierHero({ theme }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -187,7 +187,7 @@ export default function TransportHero({ theme }: HeroProps) {
         >
           <span className="text-white font-semibold flex items-center gap-2">
             <Navigation className="w-5 h-5" style={{ color: theme.primary }} />
-            Smart Transport Network
+            Smart Courier Network
           </span>
         </div>
 
@@ -210,13 +210,13 @@ export default function TransportHero({ theme }: HeroProps) {
           ref={descRef}
           className="text-xl lg:text-2xl text-white/80 mb-12 leading-relaxed max-w-3xl mx-auto"
         >
-          Seamless integration across all transport modes. Real-time updates,
+          Seamless integration across all courier modes. Real-time updates,
           smart routing, and unified payments for the complete journey.
         </p>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto">
           {[
-            { icon: Car, label: 'Smart Transport', count: '1K+' },
+            { icon: Car, label: 'Smart Courier', count: '1K+' },
             { icon: Train, label: 'Cab Network', count: '100+' },
             { icon: Navigation, label: 'Routes', count: '10k+' },
             { icon: Users, label: 'Daily Users', count: '10K+' },

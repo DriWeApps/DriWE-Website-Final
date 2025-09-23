@@ -15,8 +15,8 @@ export default function PremiumBookingInterface() {
       features: []
     },
     {
-      id: 'transport',
-      name: 'DriWE Transport',
+  id: 'courier',
+  name: 'DriWE Courier',
       price: 'xxx',
       time: '3 min',
       rating: '4.9',
@@ -141,7 +141,7 @@ export default function PremiumBookingInterface() {
             </div>
           </div>
           <BookNowButton className="w-full bg-[#fcd129] text-black py-4 rounded-xl font-semibold text-lg hover:bg-[#eab308] transition-colors">
-            {selectedService === 'cab' ? 'Book Cab' : 'Book Transport'}
+            {selectedService === 'cab' ? 'Book Cab' : 'Book Courier'}
           </BookNowButton>
         </div>
       </div>

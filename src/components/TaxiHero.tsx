@@ -24,7 +24,7 @@ interface HeroProps {
   theme: Theme;
 }
 
-export default function TaxiHero({ theme }: HeroProps) {
+export default function CabHero({ theme }: HeroProps) {
   const containerRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLDivElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
@@ -189,7 +189,7 @@ export default function TaxiHero({ theme }: HeroProps) {
           </div>
           <div ref={textRef}>
             <p className="text-xl lg:text-2xl text-white/80 mb-12 leading-relaxed max-w-2xl">
-              Experience seamless transportation with instant booking, and
+              Experience seamless cab service with instant booking, and
               premium vehicles. The future of mobility is here.
             </p>
           </div>
