@@ -97,18 +97,18 @@ const promoCards = [
   },
   {
     icon: <HiAcademicCap size={28} />,
-    headline: "Hourly Rental",
+    headline: "Scheduling",
     description:
-      "Book by the hour for meetings, shopping, or city exploration with dedicated driver.",
+      "Flexible scheduling options for your convenience.",
     imageSrc: "/images/bikes.png",
     rating: 4.7,
     popular: false,
   },
   {
     icon: <HiAcademicCap size={28} />,
-    headline: "Goods Transport",
+    headline: "Goods Courier",
     description:
-      "Reliable logistics for packages, furniture, and commercial deliveries.",
+      "Reliable logistics for packages and commercial deliveries.",
     imageSrc: "/images/trucks.png",
     rating: 4.6,
     popular: false,
