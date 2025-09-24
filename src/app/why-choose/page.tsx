@@ -3,7 +3,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { Shield, Clock, Zap, MapPin, ShieldCheck, Menu } from "lucide-react";
+import { Shield, Clock, Zap, MapPin, ShieldCheck } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import BookNowButton from "@/components/BookNowButton";
 
