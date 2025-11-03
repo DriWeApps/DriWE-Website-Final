@@ -72,6 +72,7 @@ export default function Footer() {
                 <a href="/safety" className="hover:text-[#fcd129] transition-colors">Safety</a>
                 <a href="/services" className="hover:text-[#fcd129] transition-colors">Services</a>
                 <a href="/support" className="hover:text-[#fcd129] transition-colors">Support</a>
+                <a href="/career" className="hover:text-[#fcd129] transition-colors">Career</a>
                 <a href="/why-choose" className="hover:text-[#fcd129] transition-colors">Why Choose</a>
               </nav>
             </div>
