@@ -96,7 +96,7 @@ export default function HomePage() {
                             <p className="flex items-center gap-1 text-sm mt-3">
                             </p>
                             <button
-                                onClick={() => openForm('Sales & Marketing Executive')}
+                                onClick={() => openForm('Backend Developer')}
                                 className="mt-4 bg-yellow-400 text-black font-semibold px-4 py-2 rounded transition-transform duration-300 ease-in-out 
                 hover:bg-yellow-500 hover:text-gray-900 hover:scale-105 hover:shadow-[0_0_15px_rgba(250,204,21,0.7)]"
                             >
@@ -119,7 +119,7 @@ export default function HomePage() {
                             <p className="flex items-center gap-1 text-sm mt-3">
                             </p>
                             <button
-                                onClick={() => openForm('Sales & Marketing Executive')}
+                                onClick={() => openForm('Frontend Developer')}
                                 className="mt-4 bg-yellow-400 text-black font-semibold px-4 py-2 rounded transition-transform duration-300 ease-in-out 
                 hover:bg-yellow-500 hover:text-gray-900 hover:scale-105 hover:shadow-[0_0_15px_rgba(250,204,21,0.7)]"
                             >
@@ -207,6 +207,7 @@ export default function HomePage() {
                                     encType="multipart/form-data"
                                     className="space-y-4 overflow-y-auto max-h-[70vh] pr-2"
                                 >
+                                    <input type="hidden" name="position" value={selectedJob} />
                                     <input
                                         name="name"
                                         className="border border-zinc-700 bg-zinc-950 w-full p-3 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
