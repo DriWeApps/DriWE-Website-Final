@@ -66,6 +66,7 @@ export default function Footer() {
                 <a href="/about" className="hover:text-[#fcd129] transition-colors">About</a>
                 <a href="/contact" className="hover:text-[#fcd129] transition-colors">Contact</a>
                 <a href="/terms" className="hover:text-[#fcd129] transition-colors">Terms</a>
+                <a href="/policy" className="hover:text-[#fcd129] transition-colors"suppressHydrationWarning>Policy</a>
               </nav>
               <nav className="flex flex-col space-y-2">
                 <a href="/privacy" className="hover:text-[#fcd129] transition-colors">Privacy</a>
