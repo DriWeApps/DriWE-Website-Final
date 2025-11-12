@@ -238,6 +238,7 @@ interface Application {
   position: string | null;
   createdAt: string;
   resumePath: string | null;
+  mobileNumber?: string | null;
 }
 
 export default function DashboardPage() {
@@ -406,6 +407,7 @@ export default function DashboardPage() {
                 <tr>
                   <th className="px-4 py-3">Name</th>
                   <th className="px-4 py-3">Email</th>
+                  <th className="px-4 py-3">Mobile Number</th>
                   <th className="px-4 py-3">Position</th>
                   <th className="px-4 py-3">Applied On</th>
                   <th className="px-4 py-3">Resume</th>
@@ -420,6 +422,7 @@ export default function DashboardPage() {
                         {app.email}
                       </a>
                     </td>
+                    <td className="px-4 py-3">{app.mobileNumber || '-'}</td>
                     <td className="px-4 py-3">{app.position || '-'}</td>
                     <td className="px-4 py-3">
                       {new Date(app.createdAt).toLocaleString('en-IN', {

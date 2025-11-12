@@ -5,11 +5,9 @@ import {
   User,
   Car,
   Check,
-  MessageCircle,
   Phone,
   Mail,
   ChevronDown,
-  X,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -62,13 +60,8 @@ const categories = [
   },
 ];
 
+// ✅ Removed Live Chat option
 const helpOptions = [
-  {
-    icon: MessageCircle,
-    title: "Live Chat",
-    desc: "Get instant help from our support team",
-    btn: "Start Chat",
-  },
   {
     icon: Phone,
     title: "Phone Support",
@@ -86,7 +79,6 @@ const helpOptions = [
 export default function SupportPage() {
   const [openCard, setOpenCard] = useState<"rider" | "driver" | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [liveChatOpen, setLiveChatOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   const refs = {
@@ -97,7 +89,6 @@ export default function SupportPage() {
     help: useRef<HTMLDivElement>(null),
   };
 
-  // GSAP fade-in + parallax hero
   useLayoutEffect(() => {
     const elements = [
       refs.category.current,
@@ -131,7 +122,6 @@ export default function SupportPage() {
     return () => ctx.revert();
   }, [refs.category, refs.faq, refs.help, refs.hero]);
 
-  // Three.js background
   useLayoutEffect(() => {
     const cont = refs.three.current;
     if (!cont) return;
@@ -185,50 +175,15 @@ export default function SupportPage() {
   }, [refs.three]);
 
   const handleHelpBtn = (title: string) => {
-    if (title === "Live Chat") return () => setLiveChatOpen(true);
     if (title === "Phone Support")
       return () => {
-        window.location.href = "tel:+919325574388";
+        window.location.href = "tel:+91-8669888996";
       };
     if (title === "Email Support")
       return () => {
-        window.location.href = "mailto:umairahmad0605@gmail.com";
+        window.location.href = "mailto:hello@driwe.in";
       };
   };
-
-  // Live Chat Box
-  const LiveChatBox = () => (
-    <div
-      className="fixed bottom-6 left-6 w-80 max-w-full 
-                    rounded-xl border border-black
-                    bg-white text-black flex flex-col z-[1000] overflow-hidden shadow-xl"
-    >
-      <div className="flex items-center justify-between bg-yellow-500 px-4 py-2">
-        <h3 className="text-black font-semibold">Live Chat</h3>
-        <button
-          onClick={() => setLiveChatOpen(false)}
-          aria-label="Close Live Chat"
-        >
-          <X className="w-5 h-5 text-black" />
-        </button>
-      </div>
-      <div className="flex-1 p-4 min-h-[140px]">
-        <div className="mb-2">
-          <div className="inline-block bg-yellow-500 text-black px-3 py-2 rounded-lg">
-            Hi, how may I help you?
-          </div>
-        </div>
-      </div>
-      <div className="border-t border-gray-300 px-4 py-2 bg-white">
-        <input
-          type="text"
-          placeholder="Type your message..."
-          disabled
-          className="w-full px-3 py-2 rounded border border-gray-300 text-gray-500 cursor-not-allowed"
-        />
-      </div>
-    </div>
-  );
 
   return (
     <div className="relative min-h-screen bg-black text-white ">
@@ -306,7 +261,6 @@ export default function SupportPage() {
                     </div>
                   </div>
 
-                  {/* ✅ Old AnimatePresence-based transition */}
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
@@ -367,7 +321,6 @@ export default function SupportPage() {
                     />
                   </button>
 
-                  {/* ✅ Old AnimatePresence-based transition */}
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
@@ -398,7 +351,7 @@ export default function SupportPage() {
           <h2 className="text-center text-[28px] font-bold mb-6 text-white">
             Still need <span className="text-yellow-400">help?</span>
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {helpOptions.map((item, i) => (
               <motion.div
                 key={i}
@@ -430,8 +383,6 @@ export default function SupportPage() {
           </div>
         </div>
       </section>
-
-      {liveChatOpen && <LiveChatBox />}
     </div>
   );
 }
