@@ -246,7 +246,7 @@ export default function UltraModernLanding() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Sakshi Patel',
+                name: 'Sakshi Shinde',
                 role: 'Business Executive',
                 avatar: Briefcase,
                 content: 'DriWE completely transformed my daily commute. The AI routing is incredible!'

@@ -101,7 +101,7 @@ export default function TermsPage() {
         <div className="container relative z-10 mx-auto flex h-[40vh] items-center justify-center px-4 text-center md:px-6">
           <div className="space-y-4">
             <h1 className="hero-text text-4xl font-bold tracking-tighter text-white sm:text-6xl md:text-7xl">
-              Terms of <span className="text-yellow-400">Service</span>
+              Terms  <span className="text-yellow-400">&</span> Conditions
             </h1>
 
             <p className="text-lg leading-relaxed text-slate-300 max-w-2xl mx-auto">
