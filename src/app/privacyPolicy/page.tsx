@@ -48,9 +48,7 @@ export default function RefundPolicyPage() {
     { id: "eligibility", title: "Eligibility for Refunds", num: "1" },
     { id: "deductions", title: "Deductions and Fees", num: "2" },
     { id: "mode", title: "Mode of Refund", num: "3" },
-    { id: "non-refundable", title: "Non-Refundable Payments", num: "4" },
-    { id: "cancellation", title: "Cancellation Policy", num: "5" },
-    { id: "acknowledgement", title: "Acknowledgement", num: "6" },
+    { id: "acknowledgement", title: "Acknowledgement", num: "4" },
   ];
 
   return (
@@ -61,7 +59,7 @@ export default function RefundPolicyPage() {
         <div className="container relative z-10 mx-auto flex h-[50vh] items-center justify-center px-4 text-center md:px-6">
           <div className="space-y-6">
             <h1 className="hero-text text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl">
-              Refund <span className="text-yellow-400">&</span> Cancellation <span className="text-yellow-400">Policy</span>
+              Privacy <span className="text-yellow-400">Policy</span> 
             </h1>
             <p className="hero-subtitle text-lg leading-relaxed text-slate-300 max-w-3xl mx-auto">
               We value your trust. Our refund process is designed to be fair, transparent, and hassle-free.
@@ -155,117 +153,13 @@ export default function RefundPolicyPage() {
                 </ul>
               </section>
 
-              {/* 4. Non-refundable */}
-              <section id="non-refundable" className="content-card rounded-2xl border border-white/20 bg-black/70 backdrop-blur-md p-10 shadow-xl hover:shadow-red-400/40 transition-all">
-                <h2 className="text-4xl font-bold mb-6">
-                  4. <span className="text-red-400">Non-Refundable Payments</span>
-                </h2>
-                <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3">
-                    <span className="text-red-400 mt-1">•</span>
-                    <span>Payments outside the 48-hour window are <strong className="text-red-400">non-refundable</strong>.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-red-400 mt-1">•</span>
-                    <span>DriWE reserves the right to reject non-compliant requests.</span>
-                  </li>
-                </ul>
-              </section>
-
-              {/* 5. NEW: CANCELLATION & NO-REFUND POLICY */}
-              <section id="cancellation" className="content-card rounded-2xl border border-white/20 bg-black/70 backdrop-blur-md p-10 shadow-xl hover:shadow-yellow-500/50 transition-all">
-                <h2 className="text-4xl font-bold mb-8">
-                  5. <span className="text-yellow-400">Cancellation Policy</span>
-                </h2>
-
-                {/* 1. Driver Cancellation Rules */}
-                <div className="mb-10">
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-4">1. Driver Cancellation Rules</h3>
-                  <ul className="space-y-4 text-slate-300 text-lg">
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Once a driver receives a ride request, they have only one choice — to either <strong>Accept</strong> or <strong>Reject</strong> the ride.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>After accepting the ride, the driver <strong>cannot cancel it through the app</strong>.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>If, due to any reason, the driver cannot continue with the ride after accepting it, the driver <strong>must personally contact the rider</strong> and request the rider to cancel it from their end.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Drivers repeatedly unable to complete accepted rides may face <strong>account review, penalties, or suspension</strong> for violating platform rules.</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* 2. Rider Cancellation Rules */}
-                <div className="mb-10">
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-4">2. Rider Cancellation Rules</h3>
-                  <ul className="space-y-4 text-slate-300 text-lg">
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Riders may cancel a ride <strong>before the driver reaches the pickup location</strong>.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Frequent cancellations by a rider may affect their <strong>booking reliability</strong> and can lead to <strong>temporary suspension</strong> from DriWE.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Once the driver has entered the OTP and the ride has officially started, the rider <strong>cannot cancel the ride</strong>.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>If the rider still wishes to end the trip after OTP entry, they must <strong>settle the payment directly with the driver</strong> for the completed part of the ride.</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* 3. Payments */}
-                <div className="mb-10">
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-4">3. Payments</h3>
-                  <ul className="space-y-4 text-slate-300 text-lg">
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>All payments are made <strong>directly from the rider to the driver</strong>.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>DriWE <strong>does not handle or process any payments</strong>, so there will be <strong>no refunds or reversals</strong> from the platform.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Any payment misunderstandings must be <strong>mutually resolved</strong> between the rider and driver.</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* 4. Misuse and Enforcement */}
-                <div>
-                  <h3 className="text-2xl font-bold text-yellow-400 mb-4">4. Misuse and Enforcement</h3>
-                  <ul className="space-y-4 text-slate-300 text-lg">
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span>Misuse of the cancellation feature or repeated violations of this policy (by either driver or rider) may result in <strong>temporary or permanent suspension</strong> from the DriWE platform.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-yellow-400 mt-1">•</span>
-                      <span><strong>DriWE reserves the right to modify, update, or enforce additional actions</strong> if necessary to maintain service quality.</span>
-                    </li>
-                  </ul>
-                </div>
-              </section>
-
-              {/* 6. Acknowledgement */}
+              {/* 4. Acknowledgement */}
               <section id="acknowledgement" className="content-card rounded-2xl border border-white/20 bg-gradient-to-r from-yellow-400/10 to-purple-600/10 backdrop-blur-md p-10 shadow-xl hover:shadow-yellow-400/50 transition-all">
                 <h2 className="text-4xl font-bold mb-6">
-                  6. <span className="text-yellow-400">Acknowledgement</span>
+                  4. <span className="text-yellow-400">Acknowledgement</span>
                 </h2>
                 <p className="text-xl leading-relaxed text-slate-200">
-                  By making a payment or using DriWE, you acknowledge that you have read, understood, and agree to be bound by this Refund Policy, including the <strong>strict no-refund policy for cancellations</strong> and direct rider-driver payment model.
+                  By making a payment or using DriWE, you acknowledge that you have read, understood, and agree to be bound by this Refund Policy.
                 </p>
               </section>
             </div>

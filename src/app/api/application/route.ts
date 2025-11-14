@@ -115,3 +115,5 @@ export async function DELETE(req: Request) {
     return new Response(JSON.stringify({ ok: false, error: 'Server error' }), { status: 500 });
   }
 }
+
+

@@ -65,11 +65,15 @@ export default function Footer() {
               <nav className="flex flex-col space-y-2">
                 <a href="/about" className="hover:text-[#fcd129] transition-colors">About</a>
                 <a href="/contact" className="hover:text-[#fcd129] transition-colors">Contact</a>
-                <a href="/terms" className="hover:text-[#fcd129] transition-colors">Terms</a>
-                <a href="/policy" className="hover:text-[#fcd129] transition-colors"suppressHydrationWarning>Policy</a>
+                <a href="/terms" className="hover:text-[#fcd129] transition-colors">Terms and Conditions</a>
+                <a href="/cancellation" className="hover:text-[#fcd129] transition-colors">Cancellation Policy</a>
+                <a href="/shippingPolicy" className="hover:text-[#fcd129] transition-colors">Shipping Policy</a>
+                <a href="/refund" className="hover:text-[#fcd129] transition-colors">Refund Policy</a>
+                <a href="/privacyPolicy" className="hover:text-[#fcd129] transition-colors">Privacy Policy</a>
+                {/* <a href="/privacyPolicy" className="hover:text-[#fcd129] transition-colors"suppressHydrationWarning>Privacy Policy</a> */}
               </nav>
               <nav className="flex flex-col space-y-2">
-                <a href="/privacy" className="hover:text-[#fcd129] transition-colors">Privacy</a>
+                {/* <a href="/privacy" className="hover:text-[#fcd129] transition-colors">Privacy</a> */}
                 <a href="/safety" className="hover:text-[#fcd129] transition-colors">Safety</a>
                 <a href="/services" className="hover:text-[#fcd129] transition-colors">Services</a>
                 <a href="/support" className="hover:text-[#fcd129] transition-colors">Support</a>
