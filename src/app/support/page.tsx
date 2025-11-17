@@ -101,7 +101,7 @@ export default function SupportPage() {
         gsap.from(el, {
           scrollTrigger: { trigger: el, start: "top 80%" },
           autoAlpha: 0,
-          y: 50,
+          y: 50,  
           duration: 1,
           ease: "power2.out",
         });

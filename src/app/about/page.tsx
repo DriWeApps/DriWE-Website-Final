@@ -169,7 +169,7 @@ export default function AboutUs() {
         className="bg-black/10 py-20 text-center relative z-10"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mt-24">
+          <h1 className="text-4xl md:text-7xl font-bold text-white mt-24">
             We Are <span className="text-yellow-400">DriWE</span>
           </h1>
 

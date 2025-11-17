@@ -73,7 +73,7 @@ const promoCards = [
     headline: "Auto Rickshaw",
     description:
       "Navigate narrow lanes with eco-friendly three-wheelers. Perfect for quick city hops.",
-    imageSrc: "/images/auto.jpg",
+    imageSrc: "/images/Auto image.png",
     rating: 4.8,
     popular: true,
   },
@@ -82,16 +82,7 @@ const promoCards = [
     headline: "City Rides",
     description:
       "Comfortable sedans for your daily commute. AC comfort with professional drivers.",
-    imageSrc: "/images/texi.jpg",
-    rating: 4.9,
-    popular: false,
-  },
-  {
-    icon: <HiAcademicCap size={28} />,
-    headline: "Airport Transfer",
-    description:
-      "Premium airport service with flight tracking and meet-and-greet options.",
-    imageSrc: "/images/car1.png",
+    imageSrc: "/images/car image service.png",
     rating: 4.9,
     popular: false,
   },
@@ -100,7 +91,7 @@ const promoCards = [
     headline: "Scheduling",
     description:
       "Flexible scheduling options for your convenience.",
-    imageSrc: "/images/bikes.png",
+    imageSrc: "/images/GT image.png",
     rating: 4.7,
     popular: false,
   },
@@ -109,7 +100,7 @@ const promoCards = [
     headline: "Goods Courier",
     description:
       "Reliable logistics for packages and commercial deliveries.",
-    imageSrc: "/images/trucks.png",
+    imageSrc: "/images/Truck image service.png",
     rating: 4.6,
     popular: false,
   },
@@ -457,8 +448,8 @@ export default function Home() {
     <div className="min-h-screen bg-black">
       {/* Enhanced Hero Section */}
       <section ref={heroRef} className="bg-black py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:5x1 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-7xl font-bold text-white mt-24">
             Our <span className="text-[#fcd129]">Services</span>
           </h1>
           <p className="text-md md:text-xl text-gray-300 mt-6 max-w-6xl mx-auto">
