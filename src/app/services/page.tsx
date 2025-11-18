@@ -143,12 +143,8 @@ function CarouselCard({
     }
   }, [shouldReduceMotion]);
 
+  // Removed unused wordMap — was causing lint error
   const getColoredHeadline = (headline: string) => {
-    const wordMap: { [key: string]: { word: string; index: number } } = {
-      Auto: { word: "Rickshaw", index: 1 },
-      City: { word: "Rides", index: 1 },
-    };
-
     return <span className="text-white">{headline}</span>;
   };
 
@@ -276,8 +272,7 @@ function MotionAppleCarousel() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            From budget-friendly autos to premium corporate fleet - we have the
-            perfect solution for every journey
+            From budget-friendly autos to premium corporate fleet &mdash; we have the perfect solution for every journey.
           </motion.p>
         </div>
 
@@ -301,8 +296,6 @@ function MotionAppleCarousel() {
                 <motion.button
                   key={idx}
                   className="w-3 h-3 rounded-full transition-all duration-300 bg-gray-600 hover:bg-gray-500"
-                  style={{ transform: "none" }}
-                  suppressHydrationWarning={true}
                   onClick={() => {
                     setAutoPlay(false);
                     setCurrentIndex(idx * visibleCards);
@@ -368,7 +361,7 @@ const realStories = [
   },
 ];
 
-export default function Home() {
+export default function ServicesPage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [selectedStory, setSelectedStory] = useState(0);
@@ -402,8 +395,7 @@ export default function Home() {
               Our <span className="text-[#fcd129]">Services</span>
             </h1>
             <p className="text-md md:text-xl text-gray-300 mt-6 max-w-6xl mx-auto">
-              From quick city rides to fleet delivery, we cover all your
-              transport needs.
+              From quick city rides to fleet delivery, we cover all your transport needs.
             </p>
           </div>
         </section>
@@ -429,12 +421,11 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                These aren't just rides - they're moments that matter.
+                These aren&apos;t just rides &mdash; they&apos;re moments that matter.
               </motion.p>
             </div>
 
             <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
-              {/* LEFT LIST */}
               <div className="lg:w-1/3 space-y-4">
                 <h3 className="text-xl font-semibold text-white mb-6">
                   Featured Stories
@@ -452,13 +443,10 @@ export default function Home() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    {/* UPDATED—NO IMAGE HERE */}
                     <div>
                       <h4
                         className={`font-medium text-sm ${
-                          selectedStory === index
-                            ? "text-[#fcd129]"
-                            : "text-white"
+                          selectedStory === index ? "text-[#fcd129]" : "text-white"
                         }`}
                       >
                         {story.story}
@@ -469,7 +457,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* RIGHT SELECTED STORY VIEWER */}
               <div className="w-full lg:w-2/3">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -480,7 +467,6 @@ export default function Home() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
                   >
-                    {/* UPDATED—NO PROFILE IMAGE HERE */}
                     <div className="mb-6">
                       <h4 className="text-2xl font-bold text-[#fcd129]">
                         {realStories[selectedStory].name}

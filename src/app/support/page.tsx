@@ -18,7 +18,6 @@ import { motion, AnimatePresence } from "framer-motion";
 gsap.registerPlugin(ScrollTrigger);
 
 // ---------------------- FAQ DATA ----------------------
-
 const riderFaqs = [
   {
     q: "What payment methods does DriWE accept?",
@@ -68,20 +67,19 @@ const driverFaqs = [
     a: "Drivers can use the in-app SOS feature to instantly access emergency contacts and support. Tap the SOS button, follow the instructions, and the app will provide immediate assistance options.",
   },
   {
-    "q": "How can I get my documents verified?",
-    "a": "Upload the required documents in the DriWE Driver app. The DriWE team will review and verify them within [12 hrs]. Once verified, you’ll receive a notification and your account/request will be approved."
+    q: "How can I get my documents verified?",
+    a: "Upload the required documents in the DriWE Driver app. The DriWE team will review and verify them within 12 hrs. Once verified, you’ll receive a notification and your account/request will be approved.",
   },
   {
-    "q": "How do I withdraw money from my wallet?",
-    "a": "Your earnings first move to the Ledger Balance. After a 12-hour security hold, you become eligible to withdraw. Simply click on Ledger Balance section, choose 'Withdraw', enter the amount, and confirm. The platform fee will be automatically deducted, and the remaining amount will be transferred to your bank account."
+    q: "How do I withdraw money from my wallet?",
+    a: "Your earnings first move to the Ledger Balance. After a 12-hour security hold, you become eligible to withdraw. Simply click on Ledger Balance section, choose 'Withdraw', enter the amount, and confirm. The platform fee will be automatically deducted, and the remaining amount will be transferred to your bank account.",
   },
 ];
 
 // ---------------------- CATEGORY DATA ----------------------
-
 const categories = [
   {
-    refKey: "rider",
+    refKey: "rider" as const,
     icon: User,
     label: "I'm a Rider",
     desc: "Get help with booking rides, payments, and account settings",
@@ -94,7 +92,7 @@ const categories = [
     ],
   },
   {
-    refKey: "driver",
+    refKey: "driver" as const,
     icon: Car,
     label: "I'm a Driver",
     desc: "Get help with driving, earnings, and vehicle requirements",
@@ -108,7 +106,6 @@ const categories = [
 ];
 
 // ---------------------- HELP OPTIONS ----------------------
-
 const helpOptions = [
   {
     icon: Phone,
@@ -125,19 +122,12 @@ const helpOptions = [
 ];
 
 // ---------------------- MAIN COMPONENT ----------------------
-
 export default function SupportPage() {
-  // Category open state (left cards)
   const [openCard, setOpenCard] = useState<"rider" | "driver" | null>(null);
-
-  // Enhanced interactive FAQ state
   const [openRider, setOpenRider] = useState<number | null>(null);
   const [openDriver, setOpenDriver] = useState<number | null>(null);
-
-  // Search
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Refs for GSAP and three.js
   const refs = {
     three: useRef<HTMLDivElement>(null),
     hero: useRef<HTMLDivElement>(null),
@@ -148,25 +138,8 @@ export default function SupportPage() {
 
   // ---------------------- GSAP ANIMATIONS ----------------------
   useLayoutEffect(() => {
-    const elements = [
-      refs.category.current,
-      refs.faq.current,
-      refs.help.current,
-    ].filter(Boolean) as HTMLElement[];
-
-    if (!elements.length) return;
-
     const ctx = gsap.context(() => {
-      elements.forEach((el) => {
-        gsap.from(el, {
-          scrollTrigger: { trigger: el, start: "top 80%" },
-          autoAlpha: 0,
-          y: 50,
-          duration: 1,
-          ease: "power2.out",
-        });
-      });
-
+      // Hero parallax
       if (refs.hero.current) {
         gsap.to(refs.hero.current, {
           y: -100,
@@ -179,10 +152,28 @@ export default function SupportPage() {
           },
         });
       }
+
+      // Section reveals
+      [refs.category.current, refs.faq.current, refs.help.current].forEach((el) => {
+        if (el) {
+          gsap.from(el, {
+            scrollTrigger: { trigger: el, start: "top 80%" },
+            autoAlpha: 0,
+            y: 50,
+            duration: 1,
+            ease: "power2.out",
+          });
+        }
+      });
     }, refs.hero);
 
     return () => ctx.revert();
-  }, []);
+  }, [
+    refs.hero,
+    refs.category,
+    refs.faq,
+    refs.help,
+  ]); // ← All dependencies now included
 
   // ---------------------- THREE JS PARTICLES ----------------------
   useLayoutEffect(() => {
@@ -203,8 +194,8 @@ export default function SupportPage() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     cont.appendChild(renderer.domElement);
 
-    const particles: THREE.Mesh[] = Array.from({ length: 40 }, () => {
-      const p = new THREE.Mesh(
+    const particles = Array.from({ length: 40 }, () => {
+      const mesh = new THREE.Mesh(
         new THREE.SphereGeometry(0.03, 8, 8),
         new THREE.MeshBasicMaterial({
           color: 0xffd24d,
@@ -212,13 +203,13 @@ export default function SupportPage() {
           opacity: 0.9,
         })
       );
-      p.position.set(
+      mesh.position.set(
         (Math.random() - 0.5) * 8,
         (Math.random() - 0.5) * 4,
         (Math.random() - 1) * 2
       );
-      scene.add(p);
-      return p;
+      scene.add(mesh);
+      return mesh;
     });
 
     let rafId: number;
@@ -238,23 +229,25 @@ export default function SupportPage() {
       renderer.dispose();
       while (cont.firstChild) cont.removeChild(cont.firstChild);
     };
-  }, []);
+  }, [refs.three]); // ← Fixed dependency
 
   // ---------------------- HELP BUTTON HANDLERS ----------------------
-
   const handleHelpBtn = (title: string) => {
-    if (title === "Phone Support")
-      return () => (window.location.href = "tel:+91-8669888996");
-    if (title === "Email Support")
-      return () => (window.location.href = "mailto:hello@driwe.in");
+    if (title === "Phone Support") {
+      window.location.href = "tel:+91-8669888996";
+    }
+    if (title === "Email Support") {
+      window.location.href = "mailto:hello@driwe.in";
+    }
   };
 
-  // ---------------------- FILTERED FAQ (optional) ----------------------
+  // ---------------------- FILTERED FAQ ----------------------
   const filteredRiderFaqs = riderFaqs.filter(
     (f) =>
       f.q.toLowerCase().includes(searchTerm.toLowerCase()) ||
       f.a.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   const filteredDriverFaqs = driverFaqs.filter(
     (f) =>
       f.q.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -263,17 +256,14 @@ export default function SupportPage() {
 
   // ---------------------- RETURN UI ----------------------
   return (
-    <div className="relative min-h-screen bg-black text-white">
+    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
       <div
         ref={refs.three}
         className="absolute inset-0 -z-10 opacity-20 pointer-events-none"
       />
 
       {/* HERO */}
-      <section
-        ref={refs.hero}
-        className="bg-black h-screen flex items-center justify-center relative z-10"
-      >
+      <section ref={refs.hero} className="bg-black h-screen flex items-center justify-center relative z-10">
         <div className="mx-auto max-w-7xl px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
             How can we <span className="text-[#fcd129]">help</span> you?
@@ -295,13 +285,10 @@ export default function SupportPage() {
       </section>
 
       {/* CATEGORY */}
-      <section
-        ref={refs.category}
-        className="bg-black border-t border-gray-800/50 py-20"
-      >
-        <div className="max-w-5xl mx-auto px-4 text-black">
+      <section ref={refs.category} className="bg-black border-t border-gray-800/50 py-20">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-center text-[32px] font-bold mb-10 text-white">
-            Choose Your Help <span className="text-yellow-400">Category</span>
+            Choose Your Help <span className="text-[#fcd129]">Category</span>
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -317,20 +304,18 @@ export default function SupportPage() {
                   className="border border-white rounded-xl p-6 text-white shadow-lg bg-gradient-to-br from-[#080808] to-[#0f0f0f]"
                 >
                   <div className="flex gap-4 items-start">
-                    <div className="rounded-full p-2 bg-yellow-500">
+                    <div className="rounded-full p-2 bg-[#fcd129]">
                       <cat.icon className="w-5 h-5 text-black" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold text-lg">{cat.label}</h3>
-                      <p className="text-sm text-white mt-2">{cat.desc}</p>
+                      <p className="text-sm text-gray-300 mt-2">{cat.desc}</p>
 
                       <button
-                        className="mt-3 px-4 py-1.5 rounded-md text-sm border border-black bg-white text-black hover:bg-yellow-500 hover:text-black transition"
-                        onClick={() =>
-                          setOpenCard(isOpen ? null : (cat.refKey as any))
-                        }
+                        className="mt-3 px-4 py-1.5 rounded-md text-sm border border-white bg-white text-black hover:bg-[#fcd129] hover:border-[#fcd129] transition font-medium"
+                        onClick={() => setOpenCard(isOpen ? null : cat.refKey)}
                       >
-                        <strong>View More</strong>
+                        View More
                       </button>
                     </div>
                   </div>
@@ -338,7 +323,6 @@ export default function SupportPage() {
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
-                        key={cat.refKey}
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
@@ -348,7 +332,7 @@ export default function SupportPage() {
                         <ul className="space-y-2">
                           {cat.options.map((option) => (
                             <li key={option} className="flex items-center gap-2">
-                              <Check className="w-4 h-4 text-yellow-500" />
+                              <Check className="w-4 h-4 text-[#fcd129]" />
                               {option}
                             </li>
                           ))}
@@ -363,13 +347,9 @@ export default function SupportPage() {
         </div>
       </section>
 
-      {/* PREMIUM INTERACTIVE FAQ SECTION */}
-      <section
-        ref={refs.faq}
-        className="bg-black border-t border-gray-800/50 py-20"
-      >
-        <div className="max-w-4xl mx-auto px-4 text-white">
-          {/* Rider FAQ */}
+      {/* FAQ SECTION */}
+      <section ref={refs.faq} className="bg-black border-t border-gray-800/50 py-20">
+        <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-center text-3xl mb-8 font-bold">
             <span className="text-[#fcd129]">Rider</span>{' '}
             <span className="text-white font-extrabold">FAQ</span>
@@ -391,19 +371,22 @@ export default function SupportPage() {
                   )}
                 </div>
 
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${openRider === index ? "max-h-40 mt-3" : "max-h-0"
-                    }`}
-                >
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {faq.a}
-                  </p>
-                </div>
+                <AnimatePresence>
+                  {openRider === index && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="text-gray-300 text-sm leading-relaxed mt-3 overflow-hidden"
+                    >
+                      {faq.a}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
 
-          {/* Driver FAQ */}
           <h2 className="text-center text-3xl mb-8 font-bold">
             <span className="text-[#fcd129]">Driver</span>{' '}
             <span className="text-white font-extrabold">FAQ</span>
@@ -413,9 +396,7 @@ export default function SupportPage() {
             {filteredDriverFaqs.map((faq, index) => (
               <div
                 key={index}
-                onClick={() =>
-                  setOpenDriver(openDriver === index ? null : index)
-                }
+                onClick={() => setOpenDriver(openDriver === index ? null : index)}
                 className="p-6 rounded-2xl bg-gradient-to-br from-[#0f0f0f] to-[#090909] border border-[#1f1f1f] hover:border-[#fcd129] transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[#fcd129]/20"
               >
                 <div className="flex justify-between items-center">
@@ -427,14 +408,18 @@ export default function SupportPage() {
                   )}
                 </div>
 
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${openDriver === index ? "max-h-40 mt-3" : "max-h-0"
-                    }`}
-                >
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    {faq.a}
-                  </p>
-                </div>
+                <AnimatePresence>
+                  {openDriver === index && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="text-gray-300 text-sm leading-relaxed mt-3 overflow-hidden"
+                    >
+                      {faq.a}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
@@ -442,13 +427,10 @@ export default function SupportPage() {
       </section>
 
       {/* HELP SECTION */}
-      <section
-        ref={refs.help}
-        className="bg-black border-t border-gray-800/50 py-20"
-      >
-        <div className="max-w-5xl mx-auto px-4 text-black">
+      <section ref={refs.help} className="bg-black border-t border-gray-800/50 py-20">
+        <div className="max-w-5xl mx-auto px-4">
           <h2 className="text-center text-[28px] font-bold mb-6 text-white">
-            Still need <span className="text-yellow-400">help?</span>
+            Still need <span className="text-[#fcd129]">help?</span>
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -459,22 +441,22 @@ export default function SupportPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.2 }}
                 whileHover={{ scale: 1.03 }}
-                className="rounded-xl p-6 text-white border border-gray-300 shadow-lg bg-gradient-to-br from-[#080808] to-[#0f0f0f]"
+                className="rounded-xl p-6 text-white border border-gray-700 shadow-lg bg-gradient-to-br from-[#080808] to-[#0f0f0f]"
               >
                 <div className="mb-5 text-center">
-                  <div className="rounded-full px-4 py-2 bg-yellow-500 inline-flex items-center justify-center">
+                  <div className="rounded-full px-4 py-2 bg-[#fcd129] inline-flex">
                     <item.icon className="w-5 h-5 text-black" />
                   </div>
                 </div>
 
                 <h3 className="text-center font-semibold mb-1">{item.title}</h3>
-                <p className="text-center text-sm text-white mb-4">{item.desc}</p>
+                <p className="text-center text-sm text-gray-300 mb-4">{item.desc}</p>
 
                 <button
-                  className="w-full py-2 rounded-md uppercase text-sm border border-black bg-white text-black hover:bg-yellow-400 hover:text-black transition"
-                  onClick={handleHelpBtn(item.title)}
+                  onClick={() => handleHelpBtn(item.title)}
+                  className="w-full py-2 rounded-md uppercase text-sm font-bold bg-white text-black hover:bg-[#fcd129] transition"
                 >
-                  <strong>{item.btn}</strong>
+                  {item.btn}
                 </button>
               </motion.div>
             ))}
