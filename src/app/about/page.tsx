@@ -134,11 +134,11 @@ export default function AboutUs() {
   const journeyFeatures = [
     {
       title: <span className="text-yellow-400">Founded with Vision</span>,
-      desc: "DriWe founded with a mission to make travel accessible and transform urban mobility through innovative technology solutions.",
+      desc: "DriWE aims to redefine safe and reliable mobility with a ride-hailing experience built on trust, innovation, and service excellence..",
     },
     {
-      title: <span className="text-yellow-400">Multi-City Expansion</span>,
-      desc: "Expanded to multiple cities with a growing driver base, establishing strong community connections across regions.",
+      title: <span className="text-yellow-400">Service Availability</span>,
+      desc: "DriWE services are currently available only in Pune, ensuring focused, reliable, and high-quality operations within the city.",
     },
     {
       title: <span className="text-yellow-400">Eco-Friendly Initiative</span>,
@@ -149,8 +149,8 @@ export default function AboutUs() {
       desc: "Hit 5 million rides with community-focused projects, building trust and delivering reliable service to millions of users.",
     },
     {
-      title: <span className="text-yellow-400">AI Innovation</span>,
-      desc: "Innovating AI-based route optimization and safety features, leveraging cutting-edge technology for smarter transportation.",
+      title: <span className="text-yellow-400">Face Verification Security</span>,
+      desc: "Introduced mandatory driver face verification. After entering the OTP and before starting the ride, drivers must verify their face to ensure passenger safety.",
     },
   ];
 
@@ -204,7 +204,7 @@ export default function AboutUs() {
                   Our <span className="text-yellow-400">Mission</span>
                 </>
               ),
-              text: "To offer dependable, reasonably priced, and safe transportation options that empower drivers, bridge communities, and lessen the impact on the environment and urban traffic.",
+              text: "At DriWE, our mission is to make every ride smooth, safe, and affordable for our customers. We believe in complete transparency, ensuring there are no hidden charges-only a clear, honest, and reliable ride experience. Our goal is to build trust by providing fair pricing, quality service, and a seamless journey every time.",
             },
             {
               title: (
@@ -212,7 +212,7 @@ export default function AboutUs() {
                   Our <span className="text-yellow-400">Vision</span>
                 </>
               ),
-              text: "To become the world's most trusted mobility platform, creating a seamless ecosystem where technology, sustainability, and human connection drive the future of transportation.",
+              text: "Our vision is to become the world’s best and safest ride-hailing application, setting new standards in reliability, service quality, and customer experience. We aim to be a global leader in the mobility industry by building a business that is trusted, innovative, and unmatched in performance.",
             },
           ].map((card, i) => (
             <Card
@@ -339,12 +339,17 @@ export default function AboutUs() {
           Meet the visionaries driving DriWe forward
         </p>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 justify-center">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 justify-center">
           {[
             {
               name: "Imroz Khan",
               role: "CEO",
               img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Imroz+K",
+            },
+             {
+              name: "Rozina Khan",
+              role: "Director",
+              img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Rozina+K",
             },
             {
               name: "Navid Khan",

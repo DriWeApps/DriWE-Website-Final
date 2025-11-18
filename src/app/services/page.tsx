@@ -71,7 +71,8 @@ const promoCards = [
   {
     icon: <HiDeviceMobile size={28} />,
     headline: "Auto Rickshaw",
-    description: "Navigate narrow lanes with eco-friendly three-wheelers. Perfect for quick city hops.",
+    description:
+      "Navigate narrow lanes with eco-friendly three-wheelers. Perfect for quick city hops.",
     imageSrc: "/images/Auto image.png",
     rating: 4.8,
     popular: true,
@@ -79,7 +80,8 @@ const promoCards = [
   {
     icon: <HiDesktopComputer size={28} />,
     headline: "City Rides",
-    description: "Comfortable sedans for your daily commute. AC comfort with professional drivers.",
+    description:
+      "Comfortable sedans for your daily commute. AC comfort with professional drivers.",
     imageSrc: "/images/car image service.png",
     rating: 4.9,
     popular: false,
@@ -143,23 +145,11 @@ function CarouselCard({
 
   const getColoredHeadline = (headline: string) => {
     const wordMap: { [key: string]: { word: string; index: number } } = {
-      "Auto Rickshaw": { word: "Rickshaw", index: 1 },
-      "City Rides": { word: "Rides", index: 1 },
+      Auto: { word: "Rickshaw", index: 1 },
+      City: { word: "Rides", index: 1 },
     };
 
-    const { word, index } = wordMap[headline] || { word: "", index: -1 };
-    if (!word) return <span>{headline}</span>;
-
-    const parts = headline.split(" ");
-    return (
-      <>
-        {parts.map((part, i) => (
-          <span key={i} className={i === index ? "text-[#fcd129]" : "text-white"}>
-            {part}{i < parts.length - 1 ? " " : ""}
-          </span>
-        ))}
-      </>
-    );
+    return <span className="text-white">{headline}</span>;
   };
 
   return (
@@ -222,7 +212,12 @@ function MotionAppleCarousel() {
     if (!shouldReduceMotion) {
       carouselControls.start({
         x: -currentIndex * cardWidth,
-        transition: { type: "spring", stiffness: 300, damping: 30, mass: 0.8 },
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 30,
+          mass: 0.8,
+        },
       });
     }
   }, [currentIndex, carouselControls, shouldReduceMotion]);
@@ -281,7 +276,8 @@ function MotionAppleCarousel() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            From budget-friendly autos to premium corporate fleet - we have the perfect solution for every journey
+            From budget-friendly autos to premium corporate fleet - we have the
+            perfect solution for every journey
           </motion.p>
         </div>
 
@@ -299,12 +295,14 @@ function MotionAppleCarousel() {
 
           <div className="flex justify-between items-center mt-8">
             <div className="flex gap-2">
-              {Array.from({ length: Math.ceil(promoCards.length / visibleCards) }).map((_, idx) => (
+              {Array.from({
+                length: Math.ceil(promoCards.length / visibleCards),
+              }).map((_, idx) => (
                 <motion.button
                   key={idx}
                   className="w-3 h-3 rounded-full transition-all duration-300 bg-gray-600 hover:bg-gray-500"
-                  style={{ transform: "none" }} // Critical for hydration
-                  suppressHydrationWarning={true} // Critical for hydration
+                  style={{ transform: "none" }}
+                  suppressHydrationWarning={true}
                   onClick={() => {
                     setAutoPlay(false);
                     setCurrentIndex(idx * visibleCards);
@@ -346,7 +344,6 @@ function MotionAppleCarousel() {
 const realStories = [
   {
     name: "Rahul Varma",
-    avatar: "/images/john.jpeg",
     story: "Safe and Comfortable Ride",
     fullDescription:
       "Rahul Varma had an amazing experience with our premium service. The ride was smooth, on time, and the driver was extremely courteous.",
@@ -355,7 +352,6 @@ const realStories = [
   },
   {
     name: "Sajid Khan",
-    avatar: "/images/lee.jpeg",
     story: "Driver was very professional",
     fullDescription:
       "Sajid Khan loved the punctuality and professionalism shown during his trip.",
@@ -364,7 +360,6 @@ const realStories = [
   },
   {
     name: "Akash Sharma",
-    avatar: "/images/alex.jpeg",
     story: "Great Conversation & Smooth Ride",
     fullDescription:
       "Akash Sharma enjoyed a wonderful ride with great conversation.",
@@ -407,7 +402,8 @@ export default function Home() {
               Our <span className="text-[#fcd129]">Services</span>
             </h1>
             <p className="text-md md:text-xl text-gray-300 mt-6 max-w-6xl mx-auto">
-              From quick city rides to fleet delivery, we cover all your transport needs.
+              From quick city rides to fleet delivery, we cover all your
+              transport needs.
             </p>
           </div>
         </section>
@@ -423,7 +419,8 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <span className="text-white">Real Stories</span>, <span className="text-[#fcd129]">Real Impact</span>
+                <span className="text-white">Real Stories</span>,{" "}
+                <span className="text-[#fcd129]">Real Impact</span>
               </motion.h2>
               <motion.p
                 className="text-white text-lg max-w-3xl mx-auto"
@@ -432,13 +429,17 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                These aren&apos;t just rides - they&apos;re moments that matter.
+                These aren't just rides - they're moments that matter.
               </motion.p>
             </div>
 
             <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
+              {/* LEFT LIST */}
               <div className="lg:w-1/3 space-y-4">
-                <h3 className="text-xl font-semibold text-white mb-6">Featured Stories</h3>
+                <h3 className="text-xl font-semibold text-white mb-6">
+                  Featured Stories
+                </h3>
+
                 {realStories.map((story, index) => (
                   <motion.div
                     key={index}
@@ -451,25 +452,24 @@ export default function Home() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={story.avatar}
-                        alt={story.name}
-                        width={32}
-                        height={32}
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                      <div>
-                        <h4 className={`font-medium text-sm ${selectedStory === index ? "text-[#fcd129]" : "text-white"}`}>
-                          {story.story}
-                        </h4>
-                        <p className="text-xs text-gray-400">{story.name}</p>
-                      </div>
+                    {/* UPDATED—NO IMAGE HERE */}
+                    <div>
+                      <h4
+                        className={`font-medium text-sm ${
+                          selectedStory === index
+                            ? "text-[#fcd129]"
+                            : "text-white"
+                        }`}
+                      >
+                        {story.story}
+                      </h4>
+                      <p className="text-xs text-gray-400">{story.name}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
 
+              {/* RIGHT SELECTED STORY VIEWER */}
               <div className="w-full lg:w-2/3">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -480,21 +480,16 @@ export default function Home() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="flex items-center gap-4 mb-6">
-                      <Image
-                        src={realStories[selectedStory].avatar}
-                        alt={realStories[selectedStory].name}
-                        width={64}
-                        height={64}
-                        className="w-16 h-16 rounded-full object-cover border-4 border-[#fcd129]"
-                      />
-                      <div className="ml-4">
-                        <h4 className="text-2xl font-bold text-[#fcd129]">
-                          {realStories[selectedStory].name}
-                        </h4>
-                        <p className="text-gray-400">{realStories[selectedStory].tripType}</p>
-                      </div>
+                    {/* UPDATED—NO PROFILE IMAGE HERE */}
+                    <div className="mb-6">
+                      <h4 className="text-2xl font-bold text-[#fcd129]">
+                        {realStories[selectedStory].name}
+                      </h4>
+                      <p className="text-gray-400">
+                        {realStories[selectedStory].tripType}
+                      </p>
                     </div>
+
                     <p className="text-white text-lg leading-relaxed">
                       {realStories[selectedStory].fullDescription}
                     </p>
