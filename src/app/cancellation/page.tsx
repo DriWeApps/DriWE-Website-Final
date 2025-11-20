@@ -208,7 +208,7 @@ export default function CancellationPolicyPage() {
                     <strong>Email:</strong> <a href="mailto:hello@driwe.in" className="text-yellow-400 hover:underline">hello@driwe.in</a>
                   </p>
                   <p className="text-lg">
-                    <strong>Phone:</strong> <a href="tel:+918698889996" className="text-yellow-400 hover:underline">+91 86988 89996</a>
+                    <strong>Phone:</strong> <a href="tel:+918669888996" className="text-yellow-400 hover:underline">+91 8669888996</a>
                   </p>
                 </div>
               </section>
@@ -219,3 +219,19 @@ export default function CancellationPolicyPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
