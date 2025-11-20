@@ -72,7 +72,7 @@ const driverFaqs = [
   },
   {
     q: "How do I withdraw money from my wallet?",
-    a: "Your earnings first move to the Ledger Balance. After a 12-hour security hold, you become eligible to withdraw. Simply click on Ledger Balance section, choose 'Withdraw', enter the amount, and confirm. The platform fee will be automatically deducted, and the remaining amount will be transferred to your bank account.",
+    a: "When you deposit money into your Ledger Balance, you can withdraw it after 12 hours if the balance is not used. The platform fee will be deducted automatically during withdrawal. If any part of the balance has been used, the remaining amount cannot be withdrawn.Otherwise, the amount stays in the Ledger Balance for up to 24 hours, and you can apply for withdrawal—but the settlement will take T+2 days to reach your bank account.",
   },
 ];
 
