@@ -13,24 +13,26 @@ interface Application {
   mobileNumber?: string | null;
 }
 
+
+
 export default function DashboardPage() {
+
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [apps, setApps] = useState<Application[]>([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false); // ← NEW STATE
+
 
   useEffect(() => {
-    const admin = localStorage.getItem('isAdmin');
-    if (admin === 'true') {
-      setIsLoggedIn(true);
-      fetchApplications();
-    }
+    fetchApplications();
   }, []);
 
   const fetchApplications = async () => {
@@ -47,22 +49,19 @@ export default function DashboardPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email === 'admin@gmail.com' && password === 'Admin@123') {
-      localStorage.setItem('isAdmin', 'true');
-      setIsLoggedIn(true);
-      setError('');
-      fetchApplications();
-    } else {
-      setError('Invalid email or password');
-    }
-  };
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAdmin');
-    setIsLoggedIn(false);
-    setApps([]);
+
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+      });
+
+      window.location.href = '/login';
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
   };
 
   const filtered = useMemo(() => {
@@ -78,70 +77,6 @@ export default function DashboardPage() {
       return after && before;
     });
   }, [apps, fromDate, toDate]);
-
-  // Login Screen with Password Toggle
-  if (!isLoggedIn) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
-        <div className="bg-zinc-900/90 backdrop-blur-xl p-10 rounded-2xl w-full max-w-md border border-yellow-500/20 shadow-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-              DriWE
-            </h1>
-            <p className="text-gray-400 mt-2">Admin Portal</p>
-          </div>
-          <h2 className="text-2xl font-bold text-center text-white mb-8">Secure Login</h2>
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-5 py-3 bg-zinc-800/50 border border-zinc-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
-                placeholder="admin@gmail.com"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-5 py-3 pr-12 bg-zinc-800/50 border border-zinc-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
-                  placeholder="••••••••"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-yellow-400 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-            </div>
-            {error && (
-              <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
-            <button
-              type="submit"
-              className="w-full py-4 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold rounded-xl transition-all transform hover:scale-[1.02] shadow-lg"
-            >
-              Access Dashboard
-            </button>
-          </form>
-          <p className="text-center text-xs text-gray-500 mt-6">
-            © 2025 DriWE Technologies Pvt. Ltd.
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   // Dashboard
   return (
@@ -180,7 +115,9 @@ export default function DashboardPage() {
           <div className="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6">
             <p className="text-gray-400 text-sm">Last Updated</p>
             <p className="text-lg font-medium text-white mt-2">
-              {new Date().toLocaleTimeString('en-IN')}
+              {mounted
+  ? new Date().toLocaleTimeString('en-IN')
+  : '--:--:--'}
             </p>
           </div>
         </div>
@@ -324,11 +261,10 @@ export default function DashboardPage() {
                             }
                           }}
                           disabled={deletingId === app.id}
-                          className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                            deletingId === app.id
+                          className={`px-4 py-2 rounded-lg font-medium transition-all ${deletingId === app.id
                               ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
                               : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-lg hover:shadow-red-500/30'
-                          }`}
+                            }`}
                         >
                           {deletingId === app.id ? 'Deleting...' : 'Delete'}
                         </button>
@@ -349,3 +285,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
