@@ -133,8 +133,8 @@ export default function LoginPage() {
       console.log('✅ Login successful - Redirecting...');
       window.location.href = '/dashboard';
 
-    } catch (err: any) {
-      console.error('❌ Login Error:', err);
+    } catch (err: unknown) {
+      console.error('❌ Login Error:', (err as Error).message);
       setError('Failed to connect to server. Check console.');
     } finally {
       setLoading(false);

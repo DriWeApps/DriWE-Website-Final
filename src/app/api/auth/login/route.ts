@@ -144,8 +144,8 @@ export async function POST(req: Request) {
     console.log('✅ Login successful, token set');
     return response;
 
-  } catch (err: any) {
-    console.error('🚨 Login API Error:', err.message);
+  } catch (err: unknown) {
+    console.error('🚨 Login API Error:', (err as Error).message);
     return NextResponse.json(
       { error: 'Server error. Check console.' },
       { status: 500 }
