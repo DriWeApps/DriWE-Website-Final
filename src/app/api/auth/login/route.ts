@@ -144,11 +144,16 @@ export async function POST(req: Request) {
     console.log('✅ Login successful, token set');
     return response;
 
-  } catch (err: unknown) {
-    console.error('🚨 Login API Error:', (err as Error).message);
-    return NextResponse.json(
-      { error: 'Server error. Check console.' },
-      { status: 500 }
-    );
-  }
+  } catch (error) {
+  console.error('LOGIN ERROR:', error);
+
+  return Response.json(
+    {
+      error: String(error),
+    },
+    {
+      status: 500,
+    }
+  );
+}
 }
