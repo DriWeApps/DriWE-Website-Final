@@ -277,14 +277,13 @@ export async function DELETE(req: Request) {
       }),
       { status: 200 }
     );
-  } catch (fileErr) {
-  console.error('Cloudinary upload error:', fileErr);
+  } catch (err) {
+  console.error('Error deleting application:', err);
 
   return new Response(
     JSON.stringify({
       ok: false,
-      error: 'Resume upload failed',
-      details: String(fileErr),
+      error: 'Server error',
     }),
     { status: 500 }
   );
