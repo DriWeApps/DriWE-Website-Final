@@ -78,14 +78,38 @@ export async function POST(req: Request) {
         const bytes = await resume.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
+        // const uploadResult: any = await new Promise((resolve, reject) => {
+        //   const stream = cloudinary.uploader.upload_stream(
+        //     {
+        //       resource_type: 'raw',
+        //       folder: 'resumes',
+        //       public_id: `${Date.now()}-${resume.name
+        //         .replace(/\s+/g, '-')
+        //         .replace(/[^\w.-]/g, '')}`,
+        //     },
+        //     (error, result) => {
+        //       if (error) {
+        //         reject(error);
+        //       } else {
+        //         resolve(result);
+        //       }
+        //     }
+        //   );
+
+        //   stream.end(buffer);
+        // });
+
+        // resumePath = uploadResult.secure_url;
+
         const uploadResult: any = await new Promise((resolve, reject) => {
           const stream = cloudinary.uploader.upload_stream(
             {
               resource_type: 'raw',
+              type: 'upload',
+              access_mode: 'public',
               folder: 'resumes',
-              public_id: `${Date.now()}-${resume.name
-                .replace(/\s+/g, '-')
-                .replace(/[^\w.-]/g, '')}`,
+              use_filename: true,
+              unique_filename: true,
             },
             (error, result) => {
               if (error) {
@@ -99,9 +123,13 @@ export async function POST(req: Request) {
           stream.end(buffer);
         });
 
-        resumePath = uploadResult.secure_url;
+        resumePath = uploadResult.secure_url.replace(
+          '/upload/',
+          '/upload/fl_attachment/'
+        );
 
         console.log('Resume uploaded:', resumePath);
+
       } catch (uploadError) {
         console.error('Cloudinary upload error:', uploadError);
 
