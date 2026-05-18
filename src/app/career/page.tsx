@@ -274,11 +274,17 @@ export default function HomePage() {
                 body: fd,
             });
 
-            const data = await res.json();
+            let data: any = {};
 
-            if (!res.ok) {
-                throw new Error(data?.error || 'Submission failed');
-            }
+try {
+    data = await res.json();
+} catch {
+    data = {};
+}
+
+if (!res.ok) {
+    throw new Error(data?.error || 'Submission failed');
+}
 
             alert('Application submitted successfully');
 
