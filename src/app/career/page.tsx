@@ -1,13 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function HomePage() {
     const [showForm, setShowForm] = useState(false);
     const [selectedJob, setSelectedJob] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const dobInputRef = useRef<HTMLInputElement>(null);
 
     const openForm = (job: string) => {
         setSelectedJob(job);
@@ -63,36 +60,22 @@ export default function HomePage() {
                 </div>
 
                 {/* Scroll Indicator */}
-<div
-    onClick={() => {
-        document
-            .getElementById('jobs-section')
-            ?.scrollIntoView({ behavior: 'smooth' });
-    }}
-    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer z-20 animate-bounce"
->
-    <span className="text-yellow-400 text-sm tracking-widest mb-2 hover:text-yellow-300 transition">
-        Scroll Down
-    </span>
+                <div
+                    onClick={() => {
+                        document
+                            .getElementById('jobs-section')
+                            ?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce cursor-pointer z-20"
+                >
+                    <span className="text-yellow-400 text-sm tracking-widest mb-2 hover:text-yellow-300 transition">
+                        Scroll Down
+                    </span>
 
-    {/* Normal Arrow */}
-    <div className="flex flex-col items-center">
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-8 h-8 text-yellow-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-        >
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19 9l-7 7-7-7"
-            />
-        </svg>
-    </div>
-</div>
+                    <div className="w-6 h-10 border-2 border-yellow-400 rounded-full flex justify-center p-1">
+                        <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-scroll"></div>
+                    </div>
+                </div>
             </header>
 
             {/* Main Content */}
@@ -177,10 +160,10 @@ export default function HomePage() {
                     </div>
 
                     {/* Open Position */}
-                    <div className="mt-20 bg-gradient-to-br from-yellow-500/10 to-yellow-400/5 backdrop-blur-xl border border-yellow-500/20 rounded-3xl p-8 shadow-[0_0_30px_rgba(250,204,21,0.08)]">
-                        <h2 className="text-4xl font-extrabold mb-10 text-white text-center">
-                            Join the <span className="text-yellow-400">Movement</span>
-                        </h2>
+                   <div className="mt-20 bg-gradient-to-br from-yellow-500/10 to-yellow-400/5 backdrop-blur-xl border border-yellow-500/20 rounded-3xl p-8 shadow-[0_0_30px_rgba(250,204,21,0.08)]">
+    <h2 className="text-4xl font-extrabold mb-10 text-white text-center">
+        Join the <span className="text-yellow-400">Movement</span>
+    </h2>
 
                         <div
                             id="jobs-section"
@@ -281,37 +264,27 @@ export default function HomePage() {
                                     onSubmit={async (e) => {
                                         e.preventDefault();
 
-                                        if (loading) return;
+                                        const fd = new FormData(
+                                            e.currentTarget as HTMLFormElement
+                                        );
 
-                                        try {
-                                            setLoading(true);
+                                        const res = await fetch('/api/application', {
+                                            method: 'POST',
+                                            body: fd,
+                                        });
 
-                                            const fd = new FormData(
-                                                e.currentTarget as HTMLFormElement
+                                        if (res.ok) {
+                                            alert('Application submitted successfully');
+                                            closeForm();
+                                        } else {
+                                            const err = await res
+                                                .json()
+                                                .catch(() => ({ error: 'Failed' }));
+
+                                            alert(
+                                                'Submission failed: ' +
+                                                (err?.error || 'Unknown error')
                                             );
-
-                                            try {
-    const res = await fetch('/api/application', {
-        method: 'POST',
-        body: fd,
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-        alert('Application submitted successfully');
-        closeForm();
-    } else {
-        alert(data?.error || 'Something went wrong');
-    }
-} catch (error) {
-    console.error(error);
-    alert('Something went wrong');
-}
-                                        } catch (error) {
-                                            alert('Something went wrong');
-                                        } finally {
-                                            setLoading(false);
                                         }
                                     }}
                                     encType="multipart/form-data"
@@ -339,19 +312,18 @@ export default function HomePage() {
                                     />
 
                                     {/* Android DOB Fix */}
-                                    <div className="relative">
-                                        <input
-                                            ref={dobInputRef}
-                                            name="dob"
-                                            type="date"
-                                            className="border border-zinc-700 bg-zinc-950 w-full p-3 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500 appearance-none"
-                                            onClick={() => {
-                                                if (dobInputRef.current?.showPicker) {
-                                                    dobInputRef.current.showPicker();
-                                                }
-                                            }}
-                                        />
-                                    </div>
+                                    <input
+                                        name="dob"
+                                        type="text"
+                                        placeholder="Date of Birth"
+                                        onFocus={(e) => (e.target.type = 'date')}
+                                        onBlur={(e) => {
+                                            if (!e.target.value) {
+                                                e.target.type = 'text';
+                                            }
+                                        }}
+                                        className="border border-zinc-700 bg-zinc-950 w-full p-3 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                    />
 
                                     <input
                                         name="mobileNumber"
@@ -423,4 +395,3 @@ export default function HomePage() {
         </>
     );
 }
-
