@@ -82,15 +82,14 @@ export async function POST(req: Request) {
 
         // Upload to Cloudinary
         const uploadResult: any = await new Promise((resolve, reject) => {
-          const stream = cloudinary.uploader.upload_stream(
-            {
-              resource_type: 'raw',
-              type: 'upload',
-              access_mode: 'public',
-              folder: 'resumes',
-              use_filename: true,
-              unique_filename: true,
-            },
+         const stream = cloudinary.uploader.upload_stream(
+  {
+    resource_type: 'auto',
+    access_mode: 'public',
+    folder: 'resumes',
+    use_filename: true,
+    unique_filename: true,
+  },
             (error, result) => {
               if (error) {
                 reject(error);
