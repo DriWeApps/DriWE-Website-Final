@@ -63,36 +63,36 @@ export default function HomePage() {
                 </div>
 
                 {/* Scroll Indicator */}
-                <div
-                    onClick={() => {
-                        document
-                            .getElementById('jobs-section')
-                            ?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer z-20 animate-bounce"
-                >
-                    <span className="text-yellow-400 text-sm tracking-widest mb-2 hover:text-yellow-300 transition">
-                        Scroll Down
-                    </span>
+<div
+    onClick={() => {
+        document
+            .getElementById('jobs-section')
+            ?.scrollIntoView({ behavior: 'smooth' });
+    }}
+    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer z-20 animate-bounce"
+>
+    <span className="text-yellow-400 text-sm tracking-widest mb-2 hover:text-yellow-300 transition">
+        Scroll Down
+    </span>
 
-                    {/* Normal Arrow */}
-                    <div className="flex flex-col items-center">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="w-8 h-8 text-yellow-400"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19 9l-7 7-7-7"
-                            />
-                        </svg>
-                    </div>
-                </div>
+    {/* Normal Arrow */}
+    <div className="flex flex-col items-center">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-8 h-8 text-yellow-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.5}
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 9l-7 7-7-7"
+            />
+        </svg>
+    </div>
+</div>
             </header>
 
             {/* Main Content */}
@@ -290,25 +290,24 @@ export default function HomePage() {
                                                 e.currentTarget as HTMLFormElement
                                             );
 
-                                            const res = await fetch('/api/application', {
-                                                method: 'POST',
-                                                body: fd,
-                                            });
+                                            try {
+    const res = await fetch('/api/application', {
+        method: 'POST',
+        body: fd,
+    });
 
-                                            const data = await res.json();
+    const data = await res.json();
 
-                                            if (res.ok) {
-                                                alert('Application submitted successfully');
-
-                                                (e.currentTarget as HTMLFormElement).reset();
-
-                                                closeForm();
-                                            } else {
-                                                alert(
-                                                    'Submission failed: ' +
-                                                    (data?.error || 'Unknown error')
-                                                );
-                                            }
+    if (res.ok) {
+        alert('Application submitted successfully');
+        closeForm();
+    } else {
+        alert(data?.error || 'Something went wrong');
+    }
+} catch (error) {
+    console.error(error);
+    alert('Something went wrong');
+}
                                         } catch (error) {
                                             alert('Something went wrong');
                                         } finally {
