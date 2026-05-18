@@ -261,35 +261,40 @@ export default function HomePage() {
                                 </p>
 
                                 <form
-                                    onSubmit={async (e) => {
-                                        e.preventDefault();
+    onSubmit={async (e) => {
+        e.preventDefault();
 
-                                        const fd = new FormData(
-                                            e.currentTarget as HTMLFormElement
-                                        );
+        try {
+            const formElement = e.currentTarget as HTMLFormElement;
 
-                                        const res = await fetch('/api/application', {
-                                            method: 'POST',
-                                            body: fd,
-                                        });
+            const fd = new FormData(formElement);
 
-                                        if (res.ok) {
-                                            alert('Application submitted successfully');
-                                            closeForm();
-                                        } else {
-                                            const err = await res
-                                                .json()
-                                                .catch(() => ({ error: 'Failed' }));
+            const res = await fetch('/api/application', {
+                method: 'POST',
+                body: fd,
+            });
 
-                                            alert(
-                                                'Submission failed: ' +
-                                                (err?.error || 'Unknown error')
-                                            );
-                                        }
-                                    }}
-                                    encType="multipart/form-data"
-                                    className="space-y-4"
-                                >
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data?.error || 'Submission failed');
+            }
+
+            alert('Application submitted successfully');
+
+            formElement.reset();
+
+            closeForm();
+
+        } catch (error: any) {
+            console.error(error);
+
+            alert(error.message || 'Something went wrong');
+        }
+    }}
+    encType="multipart/form-data"
+    className="space-y-4"
+>
                                     <input
                                         type="hidden"
                                         name="position"
