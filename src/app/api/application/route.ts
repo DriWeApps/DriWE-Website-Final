@@ -1,147 +1,41 @@
-// import prisma from '../../../lib/prisma';
-// import fs from 'fs';
-// import path from 'path';
-
-// export const runtime = 'nodejs';
-
-// // ───────────────────────────────────────────────
-// // POST → Save Application
-// // ───────────────────────────────────────────────
-// export async function POST(req: Request) {
-//   try {
-//     const form = await req.formData();
-
-//     const get = (k: string): string | undefined => {
-//       const v = form.get(k);
-//       return v === null ? undefined : String(v);
-//     };
-
-//     const name = get('name') || '';
-//     const email = get('email') || '';
-//     const dobRaw = get('dob');
-//     const dob = dobRaw ? new Date(dobRaw) : null;
-//     const mobileNumber = get('mobileNumber');
-//     const education = get('education');
-//     const experience = get('experience');
-//     const address = get('address');
-//     const position = get('position');
-
-//     let resumePath: string | null = null;
-//     const resume = form.get('resume') as File | null; // ← FIXED: No more `any`
-
-//     if (resume && resume.name) {
-//       try {
-//         const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-//         await fs.promises.mkdir(uploadsDir, { recursive: true });
-
-//         const safeName = resume.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-//         const filename = `${Date.now()}-${safeName}`;
-//         const filePath = path.join(uploadsDir, filename);
-
-//         const buffer = Buffer.from(await resume.arrayBuffer());
-//         await fs.promises.writeFile(filePath, buffer);
-
-//         resumePath = `/uploads/${filename}`;
-//       } catch (fileErr) {
-//         console.error('Resume save error:', fileErr);
-//       }
-//     }
-
-//     if (!name || !email) {
-//       return new Response(
-//         JSON.stringify({ ok: false, error: 'Name and email are required' }),
-//         { status: 400 }
-//       );
-//     }
-
-//     const created = await prisma.application.create({
-//       data: {
-//         name,
-//         email,
-//         dob: dob ?? undefined,
-//         mobileNumber,
-//         education,
-//         experience,
-//         address,
-//         position,
-//         resumePath: resumePath ?? undefined,
-//       },
-//     });
-
-//     return new Response(JSON.stringify({ ok: true, created }), { status: 201 });
-//   } catch (err) {
-//     console.error('Application submission error:', err);
-//     return new Response(JSON.stringify({ ok: false, error: 'Server error' }), {
-//       status: 500,
-//     });
-//   }
-// }
-
-// // ───────────────────────────────────────────────
-// // GET → Fetch Applications
-// // ───────────────────────────────────────────────
-// export async function GET() {
-//   try {
-//     const apps = await prisma.application.findMany({
-//       orderBy: { createdAt: 'desc' },
-//     });
-//     return new Response(JSON.stringify(apps), { status: 200 });
-//   } catch (err) {
-//     console.error('Error fetching applications:', err);
-//     return new Response(JSON.stringify({ ok: false, error: 'Server error' }), {
-//       status: 500,
-//     });
-//   }
-// }
-
-// // ───────────────────────────────────────────────
-// // DELETE → Delete Application by ID
-// // ───────────────────────────────────────────────
-// export async function DELETE(req: Request) {
-//   try {
-//     const { id } = await req.json();
-
-//     if (!id) {
-//       return new Response(JSON.stringify({ ok: false, error: 'ID required' }), { status: 400 });
-//     }
-
-//     await prisma.application.delete({
-//       where: { id: Number(id) },
-//     });
-
-//     return new Response(JSON.stringify({ ok: true, message: 'Deleted successfully' }), { status: 200 });
-//   } catch (err) {
-//     console.error('Error deleting application:', err);
-//     return new Response(JSON.stringify({ ok: false, error: 'Server error' }), { status: 500 });
-//   }
-// }
-
 import prisma from '../../../lib/prisma';
 import cloudinary from '../../../lib/cloudinary';
 
 export const runtime = 'nodejs';
 
 // ───────────────────────────────────────────────
-// POST → Save Application
+// POST → Create Application
 // ───────────────────────────────────────────────
 export async function POST(req: Request) {
   try {
     const form = await req.formData();
 
-    const get = (k: string): string | undefined => {
-      const v = form.get(k);
-      return v === null ? undefined : String(v);
+    const get = (key: string): string | undefined => {
+      const value = form.get(key);
+      return value ? String(value) : undefined;
     };
 
-    const name = get('name') || '';
-    const email = get('email') || '';
+    const name = get('name');
+    const email = get('email');
     const dobRaw = get('dob');
-    const dob = dobRaw ? new Date(dobRaw) : null;
+
     const mobileNumber = get('mobileNumber');
     const education = get('education');
     const experience = get('experience');
     const address = get('address');
     const position = get('position');
+
+    if (!name || !email) {
+      return Response.json(
+        {
+          ok: false,
+          error: 'Name and email are required',
+        },
+        { status: 400 }
+      );
+    }
+
+    const dob = dobRaw ? new Date(dobRaw) : null;
 
     let resumePath: string | null = null;
 
@@ -150,17 +44,33 @@ export async function POST(req: Request) {
     // ───────────────────────────────────────────────
     // Upload Resume to Cloudinary
     // ───────────────────────────────────────────────
-    if (resume && resume.name) {
+    if (resume && resume.size > 0) {
       try {
-        // 2MB validation
+        // Max 2MB
         const MAX_SIZE = 2 * 1024 * 1024;
 
         if (resume.size > MAX_SIZE) {
-          return new Response(
-            JSON.stringify({
+          return Response.json(
+            {
               ok: false,
-              error: 'Resume size must be less than 2MB',
-            }),
+              error: 'Resume must be less than 2MB',
+            },
+            { status: 400 }
+          );
+        }
+
+        const allowedTypes = [
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        ];
+
+        if (!allowedTypes.includes(resume.type)) {
+          return Response.json(
+            {
+              ok: false,
+              error: 'Only PDF/DOC/DOCX files are allowed',
+            },
             { status: 400 }
           );
         }
@@ -168,32 +78,46 @@ export async function POST(req: Request) {
         const bytes = await resume.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const base64File = `data:${resume.type};base64,${buffer.toString(
-          'base64'
-        )}`;
+        const uploadResult: any = await new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            {
+              resource_type: 'raw',
+              folder: 'resumes',
+              public_id: `${Date.now()}-${resume.name
+                .replace(/\s+/g, '-')
+                .replace(/[^\w.-]/g, '')}`,
+            },
+            (error, result) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(result);
+              }
+            }
+          );
 
-        const uploadRes = await cloudinary.uploader.upload(base64File, {
-          resource_type: 'raw',
-          folder: 'resumes',
-          public_id: `${Date.now()}-${resume.name}`,
+          stream.end(buffer);
         });
 
-        resumePath = uploadRes.secure_url;
-      } catch (fileErr) {
-        console.error('Cloudinary upload error:', fileErr);
+        resumePath = uploadResult.secure_url;
+
+        console.log('Resume uploaded:', resumePath);
+      } catch (uploadError) {
+        console.error('Cloudinary upload error:', uploadError);
+
+        return Response.json(
+          {
+            ok: false,
+            error: 'Resume upload failed',
+          },
+          { status: 500 }
+        );
       }
     }
 
-    if (!name || !email) {
-      return new Response(
-        JSON.stringify({
-          ok: false,
-          error: 'Name and email are required',
-        }),
-        { status: 400 }
-      );
-    }
-
+    // ───────────────────────────────────────────────
+    // Save to Database
+    // ───────────────────────────────────────────────
     const created = await prisma.application.create({
       data: {
         name,
@@ -204,21 +128,25 @@ export async function POST(req: Request) {
         experience,
         address,
         position,
-        resumePath: resumePath ?? undefined,
+        resumePath,
       },
     });
 
-    return new Response(JSON.stringify({ ok: true, created }), {
-      status: 201,
-    });
+    return Response.json(
+      {
+        ok: true,
+        created,
+      },
+      { status: 201 }
+    );
   } catch (err) {
     console.error('Application submission error:', err);
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
         ok: false,
-        error: 'Server error',
-      }),
+        error: 'Internal server error',
+      },
       { status: 500 }
     );
   }
@@ -230,62 +158,68 @@ export async function POST(req: Request) {
 export async function GET() {
   try {
     const apps = await prisma.application.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
-    return new Response(JSON.stringify(apps), {
+    return Response.json(apps, {
       status: 200,
     });
   } catch (err) {
-    console.error('Error fetching applications:', err);
+    console.error('Fetch applications error:', err);
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
         ok: false,
-        error: 'Server error',
-      }),
+        error: 'Failed to fetch applications',
+      },
       { status: 500 }
     );
   }
 }
 
 // ───────────────────────────────────────────────
-// DELETE → Delete Application by ID
+// DELETE → Delete Application
 // ───────────────────────────────────────────────
 export async function DELETE(req: Request) {
   try {
-    const { id } = await req.json();
+    const body = await req.json();
+
+    const id = Number(body.id);
 
     if (!id) {
-      return new Response(
-        JSON.stringify({
+      return Response.json(
+        {
           ok: false,
-          error: 'ID required',
-        }),
+          error: 'Application ID required',
+        },
         { status: 400 }
       );
     }
 
     await prisma.application.delete({
-      where: { id: Number(id) },
+      where: {
+        id,
+      },
     });
 
-    return new Response(
-      JSON.stringify({
+    return Response.json(
+      {
         ok: true,
-        message: 'Deleted successfully',
-      }),
+        message: 'Application deleted successfully',
+      },
       { status: 200 }
     );
   } catch (err) {
-  console.error('Error deleting application:', err);
+    console.error('Delete application error:', err);
 
-  return new Response(
-    JSON.stringify({
-      ok: false,
-      error: 'Server error',
-    }),
-    { status: 500 }
-  );
-}
+    return Response.json(
+      {
+        ok: false,
+        error: 'Failed to delete application',
+      },
+      { status: 500 }
+    );
+  }
 }
