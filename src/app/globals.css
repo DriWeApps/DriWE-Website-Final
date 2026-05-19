@@ -122,25 +122,18 @@
 }
 
 
-@keyframes scroll {
-  0% {
+@keyframes simpleBounce {
+  0%, 100% {
     transform: translateY(0);
-    opacity: 1;
   }
 
   50% {
-    transform: translateY(10px);
-    opacity: 0.4;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
+    transform: translateY(6px);
   }
 }
 
-.animate-scroll {
-  animation: scroll 1.5s infinite;
+.animate-simple-bounce {
+  animation: simpleBounce 1.4s infinite;
 }
 html {
   scroll-behavior: smooth;

@@ -36,7 +36,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const dob = dobRaw ? new Date(dobRaw) : null;
+    // const dob = dobRaw ? new Date(dobRaw) : null;
+    const dob = dobRaw || null;
 
     let resumePath: string | null = null;
 
@@ -145,17 +146,29 @@ export async function POST(req: Request) {
       { status: 201 }
     );
 
-  } catch (err) {
-    console.error('Application submission error:', err);
+  } catch (err: any) {
+  console.error('Application submission error:', err);
 
+  // Prisma duplicate email error
+  if (err.code === 'P2002') {
     return Response.json(
       {
         ok: false,
-        error: 'Internal server error',
+        error:
+          'An application with this email already exists. You have already applied.',
       },
-      { status: 500 }
+      { status: 400 }
     );
   }
+
+  return Response.json(
+    {
+      ok: false,
+      error: 'Internal server error',
+    },
+    { status: 500 }
+  );
+}
 }
 
 // ───────────────────────────────────────────────
