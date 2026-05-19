@@ -82,16 +82,6 @@ export default function DashboardPage() {
   // Dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
-     {/* Top Bar */}
-<div className="sticky top-0 z-50 flex justify-end p-6">
-  <button
-    onClick={handleLogout}
-    className="bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-medium transition-all hover:shadow-lg hover:shadow-red-500/25"
-  >
-    Logout
-  </button>
-</div>
-
       <div className="max-w-7xl mx-auto p-6">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -111,6 +101,12 @@ export default function DashboardPage() {
                 : '--:--:--'}
             </p>
           </div>
+          <button
+            onClick={handleLogout}
+            className="mt-5 bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg font-medium transition-all hover:shadow-lg hover:shadow-red-500/25"
+          >
+            Logout
+          </button>
         </div>
 
         {/* Filter Section */}
