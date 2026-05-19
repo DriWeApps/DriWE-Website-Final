@@ -100,14 +100,15 @@ export default function DashboardPage() {
                 ? new Date().toLocaleTimeString('en-IN')
                 : '--:--:--'}
             </p>
+            <button
+              onClick={handleLogout}
+              className="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-md font-medium transition-all"
+            >
+              Logout
+            </button>
           </div>
-          <button
-            onClick={handleLogout}
-            className="text-xs bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-md font-medium transition-all"
-          >
-            Logout
-          </button>
         </div>
+
 
         {/* Filter Section */}
         <div className="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 mb-8">
