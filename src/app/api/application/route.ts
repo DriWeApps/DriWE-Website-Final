@@ -124,11 +124,48 @@ export async function POST(req: Request) {
     // ───────────────────────────────────────────────
     // Save Application to Database
     // ───────────────────────────────────────────────
-    const created = await prisma.application.create({
+//     const created = await prisma.application.create({
+//   data: {
+//     name,
+//     email,
+//     dob: dob ? new Date(dob).toISOString() : null,
+//     mobileNumber,
+//     education,
+//     experience,
+//     address,
+//     position,
+//     resumePath,
+//   },
+// });
+let parsedDob: Date | null = null;
+
+if (dob) {
+  // Handle DD/MM/YYYY format from iPhone Safari
+  const parts = dob.split('/');
+
+  if (parts.length === 3) {
+    const [day, month, year] = parts;
+
+    parsedDob = new Date(
+      Number(year),
+      Number(month) - 1,
+      Number(day)
+    );
+  } else {
+    // fallback for other formats
+    const temp = new Date(dob);
+
+    if (!isNaN(temp.getTime())) {
+      parsedDob = temp;
+    }
+  }
+}
+
+const created = await prisma.application.create({
   data: {
     name,
     email,
-    dob: dob ? new Date(dob).toISOString() : null,
+    dob: parsedDob,
     mobileNumber,
     education,
     experience,
@@ -137,7 +174,6 @@ export async function POST(req: Request) {
     resumePath,
   },
 });
-
     return Response.json(
       {
         ok: true,
