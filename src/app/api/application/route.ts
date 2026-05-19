@@ -86,11 +86,11 @@ export async function POST(req: Request) {
           const stream = cloudinary.uploader.upload_stream(
             {
               resource_type: 'auto',
-              access_mode: 'public',
-              folder: 'resumes',
+              // access_mode: 'public',
+              // folder: 'resumes',
               use_filename: true,
               unique_filename: true,
-              flags: 'attachment:false',
+              // flags: 'attachment:false',
             },
             (error, result) => {
               if (error) {

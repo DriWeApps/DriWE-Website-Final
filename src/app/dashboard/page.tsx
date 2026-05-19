@@ -82,25 +82,15 @@ export default function DashboardPage() {
   // Dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
-      {/* Header Bar */}
-      <div className="bg-zinc-900/90 backdrop-blur-xl border-b border-zinc-800 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <h1 className="text-3xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">
-              DriWE
-            </h1>
-            <span className="text-xs bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full font-medium">
-              Admin Portal
-            </span>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-medium transition-all hover:shadow-lg hover:shadow-red-500/25"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
+     {/* Top Bar */}
+<div className="sticky top-0 z-50 flex justify-end p-6">
+  <button
+    onClick={handleLogout}
+    className="bg-red-600 hover:bg-red-500 text-white px-6 py-2.5 rounded-lg font-medium transition-all hover:shadow-lg hover:shadow-red-500/25"
+  >
+    Logout
+  </button>
+</div>
 
       <div className="max-w-7xl mx-auto p-6">
         {/* Stats Cards */}
