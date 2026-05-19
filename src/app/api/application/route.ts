@@ -125,18 +125,18 @@ export async function POST(req: Request) {
     // Save Application to Database
     // ───────────────────────────────────────────────
     const created = await prisma.application.create({
-      data: {
-        name,
-        email,
-        dob: dob ?? undefined,
-        mobileNumber,
-        education,
-        experience,
-        address,
-        position,
-        resumePath,
-      },
-    });
+  data: {
+    name,
+    email,
+    dob: dob ? new Date(dob).toISOString() : null,
+    mobileNumber,
+    education,
+    experience,
+    address,
+    position,
+    resumePath,
+  },
+});
 
     return Response.json(
       {
