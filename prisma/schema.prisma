@@ -20,7 +20,7 @@ model Application {
   id           Int       @id @default(autoincrement())
   name         String
   email        String    @unique
-  dob          DateTime?
+  gender       String?
   mobileNumber String?
   education    String?
   experience   String?

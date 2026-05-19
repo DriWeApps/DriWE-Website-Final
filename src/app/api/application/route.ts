@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     const name = get('name');
     const email = get('email');
-    const dobRaw = get('dob');
+    const gender = get('gender');
 
     const mobileNumber = get('mobileNumber');
     const education = get('education');
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     }
 
     // const dob = dobRaw ? new Date(dobRaw) : null;
-    const dob = dobRaw || null;
+
 
     let resumePath: string | null = null;
 
@@ -81,16 +81,17 @@ export async function POST(req: Request) {
         const bytes = await resume.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Upload to Cloudinary
         const uploadResult: any = await new Promise((resolve, reject) => {
-         const stream = cloudinary.uploader.upload_stream(
-  {
-    resource_type: 'auto',
-    access_mode: 'public',
-    folder: 'resumes',
-    use_filename: true,
-    unique_filename: true,
-  },
+
+          const stream = cloudinary.uploader.upload_stream(
+            {
+              resource_type: 'auto',
+              access_mode: 'public',
+              folder: 'resumes',
+              use_filename: true,
+              unique_filename: true,
+              flags: 'attachment:false',
+            },
             (error, result) => {
               if (error) {
                 reject(error);
@@ -124,56 +125,20 @@ export async function POST(req: Request) {
     // ───────────────────────────────────────────────
     // Save Application to Database
     // ───────────────────────────────────────────────
-//     const created = await prisma.application.create({
-//   data: {
-//     name,
-//     email,
-//     dob: dob ? new Date(dob).toISOString() : null,
-//     mobileNumber,
-//     education,
-//     experience,
-//     address,
-//     position,
-//     resumePath,
-//   },
-// });
-let parsedDob: Date | null = null;
+    const created = await prisma.application.create({
+      data: {
+        name,
+        email,
+        gender,
+        mobileNumber,
+        education,
+        experience,
+        address,
+        position,
+        resumePath,
+      },
+    });
 
-if (dob) {
-  // Handle DD/MM/YYYY format from iPhone Safari
-  const parts = dob.split('/');
-
-  if (parts.length === 3) {
-    const [day, month, year] = parts;
-
-    parsedDob = new Date(
-      Number(year),
-      Number(month) - 1,
-      Number(day)
-    );
-  } else {
-    // fallback for other formats
-    const temp = new Date(dob);
-
-    if (!isNaN(temp.getTime())) {
-      parsedDob = temp;
-    }
-  }
-}
-
-const created = await prisma.application.create({
-  data: {
-    name,
-    email,
-    dob: parsedDob,
-    mobileNumber,
-    education,
-    experience,
-    address,
-    position,
-    resumePath,
-  },
-});
     return Response.json(
       {
         ok: true,
@@ -181,30 +146,30 @@ const created = await prisma.application.create({
       },
       { status: 201 }
     );
+  }
+  catch (err: any) {
+    console.error('Application submission error:', err);
 
-  } catch (err: any) {
-  console.error('Application submission error:', err);
+    // Prisma duplicate email error
+    if (err.code === 'P2002') {
+      return Response.json(
+        {
+          ok: false,
+          error:
+            'An application with this email already exists. You have already applied.',
+        },
+        { status: 400 }
+      );
+    }
 
-  // Prisma duplicate email error
-  if (err.code === 'P2002') {
     return Response.json(
       {
         ok: false,
-        error:
-          'An application with this email already exists. You have already applied.',
+        error: 'Internal server error',
       },
-      { status: 400 }
+      { status: 500 }
     );
   }
-
-  return Response.json(
-    {
-      ok: false,
-      error: 'Internal server error',
-    },
-    { status: 500 }
-  );
-}
 }
 
 // ───────────────────────────────────────────────

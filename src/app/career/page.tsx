@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
+import toast from 'react-hot-toast';
 export default function HomePage() {
     const [showForm, setShowForm] = useState(false);
     const [selectedJob, setSelectedJob] = useState('');
@@ -298,17 +298,16 @@ export default function HomePage() {
                                                 );
                                             }
 
-                                            alert('Application submitted successfully');
+                                            toast.success(
+                                                'Application submitted successfully! We will review your application and get back to you soon.'
+                                            );
 
                                             formElement.reset();
 
                                             closeForm();
 
                                         } catch (error: any) {
-                                            alert(
-                                                error.message ||
-                                                'Something went wrong'
-                                            );
+                                            toast.error(error.message || 'Something went wrong');
                                         }
                                     }}
                                     encType="multipart/form-data"
@@ -335,13 +334,16 @@ export default function HomePage() {
                                         className="border border-zinc-700 bg-zinc-950 w-full p-3 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                                     />
 
-                                    {/* DOB Input */}
-                                    <input
-                                        name="dob"
-                                        type="text"
-                                        placeholder="DD/MM/YYYY"
+                                    <select
+                                        name="gender"
+                                        required
                                         className="border border-zinc-700 bg-zinc-950 w-full p-3 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                                    />
+                                    >
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
 
                                     {/* Mobile Number */}
                                     <input

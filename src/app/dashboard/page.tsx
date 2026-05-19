@@ -1,19 +1,20 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react';
 
 interface Application {
   id: string;
   name: string;
   email: string;
+  gender?: string | null;
+  mobileNumber?: string | null;
+  education?: string | null;
+  experience?: string | null;
+  address?: string | null;
   position: string | null;
   createdAt: string;
   resumePath: string | null;
-  mobileNumber?: string | null;
 }
-
-
 
 export default function DashboardPage() {
 
@@ -116,8 +117,8 @@ export default function DashboardPage() {
             <p className="text-gray-400 text-sm">Last Updated</p>
             <p className="text-lg font-medium text-white mt-2">
               {mounted
-  ? new Date().toLocaleTimeString('en-IN')
-  : '--:--:--'}
+                ? new Date().toLocaleTimeString('en-IN')
+                : '--:--:--'}
             </p>
           </div>
         </div>
@@ -181,7 +182,11 @@ export default function DashboardPage() {
                 <thead className="bg-gradient-to-r from-zinc-800 to-zinc-900 text-yellow-400 uppercase text-xs font-bold tracking-wider">
                   <tr>
                     <th className="px-6 py-5">Candidate</th>
+                    <th className="px-6 py-5">Gender</th>
                     <th className="px-6 py-5">Contact</th>
+                    <th className="px-6 py-5">Education</th>
+                    <th className="px-6 py-5">Experience</th>
+                    <th className="px-6 py-5">Address</th>
                     <th className="px-6 py-5">Position</th>
                     <th className="px-6 py-5">Applied On</th>
                     <th className="px-6 py-5">Resume</th>
@@ -195,8 +200,17 @@ export default function DashboardPage() {
                       className="hover:bg-zinc-800/50 transition-all duration-300 group"
                     >
                       <td className="px-6 py-5">
-                        <div className="font-semibold text-white">{app.name}</div>
+                        <div className="font-semibold text-white">
+                          {app.name}
+                        </div>
                       </td>
+
+                      {/* Gender Column */}
+                      <td className="px-6 py-5 text-gray-300">
+                        {app.gender || '—'}
+                      </td>
+
+                      {/* Contact Column */}
                       <td className="px-6 py-5">
                         <div>
                           <a
@@ -205,16 +219,39 @@ export default function DashboardPage() {
                           >
                             {app.email}
                           </a>
+
                           {app.mobileNumber && (
-                            <p className="text-gray-400 text-sm mt-1">{app.mobileNumber}</p>
+                            <p className="text-gray-400 text-sm mt-1">
+                              {app.mobileNumber}
+                            </p>
                           )}
                         </div>
                       </td>
+
+                      {/* Education */}
+                      <td className="px-6 py-5 text-gray-300">
+                        {app.education || '—'}
+                      </td>
+
+                      {/* Experience */}
+                      <td className="px-6 py-5 text-gray-300">
+                        {app.experience || '—'}
+                      </td>
+
+                      {/* Address */}
+                      <td className="px-6 py-5 text-gray-300 max-w-[250px]">
+                        <div className="truncate" title={app.address || ''}>
+                          {app.address || '—'}
+                        </div>
+                      </td>
+
+
                       <td className="px-6 py-5">
                         <span className="inline-block px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-medium">
                           {app.position || 'Not Specified'}
                         </span>
                       </td>
+
                       <td className="px-6 py-5 text-gray-300">
                         {new Date(app.createdAt).toLocaleString('en-IN', {
                           day: '2-digit',
@@ -224,6 +261,7 @@ export default function DashboardPage() {
                           minute: '2-digit',
                         })}
                       </td>
+
                       <td className="px-6 py-5">
                         {app.resumePath ? (
                           <Link
@@ -237,19 +275,27 @@ export default function DashboardPage() {
                           <span className="text-gray-500">—</span>
                         )}
                       </td>
+
                       <td className="px-6 py-5 text-center">
                         <button
                           onClick={async () => {
                             if (!confirm(`Delete application of ${app.name}?`)) return;
+
                             setDeletingId(app.id);
+
                             try {
                               const res = await fetch('/api/application', {
                                 method: 'DELETE',
-                                headers: { 'Content-Type': 'application/json' },
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
                                 body: JSON.stringify({ id: app.id }),
                               });
+
                               if (res.ok) {
-                                setApps((prev) => prev.filter((a) => a.id !== app.id));
+                                setApps((prev) =>
+                                  prev.filter((a) => a.id !== app.id)
+                                );
                               } else {
                                 alert('Failed to delete');
                               }
@@ -262,8 +308,8 @@ export default function DashboardPage() {
                           }}
                           disabled={deletingId === app.id}
                           className={`px-4 py-2 rounded-lg font-medium transition-all ${deletingId === app.id
-                              ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                              : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-lg hover:shadow-red-500/30'
+                            ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                            : 'bg-red-600 hover:bg-red-500 text-white hover:shadow-lg hover:shadow-red-500/30'
                             }`}
                         >
                           {deletingId === app.id ? 'Deleting...' : 'Delete'}
@@ -280,7 +326,7 @@ export default function DashboardPage() {
 
       {/* Footer */}
       <div className="mt-16 text-center text-gray-500 text-sm pb-8">
-        © 2025 DriWE Technologies Pvt. Ltd. All rights reserved. | Admin Portal v1.0
+        © 2025 DriWE Smartech Pvt. Ltd.
       </div>
     </div>
   );

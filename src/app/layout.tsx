@@ -1,5 +1,6 @@
 "use client";
 import { Poppins } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,6 +30,17 @@ export default function RootLayout({
         className={`${poppins.variable} antialiased bg-black text-white min-h-screen`}
         suppressHydrationWarning
       >
+
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: '#18181b',
+              color: '#fff',
+              border: '1px solid #facc15',
+            },
+          }}
+        />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <div className="bg-black text-white min-h-screen">
             <Header />
