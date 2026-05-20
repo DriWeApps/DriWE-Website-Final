@@ -29,3 +29,16 @@ model Application {
   resumePath   String?
   createdAt    DateTime  @default(now())
 }
+
+
+model Job {
+  id               Int      @id @default(autoincrement())
+  title            String
+  description      String
+  responsibilities String   @db.LongText
+  requiredSkills   String   @db.LongText
+  education        String?
+  experience       String?
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+}

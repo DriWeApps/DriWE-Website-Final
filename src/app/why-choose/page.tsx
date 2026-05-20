@@ -321,35 +321,35 @@ function BenefitItem({
   }, []);
 
   return (
-  <div
-    ref={sectionRef || ref}
-    className="flex flex-col gap-6 py-10 transform-gpu relative"
-  >
-    <div className="flex items-center gap-4 relative z-10">
-      <Icon
-        ref={iconRef}
-        className="w-10 h-10 text-white transition-transform duration-200"
-      />
-
-      <h3
-        ref={titleRef}
-        className="text-2xl font-semibold text-white tracking-tight"
-      >
-        {title}
-      </h3>
-    </div>
-
-    <p
-      ref={descRef}
-      className="text-lg text-white text-center max-w-3xl mx-auto relative z-10"
+    <div
+      ref={sectionRef || ref}
+      className="flex flex-col gap-6 py-10 transform-gpu relative"
     >
-      {description}
-    </p>
+      <div className="flex items-center gap-4 relative z-10">
+        <Icon
+          ref={iconRef}
+          className="w-10 h-10 text-white transition-transform duration-200"
+        />
 
-    {/* White Horizontal Line After Description */}
-    <div className="w-full h-[1px] bg-white opacity-80 mt-4"></div>
-  </div>
-);
+        <h3
+          ref={titleRef}
+          className="text-2xl font-semibold text-white tracking-tight"
+        >
+          {title}
+        </h3>
+      </div>
+
+      <p
+        ref={descRef}
+        className="text-lg text-white text-center max-w-3xl mx-auto relative z-10"
+      >
+        {description}
+      </p>
+
+      {/* White Horizontal Line After Description */}
+      <div className="w-full h-[1px] bg-white opacity-80 mt-4"></div>
+    </div>
+  );
 }
 
 /* ----------------------- Stats Section ----------------------- */
@@ -535,7 +535,7 @@ export default function DriwePage3D() {
 
       {/* Testimonials */}
       <section className="py-32 px-6 bg-gradient-to-br from-yellow-500/10 to-yellow-400/5 backdrop-blur-xl border border-yellow-500/20 rounded-3xl shadow-[0_0_30px_rgba(250,204,21,0.08)] relative overflow-hidden">
-        
+
         <h2 className="text-4xl md:text-5xl font-extrabold mb-16 text-white text-center tracking-tight">
           What Our <span className="text-yellow-400">Riders</span> Say
         </h2>

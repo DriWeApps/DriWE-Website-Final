@@ -15,7 +15,7 @@ export default function HomePage() {
         setShowForm(false);
         setSelectedJob('');
     };
-
+    const [jobs, setJobs] = useState<any[]>([]);
     // Prevent background scroll when modal opens
     useEffect(() => {
         if (showForm) {
@@ -28,6 +28,21 @@ export default function HomePage() {
             document.body.style.overflow = 'auto';
         };
     }, [showForm]);
+    useEffect(() => {
+        fetchJobs();
+    }, []);
+
+    const fetchJobs = async () => {
+        try {
+            const res = await fetch('/api/jobs');
+
+            const data = await res.json();
+
+            setJobs(data);
+        } catch (error) {
+            console.error('Failed to fetch jobs');
+        }
+    };
 
     return (
         <>
@@ -83,10 +98,10 @@ export default function HomePage() {
             <main className="min-h-screen bg-neutral-950 text-gray-100 p-6 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto">
 
-                    {/* Join DriWE Crew */}
+                    {/* Join DriWE */}
                     <div className="mb-20">
                         <h2 className="text-4xl font-extrabold text-center text-white mb-4">
-                            Join <span className="text-yellow-400">DriWE Crew</span>
+                            Join <span className="text-yellow-400">DriWE</span>
                         </h2>
 
                         <p className="max-w-3xl mx-auto text-center text-white/70 leading-relaxed text-lg mb-12">
@@ -135,7 +150,7 @@ export default function HomePage() {
                                     Crew <span className="text-yellow-400">Perks</span>
                                 </h3>
 
-                                <div className="space-y-4">
+                                <div className="space-y-5">
                                     {[
                                         'Exclusive events & outings',
                                         'Guestlist access',
@@ -146,9 +161,9 @@ export default function HomePage() {
                                     ].map((perk, i) => (
                                         <div
                                             key={i}
-                                            className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3 hover:bg-yellow-500/10 hover:border-yellow-500/30 transition"
+                                            className="flex items-center gap-4 border-b border-white/10 pb-4 last:border-b-0"
                                         >
-                                            <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                                            <div className="w-2 h-2 rounded-full bg-yellow-400 flex-shrink-0"></div>
 
                                             <span className="text-white/85">
                                                 {perk}
@@ -160,86 +175,80 @@ export default function HomePage() {
                         </div>
                     </div>
 
-                    {/* Open Position */}
-                    <div className="mt-20 bg-gradient-to-br from-yellow-500/10 to-yellow-400/5 backdrop-blur-xl border border-yellow-500/20 rounded-3xl p-8 shadow-[0_0_30px_rgba(250,204,21,0.08)]">
+                    {/* Open Positions */}
+                    <div className="mt-20">
                         <h2 className="text-4xl font-extrabold mb-10 text-white text-center">
-                            Join the <span className="text-yellow-400">Movement</span>
+                            Open <span className="text-yellow-400">Positions</span>
                         </h2>
 
-                        <div
-                            id="jobs-section"
-                            className="max-w-4xl mx-auto bg-gradient-to-br from-zinc-900 to-black border border-yellow-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_40px_rgba(250,204,21,0.08)] hover:shadow-[0_0_50px_rgba(250,204,21,0.15)] transition-all duration-500"
-                        >
-                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-                                <div>
-                                    <h3 className="text-3xl font-bold text-white">
-                                        DriWE <span className="text-yellow-400">Crew</span>
-                                    </h3>
+                        <div id="jobs-section" className="space-y-8">
+                            {jobs.map((job) => (
+                                <div
+                                    key={job.id}
+                                    className="bg-gradient-to-br from-zinc-900 to-black border border-yellow-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_40px_rgba(250,204,21,0.08)]"
+                                >
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+                                        <div>
+                                            <h3 className="text-3xl font-bold text-white">
+                                                {job.title}
+                                            </h3>
 
-                                    <p className="text-white/60 mt-2">
-                                        Lifestyle • Community • Social Experiences
-                                    </p>
-                                </div>
+                                            <p className="text-white/60 mt-2">
+                                                Experience: {job.experience || 'Not specified'}
+                                            </p>
+                                        </div>
 
-                                <div className="bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 px-5 py-2 rounded-full text-sm font-semibold w-fit">
-                                    Open Position
-                                </div>
-                            </div>
+                                        <div className="bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 px-5 py-2 rounded-full text-sm font-semibold w-fit">
+                                            Open Position
+                                        </div>
+                                    </div>
 
-                            <div className="space-y-5 text-white/75 leading-relaxed text-[15px]">
-                                <p>
-                                    We are building a lifestyle-driven community where members
-                                    represent DriWE naturally through experiences, content,
-                                    and social influence.
-                                </p>
+                                    <div className="space-y-5 text-white/75 leading-relaxed text-[15px]">
+                                        <div>
+                                            <h4 className="text-white font-semibold mb-2">
+                                                Description
+                                            </h4>
 
-                                <div>
-                                    <h4 className="text-white font-semibold mb-4">
-                                        We value:
-                                    </h4>
+                                            <p>{job.description}</p>
+                                        </div>
 
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                        {[
-                                            'Energy',
-                                            'Creativity',
-                                            'Social Presence',
-                                            'Consistency',
-                                            'Communication',
-                                            'Initiative',
-                                        ].map((item, i) => (
-                                            <div
-                                                key={i}
-                                                className="bg-white/5 border border-white/10 rounded-2xl px-3 md:px-4 py-3 text-center hover:bg-yellow-500/10 hover:border-yellow-500/30 transition break-words"
-                                            >
-                                                <span className="text-white/90 text-sm md:text-base">
-                                                    {item}
-                                                </span>
-                                            </div>
-                                        ))}
+                                        <div>
+                                            <h4 className="text-white font-semibold mb-2">
+                                                Responsibilities
+                                            </h4>
+
+                                            <p>{job.responsibilities}</p>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="text-white font-semibold mb-2">
+                                                Required Skills
+                                            </h4>
+
+                                            <p>{job.requiredSkills}</p>
+                                        </div>
+
+                                        <div className="flex flex-wrap gap-6 text-sm text-gray-400">
+                                            <span>
+                                                Education: {job.education || 'Not specified'}
+                                            </span>
+
+                                            <span>
+                                                Experience: {job.experience || 'Not specified'}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-10 flex justify-center">
+                                        <button
+                                            onClick={() => openForm(job.title)}
+                                            className="bg-yellow-400 text-black font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:bg-yellow-300 hover:scale-105"
+                                        >
+                                            Apply Now
+                                        </button>
                                     </div>
                                 </div>
-
-                                <p>
-                                    Members who actively contribute through content,
-                                    customer growth, and participation unlock bigger
-                                    opportunities and experiences within DriWE.
-                                </p>
-
-                                <p className="text-yellow-400 font-medium">
-                                    If you think you match the vibe, apply below and
-                                    become part of the movement.
-                                </p>
-                            </div>
-
-                            {/* Apply Button */}
-                            <div className="mt-10 flex justify-center">
-                                <button
-                                    onClick={() => openForm('DriWE Crew')}
-                                    className="bg-yellow-400 text-black font-bold px-8 py-3 rounded-2xl transition-all duration-300 hover:bg-yellow-400 hover:scale-105 hover:shadow-[0_0_25px_rgba(250,204,21,0.5)]"
-                                >
-                                    Apply Now
-                                </button>
-                            </div>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -294,7 +303,7 @@ export default function HomePage() {
                                             if (!res.ok) {
                                                 throw new Error(
                                                     data?.error ||
-                                                    'Email already exists or application already submitted'
+                                                    'Email already exists'
                                                 );
                                             }
 

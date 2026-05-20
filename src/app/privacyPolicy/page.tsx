@@ -59,7 +59,7 @@ export default function RefundPolicyPage() {
         <div className="container relative z-10 mx-auto flex h-[50vh] items-center justify-center px-4 text-center md:px-6">
           <div className="space-y-6">
             <h1 className="hero-text text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl">
-              Privacy <span className="text-yellow-400">Policy</span> 
+              Privacy <span className="text-yellow-400">Policy</span>
             </h1>
             <p className="hero-subtitle text-lg leading-relaxed text-slate-300 max-w-3xl mx-auto">
               We value your trust. Our refund process is designed to be fair, transparent, and hassle-free.

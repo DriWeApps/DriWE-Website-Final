@@ -25,12 +25,36 @@ export default function DashboardPage() {
     setMounted(true);
   }, []);
 
+  const [jobs, setJobs] = useState<any[]>([]);
+  const [editingJobId, setEditingJobId] = useState<number | null>(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [responsibilities, setResponsibilities] = useState('');
+  const [requiredSkills, setRequiredSkills] = useState('');
+  const [education, setEducation] = useState('');
+  const [experience, setExperience] = useState('');
+  const [postingJob, setPostingJob] = useState(false);
+
   const [apps, setApps] = useState<Application[]>([]);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const res = await fetch('/api/jobs');
+      const data = await res.json();
+
+      setJobs(data);
+    } catch (error) {
+      console.error('Failed to fetch jobs');
+    }
+  };
 
   useEffect(() => {
     fetchApplications();
@@ -106,6 +130,280 @@ export default function DashboardPage() {
             >
               Logout
             </button>
+          </div>
+        </div>
+
+        {/* Job Posting Section */}
+        <div className="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 mb-8">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+            {editingJobId ? 'Edit Job' : 'Post New Job'}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
+                Job Title
+              </label>
+
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="Frontend Developer"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
+                Experience
+              </label>
+
+              <input
+                type="text"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="2+ Years"
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm text-gray-300 mb-2">
+                Description
+              </label>
+
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="Job description..."
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm text-gray-300 mb-2">
+                Responsibilities
+              </label>
+
+              <textarea
+                value={responsibilities}
+                onChange={(e) => setResponsibilities(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="Responsibilities..."
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm text-gray-300 mb-2">
+                Required Skills
+              </label>
+
+              <textarea
+                value={requiredSkills}
+                onChange={(e) => setRequiredSkills(e.target.value)}
+                rows={4}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="React, Next.js, Tailwind..."
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm text-gray-300 mb-2">
+                Education
+              </label>
+
+              <input
+                type="text"
+                value={education}
+                onChange={(e) => setEducation(e.target.value)}
+                className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl"
+                placeholder="Bachelor's Degree"
+              />
+            </div>
+          </div>
+
+          <div className="flex gap-4 mt-6">
+
+            <button
+              onClick={async () => {
+                try {
+                  setPostingJob(true);
+
+                  const payload = {
+                    title,
+                    description,
+                    responsibilities,
+                    requiredSkills,
+                    education,
+                    experience,
+                  };
+
+                  let res;
+
+                  if (editingJobId) {
+                    res = await fetch('/api/jobs', {
+                      method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        id: editingJobId,
+                        ...payload,
+                      }),
+                    });
+                  } else {
+                    res = await fetch('/api/jobs', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(payload),
+                    });
+                  }
+
+                  const data = await res.json();
+
+                  if (res.ok) {
+                    alert(
+                      editingJobId
+                        ? 'Job updated successfully'
+                        : 'Job posted successfully'
+                    );
+
+                    setTitle('');
+                    setDescription('');
+                    setResponsibilities('');
+                    setRequiredSkills('');
+                    setEducation('');
+                    setExperience('');
+                    setEditingJobId(null);
+
+                    fetchJobs();
+                  } else {
+                    alert(data.error || 'Something went wrong');
+                  }
+                } catch (error) {
+                  console.error(error);
+                  alert('Something went wrong');
+                } finally {
+                  setPostingJob(false);
+                }
+              }}
+              disabled={postingJob}
+              className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-6 py-3 rounded-xl transition-all"
+            >
+              {postingJob
+                ? editingJobId
+                  ? 'Updating...'
+                  : 'Posting...'
+                : editingJobId
+                  ? 'Update Job'
+                  : 'Post Job'}
+            </button>
+
+            {editingJobId && (
+              <button
+                onClick={() => {
+                  setEditingJobId(null);
+                  setTitle('');
+                  setDescription('');
+                  setResponsibilities('');
+                  setRequiredSkills('');
+                  setEducation('');
+                  setExperience('');
+                }}
+                className="bg-zinc-700 hover:bg-zinc-600 text-white px-6 py-3 rounded-xl"
+              >
+                Cancel Edit
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Posted Jobs */}
+        <div className="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 mb-8">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-6">
+            Posted Jobs
+          </h2>
+
+          <div className="space-y-4">
+            {jobs.map((job) => (
+              <div
+                key={job.id}
+                className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+              >
+                <div>
+                  <h3 className="text-xl font-bold text-white">
+                    {job.title}
+                  </h3>
+
+                  <p className="text-gray-400 text-sm mt-1">
+                    {job.experience || 'No experience added'}
+                  </p>
+                </div>
+
+                <div className="flex gap-3">
+
+                  <button
+                    onClick={() => {
+                      setEditingJobId(job.id);
+
+                      setTitle(job.title || '');
+                      setDescription(job.description || '');
+                      setResponsibilities(job.responsibilities || '');
+                      setRequiredSkills(job.requiredSkills || '');
+                      setEducation(job.education || '');
+                      setExperience(job.experience || '');
+
+                      window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                      });
+                    }}
+                    className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-lg font-medium transition-all"
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={async () => {
+                      if (!confirm(`Delete ${job.title}?`)) return;
+
+                      try {
+                        const res = await fetch('/api/jobs', {
+                          method: 'DELETE',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            id: job.id,
+                          }),
+                        });
+
+                        if (res.ok) {
+                          setJobs((prev) =>
+                            prev.filter((j) => j.id !== job.id)
+                          );
+                        } else {
+                          alert('Failed to delete job');
+                        }
+                      } catch (error) {
+                        console.error(error);
+                        alert('Something went wrong');
+                      }
+                    }}
+                    className="bg-red-600 hover:bg-red-500 text-white px-5 py-2 rounded-lg font-medium transition-all"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -317,5 +615,6 @@ export default function DashboardPage() {
       </div>
     </div>
   );
+
 }
 

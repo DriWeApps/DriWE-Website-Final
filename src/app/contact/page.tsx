@@ -548,9 +548,8 @@ export default function ContactPage() {
         <div
           className="text-center px-6 z-10"
           style={{
-            transform: `translateY(${
-              scrollY * 0.4
-            }px)`,
+            transform: `translateY(${scrollY * 0.4
+              }px)`,
           }}
         >
           <h1 className="text-5xl md:text-7xl font-bold">
@@ -579,11 +578,10 @@ export default function ContactPage() {
         <div className="lg:w-1/2 lg:sticky lg:top-24 self-start">
           <FadeInOnScroll>
             <div
-              className={`glass-card rounded-2xl p-8 shadow-2xl pulse-glow ${
-                isShaking
+              className={`glass-card rounded-2xl p-8 shadow-2xl pulse-glow ${isShaking
                   ? "animate-shake"
                   : ""
-              }`}
+                }`}
             >
               <h3 className="text-2xl font-bold mb-6">
                 Let&apos;s Start a
@@ -609,11 +607,10 @@ export default function ContactPage() {
                       name="name"
                       type="text"
                       required
-                      className={`w-full rounded-lg px-4 py-3 ${
-                        errors.name
+                      className={`w-full rounded-lg px-4 py-3 ${errors.name
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                     />
 
                     {errors.name && (
@@ -635,11 +632,10 @@ export default function ContactPage() {
                       name="email"
                       type="email"
                       required
-                      className={`w-full rounded-lg px-4 py-3 ${
-                        errors.email
+                      className={`w-full rounded-lg px-4 py-3 ${errors.email
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                     />
 
                     {errors.email && (
@@ -662,11 +658,10 @@ export default function ContactPage() {
                       type="tel"
                       maxLength={10}
                       placeholder="Enter 10-digit mobile number"
-                      className={`w-full rounded-lg px-4 py-3 ${
-                        errors.phone
+                      className={`w-full rounded-lg px-4 py-3 ${errors.phone
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                     />
 
                     {errors.phone && (
@@ -687,11 +682,10 @@ export default function ContactPage() {
                     <select
                       name="subject"
                       required
-                      className={`w-full rounded-lg px-4 py-3 ${
-                        errors.subject
+                      className={`w-full rounded-lg px-4 py-3 ${errors.subject
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                     >
                       <option value="">
                         Select inquiry
@@ -743,11 +737,10 @@ export default function ContactPage() {
                     rows={5}
                     required
                     placeholder="Tell us about your interest..."
-                    className={`w-full rounded-lg px-4 py-3 ${
-                      errors.message
+                    className={`w-full rounded-lg px-4 py-3 ${errors.message
                         ? "border-red-500"
                         : ""
-                    }`}
+                      }`}
                   />
 
                   {errors.message && (
@@ -769,7 +762,7 @@ export default function ContactPage() {
                   className="send-button bg-[#fcd129] font-bold px-8 py-3 rounded-lg flex items-center gap-2 min-w-[180px] justify-center hover:bg-[#eab308]"
                 >
                   {formStatus ===
-                  "sending" ? (
+                    "sending" ? (
                     <>
                       <Loader2 className="animate-spin h-5 w-5" />
                       Sending...

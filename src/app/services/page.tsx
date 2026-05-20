@@ -434,20 +434,18 @@ export default function ServicesPage() {
                 {realStories.map((story, index) => (
                   <motion.div
                     key={index}
-                    className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 ${
-                      selectedStory === index
+                    className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 ${selectedStory === index
                         ? "bg-white/10 border-white/50"
                         : "bg-black border-white/20 hover:border-white/40"
-                    }`}
+                      }`}
                     onClick={() => setSelectedStory(index)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <div>
                       <h4
-                        className={`font-medium text-sm ${
-                          selectedStory === index ? "text-[#fcd129]" : "text-white"
-                        }`}
+                        className={`font-medium text-sm ${selectedStory === index ? "text-[#fcd129]" : "text-white"
+                          }`}
                       >
                         {story.story}
                       </h4>
