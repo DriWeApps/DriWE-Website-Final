@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 export default function HomePage() {
+    const [submitting, setSubmitting] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [selectedJob, setSelectedJob] = useState('');
 
@@ -271,8 +272,58 @@ export default function HomePage() {
                                 </p>
 
                                 <form
+                                    // onSubmit={async (e) => {
+                                    //     e.preventDefault();
+
+                                    //     try {
+                                    //         const formElement = e.currentTarget as HTMLFormElement;
+
+                                    //         const fd = new FormData(formElement);
+
+                                    //         const mobile = fd.get('mobileNumber')?.toString() || '';
+
+                                    //         // Mobile validation
+                                    //         if (!/^[6-9]\d{9}$/.test(mobile)) {
+                                    //             alert('Please enter a valid 10-digit mobile number');
+                                    //             return;
+                                    //         }
+
+                                    //         const res = await fetch('/api/application', {
+                                    //             method: 'POST',
+                                    //             body: fd,
+                                    //         });
+
+                                    //         let data: any = {};
+
+                                    //         try {
+                                    //             data = await res.json();
+                                    //         } catch {
+                                    //             data = {};
+                                    //         }
+
+                                    //         if (!res.ok) {
+                                    //             throw new Error(
+                                    //                 data?.error ||
+                                    //                 'Email already exists'
+                                    //             );
+                                    //         }
+
+                                    //         toast.success(
+                                    //             'Application submitted successfully! We will review your application and get back to you soon.'
+                                    //         );
+
+                                    //         formElement.reset();
+
+                                    //         closeForm();
+
+                                    //     } catch (error: any) {
+                                    //         toast.error(error.message || 'Something went wrong');
+                                    //     }
+                                    // }}
                                     onSubmit={async (e) => {
                                         e.preventDefault();
+
+                                        setSubmitting(true);
 
                                         try {
                                             const formElement = e.currentTarget as HTMLFormElement;
@@ -281,9 +332,9 @@ export default function HomePage() {
 
                                             const mobile = fd.get('mobileNumber')?.toString() || '';
 
-                                            // Mobile validation
                                             if (!/^[6-9]\d{9}$/.test(mobile)) {
                                                 alert('Please enter a valid 10-digit mobile number');
+                                                setSubmitting(false);
                                                 return;
                                             }
 
@@ -301,10 +352,7 @@ export default function HomePage() {
                                             }
 
                                             if (!res.ok) {
-                                                throw new Error(
-                                                    data?.error ||
-                                                    'Email already exists'
-                                                );
+                                                throw new Error(data?.error || 'Email already exists');
                                             }
 
                                             toast.success(
@@ -312,11 +360,11 @@ export default function HomePage() {
                                             );
 
                                             formElement.reset();
-
                                             closeForm();
-
                                         } catch (error: any) {
                                             toast.error(error.message || 'Something went wrong');
+                                        } finally {
+                                            setSubmitting(false);
                                         }
                                     }}
                                     encType="multipart/form-data"
@@ -408,11 +456,22 @@ export default function HomePage() {
                                     </div>
 
                                     <div className="flex justify-between pt-4 gap-4">
-                                        <button
+                                        {/* <button
                                             type="submit"
                                             className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-5 py-2.5 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(250,204,21,0.6)]"
                                         >
                                             Submit Application
+                                        </button> */}
+                                        <button
+                                            type="submit"
+                                            disabled={submitting}
+                                            className={`flex-1 font-semibold px-5 py-2.5 rounded-lg transition-all duration-300
+    ${submitting
+                                                    ? 'bg-yellow-300 cursor-not-allowed opacity-70'
+                                                    : 'bg-yellow-500 hover:bg-yellow-400 text-black hover:shadow-[0_0_15px_rgba(250,204,21,0.6)]'
+                                                }`}
+                                        >
+                                            {submitting ? 'Submitting...' : 'Submit Application'}
                                         </button>
 
                                         <button
