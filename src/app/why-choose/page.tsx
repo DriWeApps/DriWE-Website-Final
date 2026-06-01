@@ -589,12 +589,12 @@ export default function DriwePage3D() {
       {/* Services */}
       <section className="py-20 px-6 md:px-20 bg-black">
 
-        <AnimatedImageSection
+        {/* <AnimatedImageSection
           imgSrc="/images/Bike image.avif"
           title="Bike Rides"
           description="Affordable and hassle-free bike rides made for your daily commute. Skip the jams, save time, and enjoy a smooth, reliable trip that’s perfect for short distances."
           verticalLine={true}
-        />
+        /> */}
 
         <AnimatedImageSection
           imgSrc="/images/Auto image.png"

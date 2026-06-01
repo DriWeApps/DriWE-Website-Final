@@ -1,6 +1,6 @@
 'use client';
 import InvestorFAQ from "@/components/InvestorFAQ";
-import PremiumBookingInterface from "@/components/PremiumBookingInterface";
+// import PremiumBookingInterface from "@/components/PremiumBookingInterface";
 import HowItWorks from "@/components/HowItWorks";
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -327,9 +327,9 @@ export default function UltraModernLanding() {
       <InvestorFAQ />
       
       {/* Add ref to PremiumBookingInterface for scrolling */}
-      <div ref={bookingRef}>
+      {/* <div ref={bookingRef}>
         <PremiumBookingInterface />
-      </div>
+      </div> */}
       
       <HowItWorks />
     </div>

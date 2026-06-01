@@ -276,7 +276,7 @@ export default function AboutUs() {
         <hr className="my-20 h-px border-0 bg-gray-700" />
 
         {/* Leadership Team */}
-        <section ref={addToRefs} className="bg-black py-12 px-6 rounded-lg text-center relative z-10">
+        {/* <section ref={addToRefs} className="bg-black py-12 px-6 rounded-lg text-center relative z-10">
           <h3 className="text-2xl font-bold mb-3">
             Leadership <span className="text-yellow-400">Team</span>
           </h3>
@@ -304,12 +304,12 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         <hr className="my-20 h-px border-0 bg-gray-700" />
 
         {/* What Our Users Say */}
-        <section ref={addToRefs} className="bg-[#fcd129]/10 py-12 px-6 rounded-lg relative z-10">
+        {/* <section ref={addToRefs} className="bg-[#fcd129]/10 py-12 px-6 rounded-lg relative z-10">
           <h3 className="text-center text-2xl font-bold text-white mb-3">
             What Our <span className="text-yellow-400">Users</span> Say
           </h3>
@@ -331,7 +331,7 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
       </main>
 
       {/* SINGLE GLOBAL STYLES - NO NESTING */}

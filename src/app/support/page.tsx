@@ -110,7 +110,7 @@ const helpOptions = [
   {
     icon: Phone,
     title: "Phone Support",
-    desc: "Call us for urgent issues",
+    desc: "Call us for urgent issues only (Mon–Fri 10AM–7PM IST)",
     btn: "Start Call",
   },
   {
