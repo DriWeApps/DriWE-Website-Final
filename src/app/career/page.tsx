@@ -7,6 +7,8 @@ export default function HomePage() {
     const [showForm, setShowForm] = useState(false);
     const [selectedJob, setSelectedJob] = useState('');
 
+    
+
     const openForm = (job: string) => {
         setSelectedJob(job);
         setShowForm(true);
@@ -37,9 +39,11 @@ export default function HomePage() {
         try {
             const res = await fetch('/api/jobs');
 
-            const data = await res.json();
+            // const data = await res.json();
 
-            setJobs(data);
+            // setJobs(data);
+            const data = await res.json();
+setJobs(Array.isArray(data) ? data : []);
         } catch (error) {
             console.error('Failed to fetch jobs');
         }
@@ -406,6 +410,7 @@ export default function HomePage() {
                                     <input
                                         name="mobileNumber"
                                         type="tel"
+                                        required
                                         placeholder="Mobile Number"
                                         maxLength={10}
                                         inputMode="numeric"
