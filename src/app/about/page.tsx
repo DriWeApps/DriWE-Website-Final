@@ -274,38 +274,6 @@ export default function AboutUs() {
         </section>
 
         <hr className="my-20 h-px border-0 bg-gray-700" />
-
-        {/* Leadership Team */}
-        {/* <section ref={addToRefs} className="bg-black py-12 px-6 rounded-lg text-center relative z-10">
-          <h3 className="text-2xl font-bold mb-3">
-            Leadership <span className="text-yellow-400">Team</span>
-          </h3>
-          <p className="text-base mb-10">Meet the visionaries driving DriWE forward</p>
-          <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 justify-center">
-            {[
-              { name: "Imroz Khan", role: "CEO", img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Imroz+K" },
-              { name: "Rozina Khan", role: "Director", img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Rozina+K" },
-              { name: "Navid Khan", role: "Director", img: "https://placehold.co/80x80/1a1a1a/fcd129?text=Navid+K" },
-            ].map((person, i) => (
-              <div
-                key={i}
-                className="bg-gray-900 rounded-lg p-6 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl"
-              >
-                <Image
-                  src={person.img}
-                  alt={person.name}
-                  width={96}
-                  height={96}
-                  className="mx-auto rounded-full mb-3 w-24 h-24 object-cover"
-                  priority
-                />
-                <h5 className="font-bold text-lg mb-1">{person.name}</h5>
-                <p className="text-sm text-[#fcd129] font-semibold">{person.role}</p>
-              </div>
-            ))}
-          </div>
-        </section> */}
-
         <hr className="my-20 h-px border-0 bg-gray-700" />
 
         {/* What Our Users Say */}

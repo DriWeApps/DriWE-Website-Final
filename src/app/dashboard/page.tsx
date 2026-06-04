@@ -26,7 +26,7 @@ export default function DashboardPage() {
   }, []);
 
   const [jobs, setJobs] = useState<any[]>([]);
-  const [editingJobId, setEditingJobId] = useState<number | null>(null);
+  const [editingJobId, setEditingJobId] = useState<string | null>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [responsibilities, setResponsibilities] = useState('');
@@ -251,7 +251,7 @@ export default function DashboardPage() {
                         'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
-                        id: editingJobId,
+                        jobId: editingJobId,
                         ...payload,
                       }),
                     });
@@ -333,7 +333,7 @@ export default function DashboardPage() {
           <div className="space-y-4">
             {jobs.map((job) => (
               <div
-                key={job.id}
+                key={job.jobId}
                 className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
               >
                 <div>
@@ -350,7 +350,7 @@ export default function DashboardPage() {
 
                   <button
                     onClick={() => {
-                      setEditingJobId(job.id);
+                      setEditingJobId(job.jobId);
 
                       setTitle(job.title || '');
                       setDescription(job.description || '');
@@ -380,13 +380,13 @@ export default function DashboardPage() {
                             'Content-Type': 'application/json',
                           },
                           body: JSON.stringify({
-                            id: job.id,
+                            id: job.jobId,
                           }),
                         });
 
                         if (res.ok) {
                           setJobs((prev) =>
-                            prev.filter((j) => j.id !== job.id)
+                            prev.filter((j) => j.jobId !== job.jobId)
                           );
                         } else {
                           alert('Failed to delete job');

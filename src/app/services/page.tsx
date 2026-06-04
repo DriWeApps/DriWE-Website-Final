@@ -1,4 +1,3 @@
-// app/services/page.tsx
 "use client";
 
 import React, {
@@ -143,7 +142,6 @@ function CarouselCard({
     }
   }, [shouldReduceMotion]);
 
-  // Removed unused wordMap — was causing lint error
   const getColoredHeadline = (headline: string) => {
     return <span className="text-white">{headline}</span>;
   };
@@ -435,8 +433,8 @@ export default function ServicesPage() {
                   <motion.div
                     key={index}
                     className={`p-4 rounded-xl cursor-pointer transition-all duration-300 border-2 ${selectedStory === index
-                        ? "bg-white/10 border-white/50"
-                        : "bg-black border-white/20 hover:border-white/40"
+                      ? "bg-white/10 border-white/50"
+                      : "bg-black border-white/20 hover:border-white/40"
                       }`}
                     onClick={() => setSelectedStory(index)}
                     whileHover={{ scale: 1.02 }}

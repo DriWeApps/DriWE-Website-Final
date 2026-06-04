@@ -185,7 +185,7 @@ export default function HomePage() {
                         <div id="jobs-section" className="space-y-8">
                             {jobs.map((job) => (
                                 <div
-                                    key={job.id}
+                                    key={job.jobId}
                                     className="bg-gradient-to-br from-zinc-900 to-black border border-yellow-500/20 rounded-3xl p-8 md:p-10 shadow-[0_0_40px_rgba(250,204,21,0.08)]"
                                 >
                                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
