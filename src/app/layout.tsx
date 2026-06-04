@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Providers from "@/components/ui/provider";
 import ScrollToTopButton from "@/components/Scroll";
 import { ThemeProvider } from "next-themes";
 
@@ -51,6 +52,20 @@ export default function RootLayout({
             <Footer />
           </div>
         </ThemeProvider>
+
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+            <div className="bg-black text-white min-h-screen">
+              <Header />
+              <main className="flex-1 w-full bg-black text-white">
+                {children}
+              </main>
+              <ScrollToTopButton />
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </Providers>
+
       </body>
     </html>
   );

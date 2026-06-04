@@ -1,5 +1,6 @@
 
 'use client';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 
 export default function LoginPage() {
@@ -36,7 +37,10 @@ export default function LoginPage() {
       }
 
       console.log('✅ Login successful - Redirecting...');
-      window.location.href = '/dashboard';
+      // window.location.href = '/dashboard';
+      await signIn("google", {
+        callbackUrl: "/dashboard",
+      });
 
     } catch (err: unknown) {
       console.error('❌ Login Error:', (err as Error).message);
