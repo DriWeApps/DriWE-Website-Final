@@ -104,54 +104,82 @@ export default function DashboardPage() {
   //   });
   // }, [apps, fromDate, toDate]);
 
+  // const filtered = useMemo(() => {
+  //   let result = [...apps];
+
+  //   // Position filter
+  //   if (selectedPosition) {
+  //     result = result.filter(
+  //       (app) => app.position === selectedPosition
+  //     );
+  //   }
+
+  //   // Date filter
+  //   if (fromDate || toDate) {
+  //     result = result.filter((app) => {
+  //       const d = new Date(app.createdAt);
+
+  //       const from = fromDate
+  //         ? new Date(fromDate)
+  //         : null;
+
+  //       const to = toDate
+  //         ? new Date(toDate)
+  //         : null;
+
+  //       const after = !from || d >= from;
+
+  //       const before =
+  //         !to ||
+  //         d <= new Date(
+  //           new Date(toDate).setHours(
+  //             23,
+  //             59,
+  //             59,
+  //             999
+  //           )
+  //         );
+
+  //       return after && before;
+  //     });
+  //   }
+
+  //   return result;
+  // }, [
+  //   apps,
+  //   fromDate,
+  //   toDate,
+  //   selectedPosition,
+  // ]);
+
   const filtered = useMemo(() => {
-    let result = [...apps];
+  let data = apps;
 
-    // Position filter
-    if (selectedPosition) {
-      result = result.filter(
-        (app) => app.position === selectedPosition
-      );
-    }
+  if (selectedPosition) {
+    data = data.filter(
+      (app) => app.position === selectedPosition
+    );
+  }
 
-    // Date filter
-    if (fromDate || toDate) {
-      result = result.filter((app) => {
-        const d = new Date(app.createdAt);
+  if (fromDate || toDate) {
+    data = data.filter((app) => {
+      const d = new Date(app.createdAt);
+      const from = fromDate ? new Date(fromDate) : null;
+      const to = toDate ? new Date(toDate) : null;
 
-        const from = fromDate
-          ? new Date(fromDate)
-          : null;
+      const after = !from || d >= from;
+      const before =
+        !to ||
+        d <= new Date(
+          new Date(to).setHours(23, 59, 59, 999)
+        );
 
-        const to = toDate
-          ? new Date(toDate)
-          : null;
+      return after && before;
+    });
+  }
 
-        const after = !from || d >= from;
-
-        const before =
-          !to ||
-          d <= new Date(
-            new Date(toDate).setHours(
-              23,
-              59,
-              59,
-              999
-            )
-          );
-
-        return after && before;
-      });
-    }
-
-    return result;
-  }, [
-    apps,
-    fromDate,
-    toDate,
-    selectedPosition,
-  ]);
-
+  return data;
+}, [apps, selectedPosition, fromDate, toDate]);
   // Dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
@@ -278,20 +306,33 @@ export default function DashboardPage() {
           <div className="flex gap-4 mt-6">
 
             <button
-              onClick={async () => {
-                try {
-                  setPostingJob(true);
+             onClick={async () => {
+  try {
 
-                  const payload = {
-                    title,
-                    description,
-                    responsibilities,
-                    requiredSkills,
-                    education,
-                    experience,
-                  };
+    if (
+      !title.trim() ||
+      !description.trim() ||
+      !responsibilities.trim() ||
+      !requiredSkills.trim() ||
+      !education.trim() ||
+      !experience.trim()
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
 
-                  let res;
+    setPostingJob(true);
+
+    const payload = {
+      title,
+      description,
+      responsibilities,
+      requiredSkills,
+      education,
+      experience,
+    };
+
+    let res;
 
                   if (editingJobId) {
                     res = await fetch('/api/jobs', {
