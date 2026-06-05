@@ -30,6 +30,7 @@ export default function DashboardPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [responsibilities, setResponsibilities] = useState('');
+  const [selectedPosition, setSelectedPosition] = useState<string>('');
   const [requiredSkills, setRequiredSkills] = useState('');
   const [education, setEducation] = useState('');
   const [experience, setExperience] = useState('');
@@ -89,19 +90,67 @@ export default function DashboardPage() {
     }
   };
 
-  const filtered = useMemo(() => {
-    if (apps.length === 0) return [];
-    if (!fromDate && !toDate) return apps;
+  // const filtered = useMemo(() => {
+  //   if (apps.length === 0) return [];
+  //   if (!fromDate && !toDate) return apps;
 
-    return apps.filter((app) => {
-      const d = new Date(app.createdAt);
-      const from = fromDate ? new Date(fromDate) : null;
-      const to = toDate ? new Date(toDate) : null;
-      const after = !from || d >= from;
-      const before = !to || d <= new Date(to.setHours(23, 59, 59, 999));
-      return after && before;
-    });
-  }, [apps, fromDate, toDate]);
+  //   return apps.filter((app) => {
+  //     const d = new Date(app.createdAt);
+  //     const from = fromDate ? new Date(fromDate) : null;
+  //     const to = toDate ? new Date(toDate) : null;
+  //     const after = !from || d >= from;
+  //     const before = !to || d <= new Date(to.setHours(23, 59, 59, 999));
+  //     return after && before;
+  //   });
+  // }, [apps, fromDate, toDate]);
+
+  const filtered = useMemo(() => {
+    let result = [...apps];
+
+    // Position filter
+    if (selectedPosition) {
+      result = result.filter(
+        (app) => app.position === selectedPosition
+      );
+    }
+
+    // Date filter
+    if (fromDate || toDate) {
+      result = result.filter((app) => {
+        const d = new Date(app.createdAt);
+
+        const from = fromDate
+          ? new Date(fromDate)
+          : null;
+
+        const to = toDate
+          ? new Date(toDate)
+          : null;
+
+        const after = !from || d >= from;
+
+        const before =
+          !to ||
+          d <= new Date(
+            new Date(toDate).setHours(
+              23,
+              59,
+              59,
+              999
+            )
+          );
+
+        return after && before;
+      });
+    }
+
+    return result;
+  }, [
+    apps,
+    fromDate,
+    toDate,
+    selectedPosition,
+  ]);
 
   // Dashboard
   return (
@@ -332,17 +381,40 @@ export default function DashboardPage() {
 
           <div className="space-y-4">
             {jobs.map((job) => (
+              // <div
+              //   key={job.jobId}
+              //   className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+              // >
               <div
                 key={job.jobId}
-                className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                className={`bg-zinc-800 border rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 cursor-pointer transition-all ${selectedPosition === job.title
+                  ? "border-yellow-400"
+                  : "border-zinc-700"
+                  }`}
+                onClick={() =>
+                  setSelectedPosition(job.title)
+                }
               >
                 <div>
                   <h3 className="text-xl font-bold text-white">
                     {job.title}
                   </h3>
 
-                  <p className="text-gray-400 text-sm mt-1">
+                  {/* <p className="text-gray-400 text-sm mt-1">
                     {job.experience || 'No experience added'}
+                  </p> */}
+                  <p className="text-gray-400 text-sm mt-1">
+                    {job.experience
+                      ? `Experience: ${job.experience}`
+                      : 'Experience: Not specified'}
+                  </p>
+
+                  <p className="text-yellow-400 text-sm mt-2">
+                    Applications: {
+                      apps.filter(
+                        (app) => app.position === job.title
+                      ).length
+                    }
                   </p>
                 </div>
 
@@ -407,7 +479,24 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {selectedPosition && (
+          <div className="mb-6 flex items-center gap-3">
+            <span className="text-white">
+              Viewing applications for:
+            </span>
 
+            <span className="bg-yellow-500 text-black px-3 py-1 rounded-lg font-semibold">
+              {selectedPosition}
+            </span>
+
+            <button
+              onClick={() => setSelectedPosition('')}
+              className="bg-zinc-700 px-3 py-1 rounded-lg text-white"
+            >
+              Show All
+            </button>
+          </div>
+        )}
         {/* Filter Section */}
         <div className="bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-2xl p-6 mb-8">
           <h2 className="text-xl font-bold text-yellow-400 mb-6 flex items-center gap-3">
