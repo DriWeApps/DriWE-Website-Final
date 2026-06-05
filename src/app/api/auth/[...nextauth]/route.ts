@@ -28,8 +28,38 @@
 // export { handler as GET, handler as POST };
 
 
+// import NextAuth from "next-auth";
+//  import GoogleProvider from "next-auth/providers/google";
+// const handler = NextAuth({
+//   providers: [
+//     GoogleProvider({
+//       clientId: process.env.GOOGLE_CLIENT_ID!,
+//       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+//     }),
+//   ],
+
+//   callbacks: {
+//   async signIn({ profile }) {
+//     const email = profile?.email || "";
+
+//     const allowedEmails =
+//       process.env.ALLOWED_GOOGLE_EMAILS
+//         ?.split(",")
+//         .map((e) => e.trim()) || [];
+
+//     console.log("Google Email:", email);
+//     console.log("Allowed Emails:", allowedEmails);
+
+//     return allowedEmails.includes(email);
+//   },
+// },
+// });
+
+
+
 import NextAuth from "next-auth";
- import GoogleProvider from "next-auth/providers/google";
+import GoogleProvider from "next-auth/providers/google";
+
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -39,19 +69,24 @@ const handler = NextAuth({
   ],
 
   callbacks: {
-  async signIn({ profile }) {
-    const email = profile?.email || "";
+    async signIn({ profile }) {
+      const email = profile?.email || "";
 
-    const allowedEmails =
-      process.env.ALLOWED_GOOGLE_EMAILS
-        ?.split(",")
-        .map((e) => e.trim()) || [];
+      console.log("Google email:", email);
 
-    console.log("Google Email:", email);
-    console.log("Allowed Emails:", allowedEmails);
+      const allowedEmails =
+        process.env.ALLOWED_GOOGLE_EMAILS?.split(",") || [];
 
-    return allowedEmails.includes(email);
+      console.log("Allowed emails:", allowedEmails);
+
+      console.log(
+        "Email allowed:",
+        allowedEmails.includes(email)
+      );
+
+      return allowedEmails.includes(email);
+    },
   },
-},
 });
+
 export { handler as GET, handler as POST };
