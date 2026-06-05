@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 
 export async function POST(req: Request) {
   try {
