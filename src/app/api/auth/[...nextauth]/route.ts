@@ -78,7 +78,7 @@ const handler = NextAuth({
         process.env.ALLOWED_GOOGLE_EMAILS?.split(",") || [];
 
       console.log("Allowed emails:", allowedEmails);
-
+      
       console.log(
         "Email allowed:",
         allowedEmails.includes(email)
