@@ -52,9 +52,9 @@ export async function PUT(req: Request) {
   await db.send(
     new UpdateCommand({
       TableName: TABLE,
-     Key: {
-  jobId: body.jobId,
-},
+      Key: {
+        jobId: body.jobId,
+      },
       UpdateExpression:
         "set title=:t, description=:d, responsibilities=:r, requiredSkills=:s, education=:e, experience=:ex",
       ExpressionAttributeValues: {

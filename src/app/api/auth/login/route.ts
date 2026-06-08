@@ -63,7 +63,7 @@ export async function POST(req: Request) {
         expiresIn: "1d",
       }
 
-      
+
     );
 
     const response = NextResponse.json({

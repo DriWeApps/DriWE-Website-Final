@@ -75,9 +75,6 @@ export default function DashboardPage() {
     }
   };
 
-
-
-
   const handleLogout = async () => {
     try {
       await fetch('/api/auth/logout', {
@@ -153,33 +150,33 @@ export default function DashboardPage() {
   // ]);
 
   const filtered = useMemo(() => {
-  let data = apps;
+    let data = apps;
 
-  if (selectedPosition) {
-    data = data.filter(
-      (app) => app.position === selectedPosition
-    );
-  }
+    if (selectedPosition) {
+      data = data.filter(
+        (app) => app.position === selectedPosition
+      );
+    }
 
-  if (fromDate || toDate) {
-    data = data.filter((app) => {
-      const d = new Date(app.createdAt);
-      const from = fromDate ? new Date(fromDate) : null;
-      const to = toDate ? new Date(toDate) : null;
+    if (fromDate || toDate) {
+      data = data.filter((app) => {
+        const d = new Date(app.createdAt);
+        const from = fromDate ? new Date(fromDate) : null;
+        const to = toDate ? new Date(toDate) : null;
 
-      const after = !from || d >= from;
-      const before =
-        !to ||
-        d <= new Date(
-          new Date(to).setHours(23, 59, 59, 999)
-        );
+        const after = !from || d >= from;
+        const before =
+          !to ||
+          d <= new Date(
+            new Date(to).setHours(23, 59, 59, 999)
+          );
 
-      return after && before;
-    });
-  }
+        return after && before;
+      });
+    }
 
-  return data;
-}, [apps, selectedPosition, fromDate, toDate]);
+    return data;
+  }, [apps, selectedPosition, fromDate, toDate]);
   // Dashboard
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950">
@@ -306,33 +303,33 @@ export default function DashboardPage() {
           <div className="flex gap-4 mt-6">
 
             <button
-             onClick={async () => {
-  try {
+              onClick={async () => {
+                try {
 
-    if (
-      !title.trim() ||
-      !description.trim() ||
-      !responsibilities.trim() ||
-      !requiredSkills.trim() ||
-      !education.trim() ||
-      !experience.trim()
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
+                  if (
+                    !title.trim() ||
+                    !description.trim() ||
+                    !responsibilities.trim() ||
+                    !requiredSkills.trim() ||
+                    !education.trim() ||
+                    !experience.trim()
+                  ) {
+                    alert("Please fill all fields");
+                    return;
+                  }
 
-    setPostingJob(true);
+                  setPostingJob(true);
 
-    const payload = {
-      title,
-      description,
-      responsibilities,
-      requiredSkills,
-      education,
-      experience,
-    };
+                  const payload = {
+                    title,
+                    description,
+                    responsibilities,
+                    requiredSkills,
+                    education,
+                    experience,
+                  };
 
-    let res;
+                  let res;
 
                   if (editingJobId) {
                     res = await fetch('/api/jobs', {
@@ -422,10 +419,7 @@ export default function DashboardPage() {
 
           <div className="space-y-4">
             {jobs.map((job) => (
-              // <div
-              //   key={job.jobId}
-              //   className="bg-zinc-800 border border-zinc-700 rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-              // >
+
               <div
                 key={job.jobId}
                 className={`bg-zinc-800 border rounded-xl p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 cursor-pointer transition-all ${selectedPosition === job.title
@@ -441,9 +435,6 @@ export default function DashboardPage() {
                     {job.title}
                   </h3>
 
-                  {/* <p className="text-gray-400 text-sm mt-1">
-                    {job.experience || 'No experience added'}
-                  </p> */}
                   <p className="text-gray-400 text-sm mt-1">
                     {job.experience
                       ? `Experience: ${job.experience}`
