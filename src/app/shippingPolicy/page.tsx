@@ -159,9 +159,11 @@ export default function ShippingPolicyPage() {
                   3. <span className="text-yellow-400">Order Placement & Confirmation</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Place request via <strong>DriWE App</strong>.</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Select ride type, add drop locations.</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Receive <strong>OTP + driver details</strong>.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Users can place a shipping request <strong>via the DriWE App.</strong>.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span>  User can select the ride to make the courier.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span>  Fill the required detail and place your drop locations.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span>  Once the request is confirmed, you will receive a booking otp and driver vehicle details.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Orders are subject to acceptance based on vehicle availability, item type, and serviceable areas.</li>
                 </ul>
               </section>
 
@@ -170,9 +172,11 @@ export default function ShippingPolicyPage() {
                   4. <span className="text-yellow-400">Pick-up & Delivery</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Pick-up from provided address.</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Delivery to specified location.</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Ensure secure packing & availability.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Pick-up is done from the address provided by the customer.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Delivery will be made to the address specified at the time of booking.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Customers must ensure that :
+                  Items are securely packed.Use better quality of adhesive tape.Pick-up and drop locations are accurate and accessible.Someone is available at both locations to hand over/receive the goods.
+                  </li>
                 </ul>
               </section>
 
@@ -181,11 +185,19 @@ export default function ShippingPolicyPage() {
                   5. <span className="text-red-400">Item Restrictions</span>
                 </h2>
                 <ul className="space-y-3 text-slate-300 text-lg">
-                  <li>• Perishable food, liquids, plants</li>
-                  <li>• TVs, LEDs, fragile screens</li>
-                  <li>• Jewelry, cash, valuables</li>
-                  <li>• Flammable, explosives, drugs</li>
-                  <li>• DriWE is not liable for prohibited items</li>
+                  <li>• Perishable and Food items,</li>
+                  <li>• LEDs, LCDs, plasma, OLED and any kind of television screens,</li>
+                  <li>• Liquid product, livestock, perishables, live plants,</li>
+                  <li>• Flammable items (firecrackers, oil cans, adhesives, paint cans), explosives (arms,ammunition, fireworks, flares, gunpowder, airbag inflators), fire extinguishers,</li>
+                  <li>• electric lighter/cigarette,</li>
+                  <li>• Platinum, gold, silver, artificial jewelry, gem, precious, semi-precious metals or stones in any form including bricks,</li>
+                  <li>• Alcohol/tobacco/ medicines/drugs/poisonous goods, toxic and infectious items,</li>
+                  <li>• Valuable items, electronic devices, high capacity batteries such as car batteries, generator batteries,</li>
+                  <li>• Machinery parts containing oil, grease, fuel or batteries, corrosive items (acids, chemicals),</li>
+                  <li>• Radioactive material, Magnetized materials,Pressurized Containers,Narcotic Substances & Medical and research equipment,</li>
+                  <li>• Indian postal articles such as stamps and articles like coins, banknotes, currency notes, Sodexo or securities of any kind payable to bearer, traveler's cheques,</li>
+                  <li>• Gambling devices, lottery tickets, pornographic material,</li>
+                  <li>• DriWE is not responsible if any substance as mention above is courier,DriWE don’t have any license to carry any of this article</li>
                 </ul>
               </section>
 
@@ -194,8 +206,9 @@ export default function ShippingPolicyPage() {
                   6. <span className="text-yellow-400">Delivery Timelines</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Depends on distance & traffic</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Estimated time shown at booking</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Delivery times depend on distance, traffic, weather, and other operational factors.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> We make reasonable efforts to ensure on-time deliveries, but delays may occur.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Estimated delivery times will be shown during booking.</li>
                 </ul>
               </section>
 
@@ -204,8 +217,11 @@ export default function ShippingPolicyPage() {
                   7. <span className="text-yellow-400">Shipping Charges</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Based on distance & vehicle type</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Final price shown before confirmation</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Charges are calculated based on km and timing.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Distance (pick-up – stops – drop location)</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Vehicle type (two-wheeler, mini truck, etc.)</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Additional services (waiting time, loading/unloading assistance).</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Exact charges are shown before confirming the booking.</li>
                 </ul>
               </section>
 
@@ -214,8 +230,8 @@ export default function ShippingPolicyPage() {
                   8. <span className="text-yellow-400">Tracking</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Live tracking in app</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> SMS + Push notifications</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> All shipments can be tracked live via the app.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Customers will also receive SMS/Email/Push notifications regarding order status.</li>
                 </ul>
               </section>
 
@@ -224,8 +240,8 @@ export default function ShippingPolicyPage() {
                   9. <span className="text-yellow-400">Cancellations</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Free before driver dispatch</li>
-                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Not allowed after pickup</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Orders can be cancelled before vehicle dispatch at no extra charge.</li>
+                  <li className="flex items-start gap-3"><span className="text-yellow-400 mt-1">•</span> Cancellation cannot be done after the parcel has been picked.</li>
                 </ul>
               </section>
 
@@ -234,8 +250,9 @@ export default function ShippingPolicyPage() {
                   10. <span className="text-red-400">Liability & Claims</span>
                 </h2>
                 <ul className="space-y-4 text-slate-300 text-lg">
-                  <li className="flex items-start gap-3"><span className="text-red-400 mt-1">•</span> Limited to declared value</li>
-                  <li className="flex items-start gap-3"><span className="text-red-400 mt-1">•</span> No liability for perishables under 7 days</li>
+                  <li className="flex items-start gap-3"><span className="text-red-400 mt-1">•</span> Our liability is limited to the declared value of the good.</li>
+                  <li className="flex items-start gap-3"><span className="text-red-400 mt-1">•</span> Perishable Articles: Parties shall not tender for transportation any consignment containing perishable product shelf life of less than 7 days. DriWE shall not be liable for any loss or damage to any such consignment arising consequent to any delay in delivery.</li>
+                  <li className="flex items-start gap-3"><span className="text-red-400 mt-1">•</span> Claims for lost or damaged items must be reported within 3 days of delivery.</li>
                 </ul>
               </section>
 
@@ -244,7 +261,7 @@ export default function ShippingPolicyPage() {
                   11. <span className="text-yellow-400">Customer Support</span>
                 </h2>
                 <div className="space-y-6 text-lg text-slate-200">
-                  <p className="text-xl">For any queries:</p>
+                  <p className="text-xl"> For queries, complaints, or assistance:</p>
                   <p><strong>Call:</strong> <a href="tel:8669888996" className="text-yellow-400 font-bold hover:underline">866 988 8996</a></p>
                   <p><strong>Email:</strong> <a href="mailto:hello@driwe.in" className="text-yellow-400 font-bold hover:underline">hello@driwe.in</a></p>
                   <p><strong>In-App Live Chat</strong></p>
