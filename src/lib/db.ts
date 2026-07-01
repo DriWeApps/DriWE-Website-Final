@@ -4,7 +4,7 @@ export const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "DriWEwebsite",
+  database: "driwewebsite",
 
   waitForConnections: true,
   connectionLimit: 10,
