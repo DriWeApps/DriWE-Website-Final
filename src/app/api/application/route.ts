@@ -192,53 +192,109 @@ export async function GET() {
 // POST
 export async function POST(req: Request) {
   try {
-    const form = await req.formData();
+  //   const form = await req.formData();
 
-    const file = form.get("resume") as File | null;
+  //   const file = form.get("resume") as File | null;
 
-    let resumePath = null;
+  //   let resumePath = null;
 
-    // Save file locally
-    if (file && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
+  //   // Save file locally
+  //   if (file && file.size > 0) {
+  //     const bytes = await file.arrayBuffer();
+  //     const buffer = Buffer.from(bytes);
 
-      const fileName = `${Date.now()}-${file.name}`;
+  //     const fileName = `${Date.now()}-${file.name}`;
 
-      const uploadDir = path.join(
-        process.cwd(),
-        "public",
-        "uploads",
-        "resumes"
-      );
+  //     const uploadDir = path.join(
+  //       process.cwd(),
+  //       "public",
+  //       "uploads",
+  //       "resumes"
+  //     );
 
-      await fs.mkdir(uploadDir, {
-        recursive: true,
-      });
+  //     await fs.mkdir(uploadDir, {
+  //       recursive: true,
+  //     });
 
-      await fs.writeFile(
-        path.join(uploadDir, fileName),
-        buffer
-      );
+  //     await fs.writeFile(
+  //       path.join(uploadDir, fileName),
+  //       buffer
+  //     );
 
-      resumePath = fileName;
+  //     resumePath = fileName;
 
-      console.log("Resume saved:", fileName);
-    }
+  //     console.log("Resume saved:", fileName);
+  //   }
 
-    const data = {
-      applicationId: `APP#${Date.now()}`,
-      name: String(form.get("name")),
-      email: String(form.get("email")),
-      gender: String(form.get("gender")),
-      mobileNumber: String(form.get("mobileNumber")),
-      education: String(form.get("education")),
-      experience: String(form.get("experience")),
-      address: String(form.get("address")),
-      position: String(form.get("position")),
-      resumePath,
-      createdAt: new Date().toISOString(),
-    };
+  //   const data = {
+  //     applicationId: `APP#${Date.now()}`,
+  //     name: String(form.get("name")),
+  //     email: String(form.get("email")),
+  //     gender: String(form.get("gender")),
+  //     mobileNumber: String(form.get("mobileNumber")),
+  //     education: String(form.get("education")),
+  //     experience: String(form.get("experience")),
+  //     address: String(form.get("address")),
+  //     position: String(form.get("position")),
+  //     resumePath,
+  //     // createdAt: new Date().toISOString(),
+  //     createdAt: new Date()
+  // .toISOString()
+  // .slice(0, 19)
+  // .replace("T", " "),
+  //   };
+
+  
+  
+const form = await req.formData();
+
+const resume = form.get("resume") as File | null;
+
+let resumePath = null;
+
+if (resume && resume.size > 0) {
+  const bytes = await resume.arrayBuffer();
+
+  const buffer = Buffer.from(bytes);
+
+  const fileName =
+    `${Date.now()}-${resume.name.replace(/\s+/g, "-")}`;
+
+  const uploadDir = path.join(
+    process.cwd(),
+    "public",
+    "uploads",
+    "resumes"
+  );
+
+  await fs.mkdir(uploadDir, {
+    recursive: true,
+  });
+
+  await fs.writeFile(
+    path.join(uploadDir, fileName),
+    buffer
+  );
+
+  resumePath = `/uploads/resumes/${fileName}`;
+}
+
+const data = {
+  applicationId: `APP#${Date.now()}`,
+  name: String(form.get("name")),
+  email: String(form.get("email")),
+  gender: String(form.get("gender")),
+  mobileNumber: String(form.get("mobileNumber")),
+  education: String(form.get("education")),
+  experience: String(form.get("experience")),
+  address: String(form.get("address")),
+  position: String(form.get("position")),
+  resumePath,
+  createdAt: new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " "),
+};
 
     // Duplicate check
     const [existing]: any = await db.query(

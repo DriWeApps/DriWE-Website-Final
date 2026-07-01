@@ -682,10 +682,10 @@ export default function DashboardPage() {
                         )}
                       </td> */}
 
-                      <td className="px-6 py-5">
+                    <td className="px-6 py-5">
   {app.resumePath ? (
     <a
-      href={`/uploads/resumes/${app.resumePath}`}
+      href={app.resumePath}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-medium"
