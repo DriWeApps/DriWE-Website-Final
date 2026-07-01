@@ -668,7 +668,7 @@ export default function DashboardPage() {
                         })}
                       </td>
 
-                      <td className="px-6 py-5">
+                      {/* <td className="px-6 py-5">
                         {app.resumePath ? (
                           <Link
                             href={app.resumePath}
@@ -680,7 +680,22 @@ export default function DashboardPage() {
                         ) : (
                           <span className="text-gray-500">—</span>
                         )}
-                      </td>
+                      </td> */}
+
+                      <td className="px-6 py-5">
+  {app.resumePath ? (
+    <a
+      href={`/uploads/resumes/${app.resumePath}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-2 text-yellow-400 hover:text-yellow-300 font-medium"
+    >
+      View Resume
+    </a>
+  ) : (
+    <span className="text-gray-500">—</span>
+  )}
+</td>
 
                       <td className="px-6 py-5 text-center">
                         <button
