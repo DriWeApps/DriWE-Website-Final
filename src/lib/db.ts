@@ -1,11 +1,11 @@
-import mysql from "mysql2/promise";
+// import mysql from "mysql2/promise";
 
-export const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "driwewebsite",
+// export const db = mysql.createPool({
+//   host: "localhost",
+//   user: "root",
+//   password: "root",
+//   database: "driwewebsite",
 
-  waitForConnections: true,
-  connectionLimit: 10,
-});
+//   waitForConnections: true,
+//   connectionLimit: 10,
+// });
