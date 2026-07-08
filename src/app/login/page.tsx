@@ -2,12 +2,13 @@
 'use client';
 // import { signIn } from 'next-auth/react';
 import { useState } from 'react';
-
+import { Eye, EyeOff } from "lucide-react";
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();        // This is critical
@@ -70,7 +71,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-sm text-gray-300 mb-1">Password</label>
             <input
               type="password"
@@ -80,7 +81,37 @@ export default function LoginPage() {
               disabled={loading}
               required
             />
-          </div>
+          </div> */}
+
+          <div>
+  <label className="block text-sm text-gray-300 mb-1">
+    Password
+  </label>
+
+  <div className="relative">
+    <input
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className="w-full px-4 py-2 pr-12 bg-zinc-800 border border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+      disabled={loading}
+      required
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-yellow-400 transition-colors"
+      tabIndex={-1}
+    >
+      {showPassword ? (
+        <EyeOff size={20} />
+      ) : (
+        <Eye size={20} />
+      )}
+    </button>
+  </div>
+</div>
 
           {error && (
             <p className="text-red-500 text-sm bg-red-950/50 p-3 rounded border border-red-800">
